@@ -1,0 +1,11 @@
+@baseFontSize: 14px;
+@padding: 10px;
+// less 定义变量
+
+body {
+  font-size: @baseFontSize;
+  // 这里的javascript写法没有生效
+  // padding: ~`@{padding} * 2`; // 使用JavaScript表达式动态计算padding值
+  // 下面这种不属于javascript表达式，属于less的内置函数 因此不报错
+  color: if(@padding > 5, red, blue); // 使用条件判断设置颜色
+}
