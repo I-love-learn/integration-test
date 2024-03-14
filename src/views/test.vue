@@ -213,7 +213,7 @@ watchEffect(() => {
 // ^--------------------------- pinia
 const global = useGlobal()
 
-const store = useStore()
+let store = useStore()
 
 // 这样可以触发 getter函数
 watch(() => global.b, (newvalue) => {
@@ -224,6 +224,59 @@ watch(() => global.b, (newvalue) => {
 setTimeout(() => {
   global.b = 123
 }, 3000);
+console.log(store);
+function clean() {
+  // 将store的值设置为 null后 dom没有销毁 因为dom没有触发响应式 但再给store.array数组 增加值的时候 会直接报错 无法给null 增加值
+  // store = null
+  // console.log(store);
+  store.array = null // 对store state的重新赋值是可以触发响应式的 想要将state恢复成初始值 使用$reset方法
+  setTimeout(() => {
+    store.array = [1]
+  }, 500);
+}
+
+// $--------------------------- 结束
+
+// ^--------------------------- async 开始
+
+async function asyncFunc() {
+  // async 中 return 等于 Promise中的reslove返回一个状态 并且这个return 必须是同步的 异步的话返回undefined
+  setTimeout(() => {
+    return 123
+  }, 300);
+}
+console.log(asyncFunc()); // promise
+asyncFunc().then(res => {
+  console.log(res);
+})
+
+async function Reject() {
+  // 此时是执行 reject等于是 抛出错误
+  throw new Error('错误的')
+}
+
+async function useReject() {
+  try {
+    Reject().then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err); // 这里返回
+    })
+    await Reject()
+    console.log(456);
+  } catch (error) {
+    console.log(error);
+  }
+}
+useReject()
+// reslove 无法throw 错误 因此被then捕获 而async throw错误被catch捕获
+Promise.resolve(new Error(123)).then(res => {
+  console.log(res); // 这里返回
+}).catch((err) => {
+  console.log(err);
+})
+// $--------------------------- async 结束
+
 </script>
 
 <template>
@@ -238,6 +291,7 @@ setTimeout(() => {
 
       <el-button type="primary" @click="flag = 6">watch可以监听一个一开始没有后面又赋值的数据吗</el-button>
       <el-button type="primary" @click="flag = 7">pinia使用时赋值</el-button>
+      <el-button type="primary" @click="flag = 8">async异步函数中的return是什么</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -344,13 +398,23 @@ setTimeout(() => {
         <div>{{ global }}</div>
         <el-button type="primary" @click="store.array.push(1)">往store里添加内容</el-button>
         <el-button type="primary" @click="global.e = 1010">往global里添加内容</el-button>
+        <el-button type="primary" @click="clean">清空store</el-button>
         <div>直接修改store中state的值是会触发响应式的因为 store的值是响应式的</div>
+      </template>
+
+      <template v-else-if="flag === 8">
+        <div>
+          https://www.cnblogs.com/voxov/p/14575667.html
+        </div>
+        <div>
+          async函数 中默认返回的是 Promise.reslove() 也就是undefined return xx 就等于 return Promise.reslove(xx) 返回一个promise
+        </div>
       </template>
     </el-main>
   </el-container>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .el-container {
   height: 100%;
 
