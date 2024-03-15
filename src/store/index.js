@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+// import { defineStore } from 'pinia'
 // 导入定义全局状态的方法
 
 // 第一个参数必须是唯一的 可以认为是key 是id 他主要能和vue devtool搭配方便调试 如果重复了 devtool只会显示 后使用的那个

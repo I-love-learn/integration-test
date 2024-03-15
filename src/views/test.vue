@@ -1,6 +1,7 @@
 <script setup>
 import { useGlobal, useStore } from '@/store'
-import { watch } from 'vue';
+
+import { coolPostStart, delRoomPerson } from '@/api/request'
 
 // flag 控制哪个模块显示
 const flag = ref(0)
@@ -277,6 +278,45 @@ Promise.resolve(new Error(123)).then(res => {
 })
 // $--------------------------- async 结束
 
+// 发起请求
+async function ajax() {
+  coolPostStart().then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
+  try {
+    const result = await delRoomPerson().then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
+  } catch (error) {
+    console.log(err);
+  }
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(Promise.reject(new Error('错误的')))
+    }, 3000);
+  }).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
+
+  new Promise((resolve, reject) => {
+    resolve(Promise.reject(123))
+  }).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+    return err
+  }).then(res => {
+    console.log(res);
+  })
+
+}
 </script>
 
 <template>
@@ -292,6 +332,7 @@ Promise.resolve(new Error(123)).then(res => {
       <el-button type="primary" @click="flag = 6">watch可以监听一个一开始没有后面又赋值的数据吗</el-button>
       <el-button type="primary" @click="flag = 7">pinia使用时赋值</el-button>
       <el-button type="primary" @click="flag = 8">async异步函数中的return是什么</el-button>
+      <el-button type="primary" @click="flag = 9">axios拦截器中的失败函数的return有什么用</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -409,6 +450,16 @@ Promise.resolve(new Error(123)).then(res => {
         <div>
           async函数 中默认返回的是 Promise.reslove() 也就是undefined return xx 就等于 return Promise.reslove(xx) 返回一个promise
         </div>
+      </template>
+
+      <template v-else-if="flag === 9">
+        <div>
+          <el-button type="primary" @click="ajax">发起ajax请求</el-button>"
+        </div>
+
+        <div>promise resolve一个值 可以被then拿到 resolve一个Promise.reject 可以被catch拿到</div>
+        <div>resolve会返回成功状态 then和catch调用会返回一个新的promise</div>
+        <div>这也是为什么我们请求拦截和相应拦截器是一个函数了 因为函数执行会返回值 reslove这个函数执行</div>
       </template>
     </el-main>
   </el-container>

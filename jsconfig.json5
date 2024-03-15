@@ -1,0 +1,17 @@
+{
+  // https://zhuanlan.zhihu.com/p/55644953
+  // tsconfig.json继承的编译选项 module是编译后的js模块化方式，这里为commonjs，target为es6
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    // baseurl 为项目根目录
+    "baseUrl": ".",
+    // path别名
+    "paths": {
+      // 如果 当前打开的项目 目录不属于根目录 则可以设置这个让 / 的根目录从当前项目开始
+      "@/*": ["./src/*"],
+      "/*":["./*"]
+    }
+  },
+  "exclude": ["node_modules","dist"]
+}

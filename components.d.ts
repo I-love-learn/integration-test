@@ -18,6 +18,7 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     Http: typeof import('./src/utils/http.js')['default']
     Main: typeof import('./src/main.js')['default']
+    Request: typeof import('./src/api/request.js')['default']
     Router: typeof import('./src/router/index.js')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
