@@ -7,8 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    App: typeof import('./src/App.vue')['default']
-    'AutoImport.d': typeof import('./src/auto-import.d.ts')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -16,13 +14,8 @@ declare module 'vue' {
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElRow: typeof import('element-plus/es')['ElRow']
-    Http: typeof import('./src/utils/http.js')['default']
-    Main: typeof import('./src/main.js')['default']
-    Request: typeof import('./src/api/request.js')['default']
-    Router: typeof import('./src/router/index.js')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Store: typeof import('./src/store/index.js')['default']
     Test: typeof import('./src/views/test.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
     TestChildSingle: typeof import('./src/components/TestChildSingle.vue')['default']

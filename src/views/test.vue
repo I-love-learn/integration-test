@@ -120,19 +120,46 @@ console.log(Object.prototype.toString.call(x)); // [object xxx]
 // 解决办法是重写Proxy构造函数
 
 // console.log(Proxy);
+// Object.prototype.toString = function () {
+//   return 123
+// }
+// Object.prototype上的方法是可以被重写的
+// console.log(Object.prototype.toString);
 
-// const Proxy = new Proxy(Proxy, {
-//   //拦截 new 操作符，生成 Proxy 实例的时候来拦截
-//   construct: function (target, argumentsList) {
-//     //result是new Proxy()生成的原本的实例
-//     const result = new target(...argumentsList);
-//     //获取原本实例reslut的类型
-//     const originToStringTag = Object.prototype.toString.call(result).slice(1, -1).split(' ')[1]
-//     //改写result的[Symbol.toStringTag]属性，加上被代理的标志
-//     result[Symbol.toStringTag] = 'Proxy-' + originToStringTag;
-//     return result;
-//   },
-// });
+
+const abcd = [1, 2, 3]
+console.log(abcd.toString()); // 1,2,3
+console.log(Object.prototype.toString.call(abcd)); // [object Array] 这也就是为什么更推荐用Object.prototype.toString.call(obj)来判断obj的类型
+
+// https://blog.51cto.com/u_15726982/5504331 因为Number、String，Boolean，Array，RegExp、Date、Function等内置对象均重写了Object原型上的toString方法，作用为将当前数据类型转为字符串类型。 执行不到Object原型上的toString方法 因为Object原型上的toString方法 在Object.prototype上，而前面的包装对象执行的是其包装对象的prototype上的toString方法
+
+console.log(Number.prototype);
+
+console.log(Object.toString === Object.prototype.toString);
+console.log(Object.toString);
+for (const key in Number) {
+  if (Object.hasOwnProperty.call(Number, key)) {
+    const element = Number[key];
+    console.log(element); // 啥也没有
+  }
+}
+const MyProxy = new Proxy(Proxy, {
+  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+  //拦截 new 操作符，生成 Proxy 实例的时候来拦截
+  construct: function (target, argumentsList) {
+    //result是new Proxy()生成的原本的实例
+    const result = new target(...argumentsList);
+    //获取原本实例reslut的类型
+    const originToStringTag = Object.prototype.toString.call(result).slice(1, -1).split(' ')[1]
+    //改写result的[Symbol.toStringTag]属性，加上被代理的标志
+    result[Symbol.toStringTag] = 'Proxy-' + originToStringTag;
+    return result;
+  },
+});
+
+const abc = new MyProxy({ a: 1 }, {})
+
+console.log(abc.toString()); // [object Proxy-Object]
 // $--------------------------- 对象代理结束
 
 // ^--------------------------- watch
