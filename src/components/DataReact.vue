@@ -31,7 +31,7 @@ const object = {
 
 // console.log(proxy响应式对象); // 两层proxy
 // 这里证明 shallowReactive内部进行了处理 如果传入的是一个reactive 则将其返回出来
-// @这里也就证明了 shallowReactive 对已经代理了的对象不进行代理操作。 可能其内部使用了isProxy方法吧。
+// @这里也就证明了 shallowReactive 对已经代理了的对象不进行代理操作。 可能其内部使用了isReactive 方法吧。
 // console.log(isReactive(浅响应式对象对象包裹的响应式对象.children)); // true  因为shallowReactive 本身就是不递归只对对象根属性进行代理操作 如果我们传入的对象本身就是深度响应式了 那么其深层的属性依然具备响应式。  也不是这么多废话 其实内部进行了判断如果是isReactive为true 直接就返回传入的内容了
 
 // const 用reactive处理的浅响应式对象 = reactive(浅响应式对象)
@@ -56,7 +56,11 @@ const object = {
 // const markRaw = new Proxy(object, {})
 // console.log(markRaw); // proxy vue自己封装的对象 有内部标识我们自己使用proxy的话 vue是不认的
 
-
+// const abc = new Proxy(object, {})
+// console.log(abc);
+// console.log(isProxy(abc)); // false  isProxy是vue3 内部的判断方式 仅仅能判断vue自身的reactive和shallowReactive对象等响应式对象 咱们自己new proxy的不可以
+// 检查一个对象是否是由 reactive()、readonly()、shallowReactive() 或 shallowReadonly() 创建的代理。
+// readonly shallowReadonly 创建的是只读代理
 
 // const markraw2 = markRaw(object)
 
@@ -144,11 +148,12 @@ const object = {
 // console.log(只读);  被markRaw处理后返回的那个对象 无法被readonly reactive shallowReactive处理 返回的还是markRaw自身
 
 // markRaw处理后的对象会多了个__v_skip属性 估计是为了让reactive和shallowReactive以及readonly识别吧
+const rt = reactive(object) // 如果这里对源对象进行了代理处理 下面即便对源对象执行了markRaw 最终还是可以通过reactive转换mk为 响应式对象 如果前面没有被reactive处理 则markRaw处理后返回的mk就是一个不可被代理的响应式对象
+const mk = markRaw(object)
+console.log(mk);
+console.log(reactive(mk)); // 普通对象
+
 // ^--------------------------  markRaw结束
-
-
-
-
 
 const datasource = {
   name: "张三",
@@ -169,11 +174,16 @@ const markRawObj = markRaw({
     },
   ]
 })
-re.person = markRawObj
+// re.person = markRawObj
 
 console.log(re);
 
-console.log(isReactive(re.person)); // false没有代理 也就是markRaw 不会被reactive代理 但是被reactive代理的使用markRaw 不会失去响应式  想要将reactive的代理转为普通对象 要用toRaw
+// console.log(isReactive(re.person)); // false没有代理 也就是markRaw 不会被reactive代理 但是被reactive代理的使用markRaw 不会失去响应式  想要将reactive的代理转为普通对象 要用toRaw
+// console.log(isReactive(re.person.children)); // false  markRaw 处理后的对象 赋值给reactive对象的一个属性 markRaw处理的对象 不会被代理 并且是深度的 其内部属性 也不会被代理，但是如果我们将markRaw中的某个属性赋值给reactive对象的一个属性 会将markRaw处理后的对象的属性转为响应式对象
+
+re.person = markRawObj.children
+
+console.log(isReactive(re.person)); // true  markRaw是浅层api 被markRaw处理后的对象的属性 如果是对象 且赋值给 reactive对象的一个属性 会将markRaw处理后的对象的属性转为响应式对象 因为markRaw处理后的对象只在根属性上有__v_skip属性
 
 const ra = toRaw(re)
 
@@ -215,6 +225,7 @@ console.log(ra === datasource); // true
     可以使用markRaw来标记一个第三方库返回的对象，再赋值给响应式对象此时响应式对象不会对这个markRaw中的内容进行代理。
 
     虽然v3使用proxy按需代理对象，但是第三方库的对象如果很大层级很深，那么被reactive处理后，每次读取其中的某个属性都会去判断是否需要代理，这样会造成性能问题。 造成页面卡顿。
+    并且reactive去处理对象的时候，由于对象属性太多，也会造成页面卡顿。因为reactive默认会对对象根部的每个属性进行代理。
   </div>
 </template>
 
