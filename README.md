@@ -70,3 +70,7 @@ npm install vite-plugin-vue-setup-extend -D
 ## ReactiveFlags _v_skip 、__v_raw、__v_reactive 作用
 
 https://zhuanlan.zhihu.com/p/339358615
+
+## vetur开发vue3项目的时候最好禁用掉，使用volar或者新出的vue-official 否则vetur会和后面两个冲突
+
+volar改名了 现在叫vue-official
