@@ -1,8 +1,6 @@
 <script setup>
 import { useGlobal, useStore } from '@/store'
-
 import { coolPostStart, delRoomPerson } from '@/api/request'
-
 // flag 控制哪个模块显示
 const flag = ref(0)
 // visible 控制弹窗显示

@@ -6,6 +6,8 @@
     "target": "es6",
     // baseurl 为项目根目录
     "baseUrl": ".",
+    // 开启js文件中类型检查
+    "checkJs": true,
     // path别名
     "paths": {
       // 如果 当前打开的项目 目录不属于根目录 则可以设置这个让 / 的根目录从当前项目开始
