@@ -10,6 +10,7 @@ import Components from 'unplugin-vue-components/vite'
 
 // 更多自动导入 查看 https://blog.csdn.net/qq_37214137/article/details/129303773
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from '@vant/auto-import-resolver';
 // https://vitejs.dev/config/
 export default defineConfig(
   ({ mode }) => {
@@ -35,7 +36,7 @@ export default defineConfig(
         *  通过配置解析器，可以灵活地定制插件的行为，根据项目的需求来选择不同的解析器，以实现更加个性化的自动导入功能。解析器的作用是帮助插件正确解析模块路径，找到正确的导出内容，并完成自动导入的操作。
          */
         // 也就是说遇到elementplus的方法或者组件 会去执行其对应的解析器 遇到vant的会去执行其对应的解析器解析自动导入的内容
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver(),VantResolver()],
         // include的作用声明了哪些文件类型需要自动导入，可以是正则表达式，也可以是文件路径。 感觉这个没啥用啊，写了也没有自动导入我自己封装的js文件,意思就是哪些文件里需要咱们自动导入 正常来讲也就只有ts js vue
   
         // 自动导入只能导入 已知的插件的内容，自己写的不行，因为自己写的谁知道是什么api 因为如果自动导入自己的api 自己写一个ref 此时应该用哪个
@@ -70,9 +71,9 @@ export default defineConfig(
         // resolvers属性 ：设置 UI 框架 自动加载 ， 注意不要向 main.js 中 导入UI 框架
         // 同时打包时 ，用多少UI组件，打包多少。
         // 也可以写自定义解析器  https://github.com/unplugin/unplugin-vue-components#readme
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver(),VantResolver()],
       }),
-      
+      // 如果有些组件比如message notification等引入后样式不生效 可能还需要安装vite-plugin-style-import 后面用到的时候可以看https://blog.csdn.net/qq_37214137/article/details/129303773
     ],
     // `resolve`字段是用来配置模块解析的选项。比如指定模块的别名、指定模块的扩展名、指定模块的搜索路径等。这样可以帮助Vite找到正确的模块路径，从而正确地解析模块依赖关系，确保项目能够正确地构建和运行。
     resolve:{
@@ -86,16 +87,17 @@ export default defineConfig(
     },
     // css预处理 https://vitejs.dev/guide/features.html#css-pre-processors
     css: {
-      // css选项是用来配置
+      // css选项是用来配置  preprocessorOptions指定传递给 CSS 预处理器的选项。文件扩展名用作选项的键。每个预处理器支持的选项可以在它们各自的文档中找到
       preprocessorOptions: {
         // 通过preprocessorOptions配置，您可以对CSS预处理器（如Sass、Less等）进行特定的设置，例如指定全局变量、函数、混入等。
   
         // 我们使用additionalData选项将@import "@/styles/variables.scss";添加到每个Sass文件的顶部。这样，所有的Sass文件都可以访问variables.scss文件中定义的变量，而无需在每个文件中单独引入。
-        // https://blog.csdn.net/Frank_colo/article/details/132325715 vite内部支持scss和less 因此无需安装其对应loader 只需要安装对应依赖scss和less即可  也就是说scss-loader和lessloader 作用是将scss和less解析成普通css 但vite内部已经支持了scss和less的解析 所以无需安装其对应的loader 我们只需要安装scss 和less 支持书写即可
+        // https://blog.csdn.net/Frank_colo/article/details/132325715 vite内部支持scss和less 因此无需安装其对应loader 只需要安装对应依赖scss和less即可  也就是说scss-loader和lessloader 作用是将scss和less文件解析成普通css文件 但vite内部已经支持了scss和less文件的解析 所以无需安装其对应的loader 我们只需要安装scss 和less 支持书写即可 scss和less安装只是为了让项目中支持scss和less的书写 而编译打包scss和less文件需要loader来处理
         // 并且这里是可以使用alias中配置的别名的
         scss: {
-          // additionalData属性：用来指定额外的Sass代码，这些代码将会在Sass编译之前，先被添加到Sass文件中。 这个scss 文件是 被所有scss文件引入的 因此必须main.js导入了其它scss 它才能生效
-          additionalData: ` @import "@/assets/styles/index.scss";   `
+          // additionalData属性：用来指定额外的Sass代码，这些代码将会在Sass编译之前，先被添加到Sass文件中。 这个scss 文件是 被所有scss文件引入的 因此必须main.js导入了其它scss 它才能生效  这里的scss 通常用来存放全局变量 而不做样式书写 因为vite官网说如果你添加的是实际的样式而不仅仅是变量，那这些样式在最终的产物中会重复。 这个和mainjs中直接先导入一个scss效果一样。
+          additionalData: ` @import "@/assets/styles/index.scss";`
+          // scss和sass区别 https://www.jianshu.com/p/35f4980845a0 前者是后者的下一代版本  后者不带分号和大括号 https://blog.csdn.net/qq_36604536/article/details/124256300另外配置additionalData 也有所不同 不过鉴于vue项目中每个style都是独立的 复用性很低 因此建议使用tailwindcss。
         },
   
         // less预处理器选项
@@ -106,7 +108,12 @@ export default defineConfig(
             'link-color': '#1890ff',
             'border-radius-base': '2px',
           },
-          // javascriptEnabled: 这个选项设置为true，表示启用Less中的JavaScript表达式。
+          // modifyVars与全局变量选项相反，这会将声明放在基本文件的末尾，这意味着它将覆盖 Less 文件中定义的任何内容。
+          globalVars: { color1: 'red' },
+          // globalVars此选项定义可由文件引用的变量。实际上，声明放在基本 Less 文件的顶部，这意味着可以使用它，但如果在文件中定义了此变量，也可以覆盖它。
+          // javascriptEnabled: 这个选项设置为true，表示启用Less中的JavaScript表达式。 已被less官网弃用
+          math: "always",
+          // less中不需要calc 直接运算  scss也支持数学运算
           javascriptEnabled: false
         }
       }

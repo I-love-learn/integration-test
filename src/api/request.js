@@ -1,5 +1,4 @@
 import http from '@/utils/http'
-
 export function coolPostStart(data){
   return http({
     url:`/api/iot/device/robot/cooling/point/start`,

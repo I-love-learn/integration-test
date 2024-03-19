@@ -3,6 +3,9 @@
 const object = {
   name: 'test',
   age: 18,
+  // 可以自己加上__v_skip属性，这样它就不会被响应式处理了。 markRaw就是做了这么一个处理。
+  // __v_skip: true,
+  __v_isReadonly: true,
   children: [
     {
       address: '北京'
@@ -151,10 +154,18 @@ const object = {
 const rt = reactive(object) // 如果这里对源对象进行了代理处理 下面即便对源对象执行了markRaw 最终还是可以通过reactive转换mk为 响应式对象 如果前面没有被reactive处理 则markRaw处理后返回的mk就是一个不可被代理的响应式对象
 const mk = markRaw(object)
 console.log(mk);
-console.log(reactive(mk)); // 普通对象
 
+const mk2 = reactive(mk)
+const rt2 = reactive(object)
+console.log(rt2 === rt); // true 多次被代理返回同一个对象
+// mk2 === rt 不知道vue内部如何处理的
+console.log(mk2);
+// console.log(reactive(mk)); // 普通对象
+setTimeout(() => {
+  mk2.name = 'abc' // 有响应式
+}, 5000);
 // ^--------------------------  markRaw结束
-
+console.log(isReadonly(rt2)); // true
 const datasource = {
   name: "张三",
 }
@@ -193,6 +204,9 @@ console.log(ra === datasource); // true
 </script>
 
 <template>
+  <div>
+    {{ mk2 }}
+  </div>
   <div>
     测试shallowReactive和markRaw处理的对象和源对象以及reactive对象还是同一个对象吗？
   </div>
