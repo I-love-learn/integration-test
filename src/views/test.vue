@@ -491,6 +491,10 @@ async function ajax() {
 </template>
 
 <style scoped lang="scss">
+div {
+  color: var(--color-blue)
+}
+
 .el-container {
   height: 100%;
 

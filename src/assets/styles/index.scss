@@ -1,7 +1,11 @@
 $color: #000;
 $font-size: 16px;
 // scss声明变量
-
+:root {
+  --fs18:18px; // 生效
+  $fs17: 17px - 2px; // 不生效
+  font-size: $fs17;
+}
 body {
   font-size: 50px;
 }

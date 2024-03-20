@@ -74,3 +74,23 @@ https://zhuanlan.zhihu.com/p/339358615
 ## vetur开发vue3项目的时候最好禁用掉，使用volar或者新出的vue-official 否则vetur会和后面两个冲突
 
 volar改名了 现在叫vue-official
+
+## CSS变量注意事项
+
+无论是scss，less定义的变量只能在当前模块/文件中使用，和js模块化一样需要导入导出才能使用，或者就用vue.config.js的配置 给每个css模块部分前面都导入一个公共的变量模块。
+
+css不用 因为css的变量是定义在 :root中的 全局可访问。
+
+:root是一个伪类选择器，表示当前文档的根元素，在html中当前文档的根元素毋庸置疑是html。
+
+root和html权重不同 :root权重是(0,1,0),html权重（0,0,1）
+
+一个文档中可能有多个html元素 如果你想的话，但根元素只有一个、
+
+less和scss中 不可在root中定义 less和scss定义变量的方式定义的css变量，但可正常使用css定义变量的方式。
+
+如果在root或者其他非全局的类名或者伪类 id选择器下通过 less或者scss的方式定义变量，只能在当前选择器下使用，就算是被@import导入到其他的地方了 也无法获取变量。
+
+## process.env.ENV_MODE的使用
+
+https://blog.csdn.net/weixin_46769087/article/details/128120034

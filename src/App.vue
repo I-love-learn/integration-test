@@ -7,8 +7,9 @@ import '@/assets/css/base.css'
   <router-view></router-view>
 </template>
 
-<style>
+<style lang="scss">
 #app {
+  color: $color;
   height: 100vh;
 }
 </style>

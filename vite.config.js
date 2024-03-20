@@ -11,6 +11,8 @@ import Components from 'unplugin-vue-components/vite'
 // 更多自动导入 查看 https://blog.csdn.net/qq_37214137/article/details/129303773
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { VantResolver } from '@vant/auto-import-resolver';
+
+console.log(process.env.NODE_ENV); // 这个是没办法修改的 他只有两个值 development和production 和我们自定义的.env 不一样
 // https://vitejs.dev/config/
 export default defineConfig(
   ({ mode }) => {
@@ -96,6 +98,7 @@ export default defineConfig(
         // 并且这里是可以使用alias中配置的别名的
         scss: {
           // additionalData属性：用来指定额外的Sass代码，这些代码将会在Sass编译之前，先被添加到Sass文件中。 这个scss 文件是 被所有scss文件引入的 因此必须main.js导入了其它scss 它才能生效  这里的scss 通常用来存放全局变量 而不做样式书写 因为vite官网说如果你添加的是实际的样式而不仅仅是变量，那这些样式在最终的产物中会重复。 这个和mainjs中直接先导入一个scss效果一样。
+          // 要注意的是 无论是scss还是less 其定义的变量只能在当前文件中有效  而不是全局的，因此 设置additionalData的作用是将全局变量写入到每个scss less的顶部，这样全局的scss和less都可以访问到这些变量了
           additionalData: ` @import "@/assets/styles/index.scss";`
           // scss和sass区别 https://www.jianshu.com/p/35f4980845a0 前者是后者的下一代版本  后者不带分号和大括号 https://blog.csdn.net/qq_36604536/article/details/124256300另外配置additionalData 也有所不同 不过鉴于vue项目中每个style都是独立的 复用性很低 因此建议使用tailwindcss。
         },
@@ -111,10 +114,10 @@ export default defineConfig(
           // modifyVars与全局变量选项相反，这会将声明放在基本文件的末尾，这意味着它将覆盖 Less 文件中定义的任何内容。
           globalVars: { color1: 'red' },
           // globalVars此选项定义可由文件引用的变量。实际上，声明放在基本 Less 文件的顶部，这意味着可以使用它，但如果在文件中定义了此变量，也可以覆盖它。
-          // javascriptEnabled: 这个选项设置为true，表示启用Less中的JavaScript表达式。 已被less官网弃用
           math: "always",
           // less中不需要calc 直接运算  scss也支持数学运算
           javascriptEnabled: false
+          // javascriptEnabled: 这个选项设置为true，表示启用Less中的JavaScript表达式。 已被less官网弃用
         }
       }
     },
