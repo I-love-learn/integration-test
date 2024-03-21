@@ -19,6 +19,7 @@ declare module 'vue' {
     Test: typeof import('./src/views/test.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
     TestChildSingle: typeof import('./src/components/TestChildSingle.vue')['default']
+    VanPicker: typeof import('vant/es')['Picker']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
     Views: typeof import('./src/views/index.vue')['default']
   }

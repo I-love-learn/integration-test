@@ -1,6 +1,8 @@
 <script setup>
 import { useGlobal, useStore } from '@/store'
 import { coolPostStart, delRoomPerson } from '@/api/request'
+// vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
+import VantPicker from '@/components/VantPicker.vue';
 // flag 控制哪个模块显示
 const flag = ref(0)
 // visible 控制弹窗显示
@@ -296,7 +298,7 @@ async function useReject() {
 }
 useReject()
 // reslove 无法throw 错误 因此被then捕获 而async throw错误被catch捕获
-Promise.resolve(new Error(123)).then(res => {
+Promise.resolve(new Error('123')).then(res => {
   console.log(res); // 这里返回
 }).catch((err) => {
   console.log(err);
@@ -317,7 +319,7 @@ async function ajax() {
       console.log(err);
     })
   } catch (error) {
-    console.log(err);
+    console.log(error);
   }
 
   new Promise((resolve, reject) => {
@@ -358,6 +360,7 @@ async function ajax() {
       <el-button type="primary" @click="flag = 7">pinia使用时赋值</el-button>
       <el-button type="primary" @click="flag = 8">async异步函数中的return是什么</el-button>
       <el-button type="primary" @click="flag = 9">axios拦截器中的失败函数的return有什么用</el-button>
+      <el-button type="primary" @click="flag = 10">动态组件component</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -485,6 +488,11 @@ async function ajax() {
         <div>promise resolve一个值 可以被then拿到 resolve一个Promise.reject 可以被catch拿到</div>
         <div>resolve会返回成功状态 then和catch调用会返回一个新的promise</div>
         <div>这也是为什么我们请求拦截和相应拦截器是一个函数了 因为函数执行会返回值 reslove这个函数执行</div>
+      </template>
+
+      <template v-else-if="flag === 10">
+        <!-- 动态组件是可以传参的 所有被动态组件使用的组件都可以拿到props  is不在props中 -->
+        <component :is="VantPicker" a="a" />
       </template>
     </el-main>
   </el-container>

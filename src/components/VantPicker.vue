@@ -1,11 +1,31 @@
 <script setup>
+// const columns = reactive(['杭州', '宁波', '温州', '嘉兴', '湖州'])
+// columns 的类型必须是数组对象
 const columns = reactive([
-  ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-  ['上海', '江苏', '浙江', '安徽', '福建'],
-  ['武汉', '北京', '天津', '河北', '山西'],
-  ['重庆', '四川', '贵州', '云南', '西藏'],
-  ['辽宁', '吉林', '黑龙江', '内蒙古', '广西']
-  )
+  {
+    text: '杭州',
+    value: '杭州',
+  },
+  {
+    text: '宁波',
+    value: '宁波',
+  },
+  {
+    text: '温州',
+    value: '温州',
+  },
+  {
+    text: '嘉兴',
+    value: '嘉兴',
+  },
+  {
+    text: '湖州',
+    value: '湖州',
+  },
+])
+
+const props = defineProps(['a'])
+console.log(props);
 </script>
 
 <template>

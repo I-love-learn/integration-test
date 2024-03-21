@@ -61,7 +61,7 @@ path的确有用 设置/ 可以获取到当前根目录下的public和src文件�
 
 ## setup语法糖下如何给组件设置name
 
-https://blog.csdn.net/weixin_48040732/article/details/136171101  npm install vite**-**plugin**-**vue**-**setup**-**extend **-**D
+https://blog.csdn.net/weixin_48040732/article/details/136171101  不过setup语法糖默认会给组件的文件名设置作为name名字 这个不太用得到。 除非真的需要设置name
 
 ```javascript
 npm install vite-plugin-vue-setup-extend -D

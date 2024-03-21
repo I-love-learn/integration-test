@@ -6,7 +6,7 @@
     "target": "es6",
     // baseurl 为项目根目录
     "baseUrl": ".",
-    // 开启js文件中类型检查
+    // 开启js文件中类型检查 在js语言开发的项目中启用ts类型检查 好处是有时候能避免一些类型错误，比如ui组件库的参数要传的props类型我们不知道，乱传导致的报错。
     "checkJs": true,
     // path别名
     "paths": {
