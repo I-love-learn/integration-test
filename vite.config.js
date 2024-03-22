@@ -12,7 +12,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { VantResolver } from '@vant/auto-import-resolver';
 
-console.log(process.env.NODE_ENV); // 这个是没办法修改的 他只有两个值 development和production 和我们自定义的.env 不一样
+console.log(process.env.NODE_ENV); // 这个是没办法修改的 他只有两个值 development和production 和我们自定义的.env 不一样 .env里的NODE_ENV 最终会变成VITE_USER_NODE_ENV 这个想要修改需要安装cross-env依赖 并且再script中添加cross-env NODE_ENV=xxx vite命令
 // https://vitejs.dev/config/
 export default defineConfig(
   ({ mode }) => {
