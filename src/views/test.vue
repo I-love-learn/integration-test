@@ -361,6 +361,7 @@ async function ajax() {
       <el-button type="primary" @click="flag = 8">async异步函数中的return是什么</el-button>
       <el-button type="primary" @click="flag = 9">axios拦截器中的失败函数的return有什么用</el-button>
       <el-button type="primary" @click="flag = 10">动态组件component</el-button>
+      <el-button type="primary" @click="flag = 11">折叠菜单组件</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -493,6 +494,9 @@ async function ajax() {
       <template v-else-if="flag === 10">
         <!-- 动态组件是可以传参的 所有被动态组件使用的组件都可以拿到props  is不在props中 -->
         <component :is="VantPicker" a="a" />
+      </template>
+      <template v-else-if="flag === 11">
+        <slide-vue />
       </template>
     </el-main>
   </el-container>
