@@ -253,6 +253,7 @@ setTimeout(() => {
   global.b = 123
 }, 3000);
 console.log(store);
+console.log(Object.getOwnPropertyDescriptors(global));
 function clean() {
   // 将store的值设置为 null后 dom没有销毁 因为dom没有触发响应式 但再给store.array数组 增加值的时候 会直接报错 无法给null 增加值
   // store = null
