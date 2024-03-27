@@ -347,6 +347,14 @@ async function ajax() {
 }
 </script>
 
+<script>
+export default {
+  mounted() {
+    console.log(this);
+  },
+}
+</script>
+
 <template>
   <el-container>
     <el-aside width="400px">
