@@ -201,6 +201,12 @@ const ra = toRaw(re)
 console.log(ra === datasource); // true
 
 // vue不推荐我们直接操作原始对象，在有代理对象的情况下。
+
+const attrs = useAttrs()
+console.log(attrs);
+onBeforeUpdate(() => {
+  console.log(attrs); // update触发
+})
 </script>
 
 <template>
@@ -247,6 +253,7 @@ console.log(ra === datasource); // true
 
     https://www.php.cn/faq/547238.html reactive源码
   </div>
+  <div>我是attrs {{ attrs }}</div>
 </template>
 
 <style lang="scss" scoped></style>
