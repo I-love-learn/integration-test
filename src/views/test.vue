@@ -3,6 +3,7 @@ import { useGlobal, useStore } from '@/store'
 import { coolPostStart, delRoomPerson } from '@/api/request'
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from '@/components/VantPicker.vue';
+import SetUp from '@/components/SetUp.vue';
 // flag 控制哪个模块显示
 const flag = ref(0)
 // visible 控制弹窗显示
@@ -345,6 +346,32 @@ async function ajax() {
   })
 
 }
+
+const attr = ref(123)
+setTimeout(() => {
+  attr.value = 456
+}, 10000);
+
+
+const count = ref(0)
+const o1 = reactive({
+  count,
+  a: 1
+})
+const v = toRef(o1, 'a')
+console.log(v);
+v.value++
+console.log(o1);
+console.log(o1.count); // 0
+// console.log(o1.count.value); // undefined
+</script>
+
+<script>
+export default {
+  mounted() {
+    console.log(this);
+  },
+}
 </script>
 
 <template>
@@ -363,6 +390,8 @@ async function ajax() {
       <el-button type="primary" @click="flag = 9">axios拦截器中的失败函数的return有什么用</el-button>
       <el-button type="primary" @click="flag = 10">动态组件component</el-button>
       <el-button type="primary" @click="flag = 11">折叠菜单组件</el-button>
+      <el-button type="primary" @click="flag = 12">setup直接返回一个h可以被页面使用吗</el-button>
+      <el-button type="primary" @click="flag = 13">ref不需要.value</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -429,7 +458,7 @@ async function ajax() {
       </template>
 
       <template v-else-if="flag === 4">
-        <data-react />
+        <data-react :abc="attr" />
       </template>
 
       <template v-else-if="flag === 5">
@@ -498,6 +527,14 @@ async function ajax() {
       </template>
       <template v-else-if="flag === 11">
         <slide-vue />
+      </template>
+      <template v-else-if="flag === 12">
+        <set-up :attr="attr" />
+      </template>
+      <template v-else-if="flag === 13">
+        <div>
+          响应式转换是“深层”的：它会影响到所有嵌套的属性。一个响应式对象也将深层地解包任何 ref 属性，同时保持响应性。
+        </div>
       </template>
     </el-main>
   </el-container>

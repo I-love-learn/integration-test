@@ -21,6 +21,7 @@ const pinia = createPinia()
 
 // pinia可以使用use属性来使用插件  https://blog.csdn.net/qq_33635385/article/details/125339178 createPinia源码
 
+console.log(app);
 app.use(router)
 app.use(pinia)
 app.mount('#app')

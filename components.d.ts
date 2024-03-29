@@ -16,6 +16,7 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SetUp: typeof import('./src/components/SetUp.vue')['default']
     SlideVue: typeof import('./src/components/SlideVue.vue')['default']
     Test: typeof import('./src/views/test.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
