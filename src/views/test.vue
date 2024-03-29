@@ -4,6 +4,8 @@ import { coolPostStart, delRoomPerson } from '@/api/request'
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from '@/components/VantPicker.vue';
 import SetUp from '@/components/SetUp.vue';
+console.log(SetUp);
+console.log(VantPicker);
 // flag 控制哪个模块显示
 const flag = ref(0)
 // visible 控制弹窗显示
