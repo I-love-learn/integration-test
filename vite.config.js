@@ -82,6 +82,7 @@ export default defineConfig(
       alias: {
         // 配置别名
         '@': '/src/',      //格式一定要写对喽不然没有代码提示或者报错
+        // eslint里提示的 views不需要写成字符串形式。
         'views':'/src/views/'
       },
       // 忽略后缀名的配置选项  .vue 扩展名不建议忽略 因为它会影响 IDE 和类型支持。 https://blog.csdn.net/u010281877/article/details/116491779
@@ -99,6 +100,7 @@ export default defineConfig(
         scss: {
           // additionalData属性：用来指定额外的Sass代码，这些代码将会在Sass编译之前，先被添加到Sass文件中。 这个scss 文件是 被所有scss文件引入的 因此必须main.js导入了其它scss 它才能生效  这里的scss 通常用来存放全局变量 而不做样式书写 因为vite官网说如果你添加的是实际的样式而不仅仅是变量，那这些样式在最终的产物中会重复。 这个和mainjs中直接先导入一个scss效果一样。
           // 要注意的是 无论是scss还是less 其定义的变量只能在当前文件中有效  而不是全局的，因此 设置additionalData的作用是将全局变量写入到每个scss less的顶部，这样全局的scss和less都可以访问到这些变量了
+          // 这里配置以后 就不需要在mainjs中导入它了
           additionalData: ` @import "@/assets/styles/index.scss";`
           // scss和sass区别 https://www.jianshu.com/p/35f4980845a0 前者是后者的下一代版本  后者不带分号和大括号 https://blog.csdn.net/qq_36604536/article/details/124256300另外配置additionalData 也有所不同 不过鉴于vue项目中每个style都是独立的 复用性很低 因此建议使用tailwindcss。
         },
