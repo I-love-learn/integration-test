@@ -4,6 +4,7 @@ import { coolPostStart, delRoomPerson } from '@/api/request'
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from '@/components/VantPicker.vue';
 import SetUp from '@/components/SetUp.vue';
+import FlexVue from '@/components/FlexVue.vue';
 console.log(SetUp);
 console.log(VantPicker);
 // flag 控制哪个模块显示
@@ -394,6 +395,7 @@ export default {
       <el-button type="primary" @click="flag = 11">折叠菜单组件</el-button>
       <el-button type="primary" @click="flag = 12">setup直接返回一个h可以被页面使用吗</el-button>
       <el-button type="primary" @click="flag = 13">ref不需要.value</el-button>
+      <el-button type="primary" @click="flag = 14">测试插槽的flex</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -538,6 +540,20 @@ export default {
           响应式转换是“深层”的：它会影响到所有嵌套的属性。一个响应式对象也将深层地解包任何 ref 属性，同时保持响应性。
         </div>
       </template>
+      <template v-else-if="flag === 14">
+        <div>
+          align-items属性适用于弹性容器（flex container）内部的所有项目（flex items），作用于整个容器内的项目。
+        </div>
+        <div>
+          设置了align-items属性后，flex中的子元素高度会自动根据元素内容撑开，而不会铺满父元素，这一点和定位很像。（也有一些属性设置了高度还是铺满父元素的，比如revert normal等等）
+          https://blog.csdn.net/JHY97/article/details/122334190
+          初始值是normal 和拉伸模式一样，所以子元素会铺满父元素，其它center flex-start flex-end是自适应高度。
+        </div>
+        <flex-vue>
+          <div>123</div>
+          <div style="height: 20px;width: 0;border-left: 1px solid red;"></div>
+        </flex-vue>
+      </template>"
     </el-main>
   </el-container>
 </template>
