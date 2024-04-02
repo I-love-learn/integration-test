@@ -545,7 +545,7 @@ export default {
           align-items属性适用于弹性容器（flex container）内部的所有项目（flex items），作用于整个容器内的项目。
         </div>
         <div>
-          设置了align-items属性后，flex中的子元素高度会自动根据元素内容撑开，而不会铺满父元素，这一点和定位很像。（也有一些属性设置了高度还是铺满父元素的，比如revert normal等等）
+          设置了align-items属性后，flex中的子元素高度会自动根据元素内容撑开，而不会铺满父元素，这一点和定位很像。（也有一些属性设置了高度还是铺满父元素的，比如stretch normal等等） 除了这些属性 其他的都是自适应高度
           https://blog.csdn.net/JHY97/article/details/122334190
           初始值是normal 和拉伸模式一样，所以子元素会铺满父元素，其它center flex-start flex-end是自适应高度。
         </div>
