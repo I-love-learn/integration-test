@@ -549,6 +549,7 @@ export default {
           https://blog.csdn.net/JHY97/article/details/122334190
           初始值是normal 和拉伸模式一样，所以子元素会铺满父元素，其它center flex-start flex-end是自适应高度。
         </div>
+        <div>圣杯布局可以两端写死中间flex：1</div>
         <flex-vue>
           <div>123</div>
           <div style="height: 20px;width: 0;border-left: 1px solid red;"></div>
