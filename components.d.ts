@@ -8,7 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     DataReact: typeof import('./src/components/DataReact.vue')['default']
+    ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElMain: typeof import('element-plus/es')['ElMain']
     ElRow: typeof import('element-plus/es')['ElRow']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -18,6 +22,7 @@ declare module 'vue' {
     Test: typeof import('./src/views/test.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
     TestChildSingle: typeof import('./src/components/TestChildSingle.vue')['default']
+    VanPicker: typeof import('vant/es')['Picker']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
     Views: typeof import('./src/views/index.vue')['default']
   }
