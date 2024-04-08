@@ -6,7 +6,7 @@ import '@/assets/styles/base.scss'
 import '@/assets/styles/base.less'
 
 import { createPinia } from 'pinia'
-
+import {test} from '@/utils/test'
 console.log(import.meta.env);
 // console.log(process.env.ENV_MODE);
 // vue2中，webpack帮我们做了处理，使浏览器可以直接识别node的process.env变量，从而实现了浏览器识别环境变量的功能。
