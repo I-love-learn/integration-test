@@ -367,6 +367,9 @@ v.value++
 console.log(o1);
 console.log(o1.count); // 0
 // console.log(o1.count.value); // undefined
+
+// v-bind 绑定的css
+const color = ref('red')
 </script>
 
 <script>
@@ -396,6 +399,8 @@ export default {
       <el-button type="primary" @click="flag = 12">setup直接返回一个h可以被页面使用吗</el-button>
       <el-button type="primary" @click="flag = 13">ref不需要.value</el-button>
       <el-button type="primary" @click="flag = 14">测试插槽的flex</el-button>
+      <el-button type="primary" @click="flag = 15">测试flex子元素宽度</el-button>
+      <el-button type="primary" @click="flag = 16">css v-bind</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -554,7 +559,23 @@ export default {
           <div>123</div>
           <div style="height: 20px;width: 0;border-left: 1px solid red;"></div>
         </flex-vue>
-      </template>"
+      </template>
+      <template v-else-if="flag === 15">
+        <div style="background-color: red;display: flex;justify-content: stretch;height: 80px;">
+        <div>456</div><div>678</div>
+      </div>
+      <div>
+        flex的子元素 和定位一样 被内容撑开  高度倒是默认拉伸的
+      </div>
+      </template>
+      <template v-else-if="flag === 16">
+      <div class="vb">
+        script setup
+      </div>
+      <div>
+        实际的值会被编译成哈希化的 CSS 自定义属性，因此 CSS 本身仍然是静态的。自定义属性会通过内联样式的方式应用到组件的根元素上，并且在源值变更的时候响应式地更新。
+      </div>
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -575,5 +596,11 @@ div {
       margin: 5px;
     }
   }
+}
+
+.vb {
+  // v-bind编译后是 css 变量  + 号可写可不写 编译后都是空格
+  // 如果想写表达式则需要用引号包裹起来
+  color:v-bind('color') !important
 }
 </style>
