@@ -401,6 +401,7 @@ export default {
       <el-button type="primary" @click="flag = 14">测试插槽的flex</el-button>
       <el-button type="primary" @click="flag = 15">测试flex子元素宽度</el-button>
       <el-button type="primary" @click="flag = 16">css v-bind</el-button>
+      <el-button type="primary" @click="flag = 17">deep</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -576,6 +577,20 @@ export default {
         实际的值会被编译成哈希化的 CSS 自定义属性，因此 CSS 本身仍然是静态的。自定义属性会通过内联样式的方式应用到组件的根元素上，并且在源值变更的时候响应式地更新。
       </div>
       </template>
+      <template v-else-if="flag === 17">
+        <div>测试几种deep</div>
+
+        <div>deep的意思是 在当前元素的之前加当前组件的的data-v 而直接写是在元素之后加data-v 导致找不到对应的class</div>
+
+        <!-- 插槽里的data-v 用的是使用他的组件的data-v -->
+      <div class="deep1">
+        <el-button class="btn"><el-button class="btn">123</el-button></el-button>
+      </div>
+      <!-- 子组件修改父组件插槽内容样式也可用deep 做法是在子组件的除了根节点外包裹插槽内容盒子外的任意元素加上 deep -->
+      <slot-test>
+        <div>123</div>
+      </slot-test>
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -602,5 +617,11 @@ div {
   // v-bind编译后是 css 变量  + 号可写可不写 编译后都是空格
   // 如果想写表达式则需要用引号包裹起来
   color:v-bind('color') !important
+}
+:deep(.btn){
+  color: red;
+  span{
+    font-size: 20px;
+  }
 }
 </style>

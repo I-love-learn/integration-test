@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from '@/router'
 import '@/assets/styles/base.scss'
 import '@/assets/styles/base.less'
-
+import MoreText from './components/MoreText.vue'
 import { createPinia } from 'pinia'
 import {test} from '@/utils/test'
 console.log(import.meta.env);
@@ -24,4 +24,5 @@ const pinia = createPinia()
 console.log(app);
 app.use(router)
 app.use(pinia)
+app.component('MoreText',MoreText)
 app.mount('#app')

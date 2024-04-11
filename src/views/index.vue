@@ -1,6 +1,10 @@
 <script setup>
 import router from '@/router'
+import { ElMessage } from 'element-plus'
+
+
 function jump(address) {
+  ElMessage.success('error')
   router.push(address)
 }
 </script>
