@@ -582,14 +582,21 @@ export default {
 
         <div>deep的意思是 在当前元素的之前加当前组件的的data-v 而直接写是在元素之后加data-v 导致找不到对应的class</div>
 
-        <!-- 插槽里的data-v 用的是使用他的组件的data-v -->
+        <!-- 插槽里的data-v 用的是使用他的组件的data-v -->S
       <div class="deep1">
-        <el-button class="btn"><el-button class="btn">123</el-button></el-button>
+        <el-button class="btn"><el-button>123</el-button></el-button>
       </div>
       <!-- 子组件修改父组件插槽内容样式也可用deep 做法是在子组件的除了根节点外包裹插槽内容盒子外的任意元素加上 deep -->
+      <!-- ：deep 不能嵌套 ：deep 否则会不生效 -->
       <slot-test>
         <div>123</div>
       </slot-test>
+
+      <div class="deep2">
+        <div class="deep3">
+          <div class="deep4">123</div>
+        </div>
+      </div>
       </template>
     </el-main>
   </el-container>
@@ -620,8 +627,18 @@ div {
 }
 :deep(.btn){
   color: red;
-  span{
-    font-size: 20px;
+  .el-button{
+    span{
+      font-size: 20px;
+    }
+  }
+}
+// 不生效
+:deep(.deep2){
+  :deep(.deep3){
+    .deep4 {
+      color: red;
+    }
   }
 }
 </style>
