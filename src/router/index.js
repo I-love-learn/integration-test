@@ -8,7 +8,10 @@ const routes = [
   {
     path: '/test',
     component:()=>import('views/test.vue')
-    
+  },
+  {
+    path: '/autoimport',
+    component:()=>import('views/autoImport.vue')
   }
 ]
 const router = createRouter({
