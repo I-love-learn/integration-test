@@ -20,6 +20,20 @@ https后面是远程仓库
 
 git pull 拉代码 git push推代码 如果有报错 查看这里  https://blog.51cto.com/u_15688254/5391696
 
+现有项目推送到远程
+
+git init初始化
+
+然后git remote add origin https://gitee.com/thank-you-teacher/jiyun-mall.git 关联远程
+
+然后git add . 
+
+git commit -m
+
+然后这里不要直接提交远程 否则报错 要先把远程分支和本地关联起来 如下  后面就可以push了
+
+git push --set-upstream origin master
+
 ## dist 和 node_modules两个文件夹默认会被git排除
 
 ## jsconfig.json 除了path选项 其他的exclude设置了和没设置没发现不同

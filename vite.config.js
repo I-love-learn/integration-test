@@ -39,7 +39,9 @@ export default defineConfig(
         *  具体来说，在`AutoImport`和`Components`插件中，通过配置`resolvers: [AntDesignVueResolver()]`，指定了使用`AntDesignVueResolver`解析器来处理自动导入操作。这意味着当插件需要自动导入模块或Vue组件时，会使用`AntDesignVueResolver`解析器来解析模块路径，确定导入内容，并执行相应的导入操作。
         *  通过配置解析器，可以灵活地定制插件的行为，根据项目的需求来选择不同的解析器，以实现更加个性化的自动导入功能。解析器的作用是帮助插件正确解析模块路径，找到正确的导出内容，并完成自动导入的操作。
          */
-        // 也就是说遇到elementplus的方法或者组件 会去执行其对应的解析器 遇到vant的会去执行其对应的解析器解析自动导入的内容
+        // 也就是说遇到elementplus的方法或者组件 会去执行其对应的解析器比如ElmessageBox，elmessage等 并且对应css也不会加载。而我们手动使用的时候不仅要导入js还要导入css 遇到vant的会去执行其对应的解析器解析自动导入的内容
+
+        // 手动导入优先级比自动导入高 比如我们使用了自动导入 但是又手动导入了elmessage但没有导入css 那么就没有样式                                  
         resolvers: [ElementPlusResolver(),VantResolver()],
         // include的作用声明了哪些文件类型需要自动导入，可以是正则表达式，也可以是文件路径。 感觉这个没啥用啊，写了也没有自动导入我自己封装的js文件,意思就是哪些文件里需要咱们自动导入 正常来讲也就只有ts js vue
   
@@ -51,8 +53,11 @@ export default defineConfig(
         // 知道了 写这个是为了告诉自动导入我们需要自动导入的包里的哪些内容需要自动导入 如果不声明 那么即便声明了自动导入imports 遇到没有include的内容也不会自动导入 不写include的话默认导入全部
         
         include: [
+          // 也影响 本地自动导入的js方法
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          // elmessage 等组件样式不受这个影响 可能是因为样式是写在vue组件里的吧
           /\.css$/, // css
+          // 这里配置.vue 是因为 ELmessage这种组件不仅有js方法还有对应的组件 不写这个的话会报错说Elmessage 不存在  ref也会报错说找不到
           /\.vue$/,
           // 这个不知道为什么后面带问号
           /\.vue\?vue/, // .vue
@@ -60,9 +65,26 @@ export default defineConfig(
         ],
         // 自动导入vue 与 vue router  https://github.com/unplugin/unplugin-auto-import 更多配置
         // 自动导入的内容声明
-        imports: ['vue', 'vue-router','pinia'],
+        // 也不是所有的方法都会自动导入的 比如createRouter 就不会自动导入
+        imports: ['vue', 'vue-router', 'pinia', {
+          // lodash好像不能自己导入啊
+          // 这种声明 自动导入可以导入哪些东西 没声明的不会自动导入
+          'lodash':['cloneDeep']
+        }],
         // 生成auto-import.d.ts声明文件
-       dts: 'src/auto-import.d.ts',
+        dts: 'src/auto-import.d.ts',
+        dirs: [//配置本地目录自动引入  和组件一样 本地目录的也可以自动引入 而不是不能
+        "./src/utils/**",
+        "./src/api/**",
+        "./src/type/**",
+        "./src/components/x-desc-list/**",
+        "./src/store/**",
+        "./src/router/**",
+        ],
+        // vueTemplate选项配置,可以让导出的js函数在template标签中使用.  默认导入的函数 是不可以直接 在template中使用的 只有手动在setup中手动定义的函数才可以直接被template使用 定义这个后就也可以了
+        vueTemplate: true,
+        //为目录下的默认模块导出启用按文件名自动导入
+        defaultExportByFilename:false
       }),
       // 组件自动导入
       Components({
@@ -71,11 +93,13 @@ export default defineConfig(
         // 自动生成ts配置文件
         // 注意默认情况下，这个插件会导入 src/components 路径中的组件。你可以使用 dirs 选项自定义它。
         dirs: ['src/components', 'src/views'], // 按需加载的文件夹  不要src/ 避免把其他js文件也自动导入了
-        // 组件的有效拓展名
+        // 组件的有效拓展名  这里只影响 我们自己的组件 不影响自动导入的
         extensions: ['vue', 'jsx', 'tsx', 'ts', 'js'],
         // resolvers属性 ：设置 UI 框架 自动加载 ， 注意不要向 main.js 中 导入UI 框架
         // 同时打包时 ，用多少UI组件，打包多少。
         // 也可以写自定义解析器  https://github.com/unplugin/unplugin-vue-components#readme
+
+        // 这里的组件 不影响autoimport的组件 这里不写ElementPlusResolver el-button这样的组件没有了 但是elmessage elmessagebox组件还在 因为这种是autoimport导入的
         resolvers: [ElementPlusResolver(),VantResolver()],
       }),
       // 如果有些组件比如message notification等引入后样式不生效 可能还需要安装vite-plugin-style-import 后面用到的时候可以看https://blog.csdn.net/qq_37214137/article/details/129303773
