@@ -1,0 +1,9 @@
+https://blog.csdn.net/m0_57033755/article/details/128547409
+vue3+ts 在获取接口响应数据时，在ts中报错 类型“AxiosResponse＜any, any＞”上不存在属性“state”
+
+
+
+upload组件 file-list参数不要用v-model绑定，要用自定义属性，否则不好控制file-list内容 因为onchange事件执行在前 v-model执行在后,另外如果不想让默认的上传列表出来 不能直接设置file-list = [] 而是要手动 on-change里设置file-list = []
+
+elementplus表单重置事件 不是重置成表单默认值，而是重置成当前这个表单创建时的初始值。
+假如表单创建的时候 form的值已经变化了 则以form的当前值为初始值
