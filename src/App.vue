@@ -9,7 +9,7 @@ import '@/assets/css/base.css'
 
 <style lang="scss">
 #app {
-  color: $color;
+  // color: $color;
   height: 100vh;
 }
 </style>

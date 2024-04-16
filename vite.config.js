@@ -1,7 +1,7 @@
 import { defineConfig,loadEnv } from 'vite'
 // 这个插件作用是 让vite可以解析.vue后缀的文件。
 import vue from '@vitejs/plugin-vue'
-
+import plugin from './src/utils/plugin'
 // element-plus 自动导入功能
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -42,7 +42,7 @@ export default defineConfig(
         // 也就是说遇到elementplus的方法或者组件 会去执行其对应的解析器比如ElmessageBox，elmessage等 并且对应css也不会加载。而我们手动使用的时候不仅要导入js还要导入css 遇到vant的会去执行其对应的解析器解析自动导入的内容
 
         // 手动导入优先级比自动导入高 比如我们使用了自动导入 但是又手动导入了elmessage但没有导入css 那么就没有样式                                  
-        resolvers: [ElementPlusResolver(),VantResolver()],
+        resolvers: [plugin(1),ElementPlusResolver(),VantResolver()],
         // include的作用声明了哪些文件类型需要自动导入，可以是正则表达式，也可以是文件路径。 感觉这个没啥用啊，写了也没有自动导入我自己封装的js文件,意思就是哪些文件里需要咱们自动导入 正常来讲也就只有ts js vue
   
         // 自动导入只能导入 已知的插件的内容，自己写的不行，因为自己写的谁知道是什么api 因为如果自动导入自己的api 自己写一个ref 此时应该用哪个
@@ -81,6 +81,7 @@ export default defineConfig(
         "./src/store/**",
         "./src/router/**",
         ],
+        
         // vueTemplate选项配置,可以让导出的js函数在template标签中使用.  默认导入的函数 是不可以直接 在template中使用的 只有手动在setup中手动定义的函数才可以直接被template使用 定义这个后就也可以了
         vueTemplate: true,
         //为目录下的默认模块导出启用按文件名自动导入
@@ -93,14 +94,20 @@ export default defineConfig(
         // 自动生成ts配置文件
         // 注意默认情况下，这个插件会导入 src/components 路径中的组件。你可以使用 dirs 选项自定义它。
         dirs: ['src/components', 'src/views'], // 按需加载的文件夹  不要src/ 避免把其他js文件也自动导入了
-        // 组件的有效拓展名  这里只影响 我们自己的组件 不影响自动导入的
+        // 组件的有效拓展名  这里只影响 我们自己的组件 不影响自动导入的 这里即便不写vue 也会认为vue是组件 放到resolvers处理 但是自己写的组件不会被 vue处理 第三方ui组件不受影响
         extensions: ['vue', 'jsx', 'tsx', 'ts', 'js'],
         // resolvers属性 ：设置 UI 框架 自动加载 ， 注意不要向 main.js 中 导入UI 框架
         // 同时打包时 ，用多少UI组件，打包多少。
         // 也可以写自定义解析器  https://github.com/unplugin/unplugin-vue-components#readme
 
         // 这里的组件 不影响autoimport的组件 这里不写ElementPlusResolver el-button这样的组件没有了 但是elmessage elmessagebox组件还在 因为这种是autoimport导入的
-        resolvers: [ElementPlusResolver(),VantResolver()],
+        resolvers: [plugin(2), ElementPlusResolver(
+          //{
+        //   // 这里会和下面css的sass的自动导入冲突
+        //   importStyle: "sass"
+          // }
+          // 不过最新的elementplus官网没有这个配置。 这个写不写的都是css加载
+        ),VantResolver()],
       }),
       // 如果有些组件比如message notification等引入后样式不生效 可能还需要安装vite-plugin-style-import 后面用到的时候可以看https://blog.csdn.net/qq_37214137/article/details/129303773
     ],
