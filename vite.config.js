@@ -41,7 +41,9 @@ export default defineConfig(
          */
         // 也就是说遇到elementplus的方法或者组件 会去执行其对应的解析器比如ElmessageBox，elmessage等 并且对应css也不会加载。而我们手动使用的时候不仅要导入js还要导入css 遇到vant的会去执行其对应的解析器解析自动导入的内容
 
-        // 手动导入优先级比自动导入高 比如我们使用了自动导入 但是又手动导入了elmessage但没有导入css 那么就没有样式                                  
+        // 手动导入优先级比自动导入高 比如我们使用了自动导入 但是又手动导入了elmessage但没有导入css 那么就没有样式
+         // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
+        // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
         resolvers: [plugin(1),ElementPlusResolver(),VantResolver()],
         // include的作用声明了哪些文件类型需要自动导入，可以是正则表达式，也可以是文件路径。 感觉这个没啥用啊，写了也没有自动导入我自己封装的js文件,意思就是哪些文件里需要咱们自动导入 正常来讲也就只有ts js vue
   
