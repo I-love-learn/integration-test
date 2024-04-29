@@ -370,6 +370,19 @@ console.log(o1.count); // 0
 
 // v-bind 绑定的css
 const color = ref('red')
+
+const show = ref(true)
+
+function enter() {
+  console.log('过度动画要进入了')
+}
+function leave() {
+  console.log('过度动画要离开了')
+}
+
+const count1 = ref(0);
+
+setInterval(() => count1.value++, 2000);
 </script>
 
 <script>
@@ -402,6 +415,7 @@ export default {
       <el-button type="primary" @click="flag = 15">测试flex子元素宽度</el-button>
       <el-button type="primary" @click="flag = 16">css v-bind</el-button>
       <el-button type="primary" @click="flag = 17">deep</el-button>
+      <el-button type="primary" @click="flag = 18">transition</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -598,6 +612,44 @@ export default {
         </div>
       </div>
       </template>
+      <template v-else-if="flag === 18">
+        <!-- 明白了 这里设置type是告诉vue 以哪个动画的过度时常为准 比如这里如果是设置 transition 则 我们自己写的transition 过度结束 过度效果自动结束 无论animation是否执行完毕 -->
+        <transition name="fade"  type="animation" @enter="enter" @leave="leave" appear >
+          <el-button type="primary" v-if="show" class="btn">我是一个蓝色的按钮</el-button>
+        </transition>
+        <button @click="show = !show">切换</button>
+        <p>过度可以封装成插槽组件 供不同的组件使用  component和router-view 好像本身就可以切换了</p>
+        <p>appear 是第一次进入页面时触发 自动触发动画</p>
+
+        <p>https://play.vuejs.org/#eNqNVF1v0zAU/SsmCHWT2iTrNjGFboyhPYAQQ7AHkPLiJjepV8e2bKfrVPW/c+0kbTJBt6fG536c43NvvQk+KRWuagiSYGYyzZQlBmytrlLBKiW1JRuioSBbUmhZkRGmjnah0lDV4u4TA6nIpDDYYyEfyaWrPLK6hmMXKWqRWSYFkeIGCqnhVljQR8CPySYVxHcLkRyRcYMQYjLK4XdC4nB6Pu5BfwaQVDRj9ikhJ+68Rbat+xhQdmRjkksBfUor+4x5rakrwWZ9QtQwOKOA7rxnbwGgBhIyAk6NZVnIxF1tj6bh+ZicHI+6IvFZVoqDxUwnqCd8IPsb0BUMZaf2oOw4fP9K4euEnMbxa0R36l5wDEfSdsuxDzoSY/0zkzq+AwbMomYTcQfxYAHTqAU8ETKb19aiMdcZZ9nyMg3aRXvjftPg6l6WJYdZ1KT5Blh0r6kwzGlsuK/nfv8m4HYCmwwWMg3apH10iHM3Eo/74XR4khmDaEG5aTGvGOlztiIZ+urCzr/JXK7TgKwmrGhvgMpnEaY1d4z2ehGYRT0H8GjsE3efYdeqmcOcZstSy1rkCXl7Np1fXJx+cHhFdcnExEqVkGms1h58ZLlduOm35wWwcmF7wFzqHPRE05zVJiHn8TuEm9G09ME4aF6BSYUb8WCkwCfEK0nbgEmDpNuR5uIOSIOFtcokUVQLtSzDTFaRi32sZF7z1jlk2iKBNfiaFKx81h5LFOOg75SzaEhDOZePXz3mHp522bBmAdnyH/iDwVE4VT80GNBunLuYRevANuHbX99hjd+7YCf3QPAnGMlrv3Y+7QaHg7J7eV7tF+8WE+W9uV1bwMm3l3JCvRs+Pw3w7XX/mf9dfS/3NDzbubj9C6SW58o=    利用钩子函数触发动画</p>
+
+        <p>
+          元素间过度 就是通过v-if elseif 会一边触发上个离开动画 一边执行下个进入动画 是同时进行的 我们可以去控制哪个先执行
+          mode属性。
+          mode="out-in"
+        </p>
+        <!-- 通过key 可以让过度效果触发 不在是文字更新 因为文字更新不会触发过渡效果 其实是两个元素再做过度 一个销毁的 一个生成的  -->
+        <!-- 不同的mode 搭配上key 实现的过渡效果 -->
+        <!-- 先执行进入动画 再执行离开动画 效果就是 先从左边飞过来 然后右边再飞过去 -->
+        <transition mode="in-out">
+          <span :key="count1">{{ count1 }}</span>
+        </transition>
+        <br>
+        <!-- 先执行离开动画 再执行进入动画 离开的时候数是没有变化的 离开动画结束后 时间已经过去2s count+2 因此进入动画的时候值已变成 + 2的值 并且只会显示一个数 因为离开动画结束的位置 正好是进入动画开始的位置 这两个位置重叠了 因此数看起来是一个  -->
+        <transition mode="out-in">
+          <span :key="count1">{{ count1 }}</span>
+        </transition>
+        <br>
+        <!-- 默认不写 同时进行 离开小的数 进入大的数 并且每个动画结束都+2 -->
+        <transition>
+          <span :key="count1">{{ count1 }}</span>
+        </transition>
+        <br>
+        <!-- 动画好像不能实现 mode 在有key的情况下 -->
+        <transition name="an">
+          <span :key="count1">{{ count1 }}</span>
+        </transition>
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -639,6 +691,52 @@ div {
     .deep4 {
       color: red;
     }
+  }
+}
+// 动画不一定 要定义两个 一个过度开始 一个结束  可以用动画的reverse属性来反转动画
+.fade-enter-active {
+  animation: move 3s reverse;
+}
+.fade-leave-active {
+  animation: move 3s
+}
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+.btn {
+  transition: background-color 2s;
+}
+.btn:hover {
+  background-color: red;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
+  position: absolute;
+}
+
+.v-enter-from,
+.v-leave-to {
+ transform: translateX(40px);
+}
+
+.an-enter-active {
+  animation: move 1s reverse;
+}
+.an-leave-active {
+  animation: move 1s
+}
+@keyframes an {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

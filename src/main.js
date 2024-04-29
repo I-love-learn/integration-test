@@ -11,7 +11,7 @@ import { test } from '@/utils/test'
 // import a from '../node_modules/test' 经过我测试 路径带有node_modules的文件的确会被依赖预构建
 // console.log(a);
 // css 文件也会被 vite处理
-import '../node_modules/test.css'
+// import '../node_modules/test.css'
 // 非绝对路径引入的模块不会进行 vite处理
 import 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.0.0-alpha-031abd24b-20210907/umd/react.development.js'
 console.log(import.meta.env);
