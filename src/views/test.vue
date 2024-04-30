@@ -383,6 +383,17 @@ function leave() {
 const count1 = ref(0);
 
 setInterval(() => count1.value++, 2000);
+
+
+function comEvent() {
+  console.log(event);
+  console.log(1);
+}
+
+function blurEvent() {
+  console.log(event);
+  console.log(1);
+}
 </script>
 
 <script>
@@ -416,6 +427,7 @@ export default {
       <el-button type="primary" @click="flag = 16">css v-bind</el-button>
       <el-button type="primary" @click="flag = 17">deep</el-button>
       <el-button type="primary" @click="flag = 18">transition</el-button>
+      <el-button type="primary" @click="flag = 19">组件事件</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -649,6 +661,9 @@ export default {
         <transition name="an">
           <span :key="count1">{{ count1 }}</span>
         </transition>
+      </template>
+      <template v-else-if="flag === 19">
+        <elm-input @click="comEvent" @blur="blurEvent"/>
       </template>
     </el-main>
   </el-container>
