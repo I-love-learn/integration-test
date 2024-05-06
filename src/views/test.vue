@@ -385,14 +385,18 @@ const count1 = ref(0);
 setInterval(() => count1.value++, 2000);
 
 
-function comEvent() {
-  console.log(event);
-  console.log(1);
+function comEvent(e,f) {
+  console.log(e);
+  console.log(f);
 }
 
 function blurEvent() {
   console.log(event);
   console.log(1);
+}
+
+function changeEvent(e) {
+  console.log(e);
 }
 </script>
 
@@ -428,6 +432,7 @@ export default {
       <el-button type="primary" @click="flag = 17">deep</el-button>
       <el-button type="primary" @click="flag = 18">transition</el-button>
       <el-button type="primary" @click="flag = 19">组件事件</el-button>
+      <el-button type="primary" @click="flag = 20">事件与传参</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -664,6 +669,10 @@ export default {
       </template>
       <template v-else-if="flag === 19">
         <elm-input @click="comEvent" @blur="blurEvent"/>
+      </template>
+      <template v-else-if="flag === 20">
+        <button @click="(p,a)=>comEvent(p,a)">按钮</button>
+        <!-- <el-upload action="" :on-change="changeEvent()">+</el-upload> -->
       </template>
     </el-main>
   </el-container>

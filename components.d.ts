@@ -16,6 +16,7 @@ declare module 'vue' {
     ElMain: typeof import('element-plus/es')['ElMain']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
     MoreText: typeof import('./src/components/MoreText.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
