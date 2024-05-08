@@ -398,6 +398,43 @@ function blurEvent() {
 function changeEvent(e) {
   console.log(e);
 }
+
+const showAndHide = ref('inline-flex')
+function toggle() {
+  showAndHide.value = showAndHide.value === 'inline-flex' ? 'none' : 'inline-flex'
+}
+// 咱们自己写的拦截符号不行 不会触发
+const proxy1 = new Proxy({
+a:1,b:2
+}, {
+  has(target, key) {
+    console.log(target, key, '0000000000000');
+    return Reflect.has(target, key)
+  },
+  defineProperty(target, key, descriptor) {
+    console.log(target, key, '0000000000000');
+    return Reflect.defineProperty(target, key, descriptor)
+  },
+  apply(target, thisArg, argArray) {
+    console.log(target, thisArg, argArray, '0000000000000');
+  }
+})
+
+Object.getOwnPropertyDescriptors(proxy1)
+for (const key in proxy1) {
+  console.log(proxy1[key]);
+}
+
+function eventCb() {
+  console.log(event);
+}
+function changeEvent1() {
+  console.log(event);
+}
+
+function eventCb2() {
+  console.log(event);
+}
 </script>
 
 <script>
@@ -433,6 +470,7 @@ export default {
       <el-button type="primary" @click="flag = 18">transition</el-button>
       <el-button type="primary" @click="flag = 19">组件事件</el-button>
       <el-button type="primary" @click="flag = 20">事件与传参</el-button>
+      <el-button type="primary" @click="flag = 21">proxy in操作符 </el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -604,6 +642,13 @@ export default {
       <div class="vb">
         script setup
       </div>
+      <el-upload>
+        + 点击
+      </el-upload>
+      <div class="toggle">
+        展示展示展示展示
+      </div>
+      <button @click="toggle">切换</button>
       <div>
         实际的值会被编译成哈希化的 CSS 自定义属性，因此 CSS 本身仍然是静态的。自定义属性会通过内联样式的方式应用到组件的根元素上，并且在源值变更的时候响应式地更新。
       </div>
@@ -673,6 +718,9 @@ export default {
       <template v-else-if="flag === 20">
         <button @click="(p,a)=>comEvent(p,a)">按钮</button>
         <!-- <el-upload action="" :on-change="changeEvent()">+</el-upload> -->
+        <elm-input @click="eventCb" @change="changeEvent1" @click2="eventCb2" />
+      </template>
+      <template v-else-if="flag === 21">
       </template>
     </el-main>
   </el-container>
@@ -762,5 +810,11 @@ div {
   100% {
     opacity: 1;
   }
+}
+:deep(.el-upload) {
+  display: v-bind(showAndHide);
+}
+.toggle {
+  display: v-bind(showAndHide);
 }
 </style>

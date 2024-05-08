@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits(['blur'])
+const emit = defineEmits(['blur', 'click', 'change','click2'])
 function test($event) {
   emit('blur',$event)
 }
@@ -7,7 +7,18 @@ function test($event) {
 const test1 = (event) => {
   console.log(event)
 }
+const value = ref('')
+watchEffect(() => {
+  emit('change',value.value)
+})
 
+const a = ref(1)
+watch(a, (a) => {
+  emit('click2',a)
+})
+setInterval(() => {
+  emit('click2',a)
+}, 1000);
 const ipt = ref(null)
 
 onMounted(() => {
@@ -17,8 +28,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="warp">
-    <input type="text" @blur="test($event)" @focus="test1($event)" ref="ipt">
+  <div class="warp" @click="$emit('click','click')">
+    {{ a }}
+    <input v-model="value" type="text" @blur="test($event)" @focus="test1($event)" ref="ipt">
+    <button @click="a++">a++</button>
   </div>
 </template>
 
