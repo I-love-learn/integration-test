@@ -5,9 +5,13 @@ const http = axios.create({
 })
 
 http.interceptors.request.use((config) => {
+  console.log(1234);
+  // throw new Error('请求拦截报错')
   return config
 }, (err) => {
   console.log(err);
+  // 请求拦截器我测试不管是接口写错 参数乱传 都不会走这个报错回调
+  console.log('请求拦截报错');
   return Promise.reject(err)
 })
 

@@ -1,6 +1,7 @@
 <script setup>
 import { useGlobal, useStore } from '@/store'
 import { coolPostStart, delRoomPerson } from '@/api/request'
+import axios from 'axios'
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from '@/components/VantPicker.vue';
 import SetUp from '@/components/SetUp.vue';
@@ -312,6 +313,12 @@ Promise.resolve(new Error('123')).then(res => {
 
 // 发起请求
 async function ajax() {
+  axios('httpss://localhost:3000/api/getData/abc/efg', {
+    params: {
+    a:new Map(),b:function(){}
+  } }).then((res) => {
+     // 这里接口故意乱写的 不走请求报错拦截器也不走响应报错拦截器 但是这里可以catch到错误是axios的错误 并不是接口的错误 而是压根这个接口就没有发出去
+  }).catch((err)=>{console.log(err)})
   coolPostStart().then(res => {
     console.log(res);
   }).catch(err => {
@@ -321,6 +328,7 @@ async function ajax() {
     const result = await delRoomPerson().then(res => {
       console.log(res);
     }).catch(err => {
+      // 这里捕获 下面就不会捕获了 因为错误只会不活一次
       console.log(err);
     })
   } catch (error) {
@@ -344,6 +352,13 @@ async function ajax() {
   }).catch(err => {
     console.log(err);
     return err
+  }).then(res => {
+    console.log(res);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('000123')
+      }, 3000);
+    })
   }).then(res => {
     console.log(res);
   })
@@ -598,6 +613,10 @@ export default {
         <div>promise resolve一个值 可以被then拿到 resolve一个Promise.reject 可以被catch拿到</div>
         <div>resolve会返回成功状态 then和catch调用会返回一个新的promise</div>
         <div>这也是为什么我们请求拦截和相应拦截器是一个函数了 因为函数执行会返回值 reslove这个函数执行</div>
+        <div>
+          无论是接口地址乱写还是传参乱写 都不会触发请求拦截器错误回调,因为压根没走拦截器直接axios就给报错了.
+        </div>
+        <div>.then或者.catch可以在回调中return 一个值或者一个promise 如果是值得话会被后面的then或者catch中拿到 如果是promise得话 会在promise执行完毕后被后面的then或者catch中拿到</div>
       </template>
 
       <template v-else-if="flag === 10">
