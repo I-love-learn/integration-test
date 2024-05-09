@@ -450,6 +450,10 @@ function changeEvent1() {
 function eventCb2() {
   console.log(event);
 }
+
+// $--------------------------- 其他一些测试结束
+// ^--------------------------- 22 组件二次封装
+const modelValue = ref('')
 </script>
 
 <script>
@@ -486,6 +490,8 @@ export default {
       <el-button type="primary" @click="flag = 19">组件事件</el-button>
       <el-button type="primary" @click="flag = 20">事件与传参</el-button>
       <el-button type="primary" @click="flag = 21">proxy in操作符 </el-button>
+      <el-button type="primary" @click="flag = 22">ui组件的二次封装 </el-button>
+      <el-button type="primary" @click="flag = 23">@等不等于:on</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -740,6 +746,20 @@ export default {
         <elm-input @click="eventCb" @change="changeEvent1" @click2="eventCb2" />
       </template>
       <template v-else-if="flag === 21">
+        in 操作符就是in操作符 和遍历循环无关
+        https://www.cnblogs.com/yiweiyihang/p/16778097.html
+        in 操作符 判断 一个属性是否在某个对象中
+      </template>
+      <template v-else-if="flag === 22">
+        <my-input  v-model="modelValue">
+          <template #append="data">
+            <el-button>{{ data }}</el-button>
+          </template>
+        </my-input>
+      </template>
+      <template v-else-if="flag === 23">
+        <div>@ === v-on === :on 这里如果绑定click 然后子组件click再传递给el-input 会导致click点一下触发两次</div>
+        <my-input :onBlur="eventCb"></my-input>
       </template>
     </el-main>
   </el-container>
