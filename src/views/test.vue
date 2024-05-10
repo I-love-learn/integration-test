@@ -454,12 +454,17 @@ function eventCb2() {
 // $--------------------------- 其他一些测试结束
 // ^--------------------------- 22 组件二次封装
 const modelValue = ref('')
+
+function event24(e) {
+  console.log(e); // e !== event 如果有参数
+}
+console.log(getCurrentInstance()); // 组件对象
 </script>
 
 <script>
 export default {
   mounted() {
-    console.log(this);
+    console.log(this); // 组件代理对象
   },
 }
 </script>
@@ -492,6 +497,7 @@ export default {
       <el-button type="primary" @click="flag = 21">proxy in操作符 </el-button>
       <el-button type="primary" @click="flag = 22">ui组件的二次封装 </el-button>
       <el-button type="primary" @click="flag = 23">@等不等于:on</el-button>
+      <el-button type="primary" @click="flag = 24">emit和props define的时候不传参能使用不</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -683,7 +689,7 @@ export default {
 
         <div>deep的意思是 在当前元素的之前加当前组件的的data-v 而直接写是在元素之后加data-v 导致找不到对应的class</div>
 
-        <!-- 插槽里的data-v 用的是使用他的组件的data-v -->S
+        <!-- 插槽里的data-v 用的是使用他的组件的data-v -->
       <div class="deep1">
         <el-button class="btn"><el-button>123</el-button></el-button>
       </div>
@@ -760,6 +766,10 @@ export default {
       <template v-else-if="flag === 23">
         <div>@ === v-on === :on 这里如果绑定click 然后子组件click再传递给el-input 会导致click点一下触发两次</div>
         <my-input :onBlur="eventCb"></my-input>
+      </template>
+      <template v-else-if="flag === 24">
+        <!-- 这里如果是click 事件，子组件click事件会冒泡到父组件，导致父组件click事件触发两次 但是换个名就只触发自定义事件一次了 不过子组件中可以阻止冒泡 -->
+        <common-component @click="event24" title="海底捞"/>
       </template>
     </el-main>
   </el-container>
