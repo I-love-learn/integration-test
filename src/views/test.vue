@@ -459,6 +459,10 @@ function event24(e) {
   console.log(e); // e !== event 如果有参数
 }
 console.log(getCurrentInstance()); // 组件对象
+
+const fileList = reactive([{
+  url:'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
+}])
 </script>
 
 <script>
@@ -498,6 +502,7 @@ export default {
       <el-button type="primary" @click="flag = 22">ui组件的二次封装 </el-button>
       <el-button type="primary" @click="flag = 23">@等不等于:on</el-button>
       <el-button type="primary" @click="flag = 24">emit和props define的时候不传参能使用不</el-button>
+      <el-button type="primary" @click="flag = 25">el-upload的file-list是干什么的，和文件列表展示有关系吗</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -770,6 +775,18 @@ export default {
       <template v-else-if="flag === 24">
         <!-- 这里如果是click 事件，子组件click事件会冒泡到父组件，导致父组件click事件触发两次 但是换个名就只触发自定义事件一次了 不过子组件中可以阻止冒泡 -->
         <common-component @click="event24" title="海底捞"/>
+      </template>
+      <template v-else-if="flag === 25">
+        <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" :file-list="fileList">+</el-upload>
+
+        <div>
+          upload的展示列表和fileList的关系 filelist只是一个变量 用来存储默认上传的文件。
+          如果我们不使用filelist属性 那么上传文件正常列表显示，只是我们获取不到。（通过change等方法也可获取） 因为upload的展示是本地的文件内容。 如果想要清空列表，那么需要手动清空filelist。 使用clearFiles方法。
+
+          如果upload绑定了filelist属性，那么上传文件列表是绑定在filelist属性中的。  fileList删除数据，那么上传列表也会删除。 fileList新增数据，那么上传列表也会新增。
+          v-model:file-list则会双向绑定fileList属性。
+        </div>
+        <div>有时候清空了数据 发现上传列表没有清空，这时候需要手动清空上传列表。</div>
       </template>
     </el-main>
   </el-container>
