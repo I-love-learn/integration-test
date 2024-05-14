@@ -459,10 +459,14 @@ function event24(e) {
   console.log(e); // e !== event 如果有参数
 }
 console.log(getCurrentInstance()); // 组件对象
+// filelist必须是数组对象
+const fileList = reactive([
+  {
+  url: 'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
+ }
+])
 
-const fileList = reactive([{
-  url:'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
-}])
+const list = reactive(['1','2','3'])
 </script>
 
 <script>
@@ -503,6 +507,7 @@ export default {
       <el-button type="primary" @click="flag = 23">@等不等于:on</el-button>
       <el-button type="primary" @click="flag = 24">emit和props define的时候不传参能使用不</el-button>
       <el-button type="primary" @click="flag = 25">el-upload的file-list是干什么的，和文件列表展示有关系吗</el-button>
+      <el-button type="primary" @click="flag = 26">v-for 绑定 v-model</el-button>
     </el-aside>
     <el-main style="position: relative;">
       <template v-if="flag === 1">
@@ -787,6 +792,11 @@ export default {
           v-model:file-list则会双向绑定fileList属性。
         </div>
         <div>有时候清空了数据 发现上传列表没有清空，这时候需要手动清空上传列表。</div>
+      </template>
+      <template v-else-if="flag === 26">
+        <div v-for="(item,index) in list">
+          <!-- <input type="text" v-model="item"> -->
+        </div>
       </template>
     </el-main>
   </el-container>
