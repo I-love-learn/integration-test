@@ -1,0 +1,9 @@
+<script setup>
+</script>
+
+<template>
+  <!-- 如果是 路由根路径/ 后面跟的数字，那么就显示数字路由 如果是其他的没有匹配到已存在path的则跳转其他路由 而不是404 因为404被其他路由覆盖掉了 而且和顺序无关 优先级是 地址path>参数正则path>参数path>*全局path 参数路由本身也是路由 -->
+<div>我是数字路由</div>
+</template>
+
+<style></style>

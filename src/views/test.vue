@@ -467,6 +467,14 @@ const fileList = reactive([
 ])
 
 const list = reactive(['1','2','3'])
+
+const uploadShow = ref(true)
+
+function changeUpload(file) {
+  setTimeout(() => {
+    fileList = 
+  }, 1000);
+}
 </script>
 
 <script>
@@ -782,14 +790,17 @@ export default {
         <common-component @click="event24" title="海底捞"/>
       </template>
       <template v-else-if="flag === 25">
-        <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" :file-list="fileList">+</el-upload>
-
+        <div v-show="uploadShow">
+          <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" v-model:file-list="fileList" @change="changeUpload">+</el-upload>
+        </div>
+        <button @click="uploadShow = !uploadShow">切换</button>
         <div>
           upload的展示列表和fileList的关系 filelist只是一个变量 用来存储默认上传的文件。
-          如果我们不使用filelist属性 那么上传文件正常列表显示，只是我们获取不到。（通过change等方法也可获取） 因为upload的展示是本地的文件内容。 如果想要清空列表，那么需要手动清空filelist。 使用clearFiles方法。
+          如果我们不使用filelist属性 那么上传文件正常列表显示，只是我们获取不到。（通过change等方法也可获取） 因为upload的展示是本地的文件内容。 如果想要清空列表，那么需要手动清空filelist。 使用clearFiles方法。 但是这个方法呢清空后 没办法还原了. 原因是因为el-dialog 采用的v-show而不是v-if 因此解决办法有了 重新创建upload就能解决没有清空之前的上传的问题
 
           如果upload绑定了filelist属性，那么上传文件列表是绑定在filelist属性中的。  fileList删除数据，那么上传列表也会删除。 fileList新增数据，那么上传列表也会新增。
           v-model:file-list则会双向绑定fileList属性。
+
         </div>
         <div>有时候清空了数据 发现上传列表没有清空，这时候需要手动清空上传列表。</div>
       </template>

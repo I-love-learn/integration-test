@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    404: typeof import('./src/views/404.vue')['default']
     AutoImport: typeof import('./src/views/autoImport.vue')['default']
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
@@ -22,6 +23,8 @@ declare module 'vue' {
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
     MoreText: typeof import('./src/components/MoreText.vue')['default']
     MyInput: typeof import('./src/components/MyInput.vue')['default']
+    ParamsRouteOne: typeof import('./src/components/paramsRoute/paramsRouteOne.vue')['default']
+    ParamsRouteTwo: typeof import('./src/components/paramsRoute/paramsRouteTwo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SetUp: typeof import('./src/components/SetUp.vue')['default']
