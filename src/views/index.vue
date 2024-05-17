@@ -14,6 +14,7 @@ function jump(address) {
     <el-button type="primary" @click="jump('/test')">测试</el-button>
     <el-button type="primary" @click="jump('/autoimport')">测试autoimport</el-button>
     <el-button type="primary" @click="jump({ path: '/test', query: { a: 1, b: 2 } } )">测试对象路由</el-button>
+    <el-button type="primary" @click="jump({ path: '/upload'} )">新upload上传</el-button>
     <!-- <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>
     <el-button type="warning">Warning</el-button>

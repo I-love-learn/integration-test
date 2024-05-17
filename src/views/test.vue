@@ -460,21 +460,57 @@ function event24(e) {
 }
 console.log(getCurrentInstance()); // 组件对象
 // filelist必须是数组对象
-const fileList = reactive([
-  {
-  url: 'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
- }
-])
+const fileList = reactive({
+  data: [
+    {
+      url: 'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
+    }
+  ]
+})
+const fileList1 = reactive(
+[
+    {
+      url: 'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
+    }
+  ]
+)
 
+function changeUpload2() {
+  setTimeout(() => {
+    fileList1.splice(1, 1)
+    setTimeout(() => {
+      console.log(fileList1);
+    }, 1000);
+  }, 1000);
+}
 const list = reactive(['1','2','3'])
 
 const uploadShow = ref(true)
 
 function changeUpload(file) {
+  console.log(1);
   setTimeout(() => {
-    fileList = 
+    fileList.data.splice(1, 1)
   }, 1000);
+  // uploadRef.value.clearFiles()
+  // setTimeout(() => {
+  //   console.log(fileList);
+  //   fileList.data.push({
+  //     url:'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
+  //   })
+  // }, 2000);
 }
+
+const text = ref('')
+
+function textChange() {
+  text.value = '123'
+}
+
+const uploadRef = ref()
+
+const arr1 = reactive([1,2,3])
+const arr2 = reactive({ data: [1, 2, 3] })
 </script>
 
 <script>
@@ -791,7 +827,10 @@ export default {
       </template>
       <template v-else-if="flag === 25">
         <div v-show="uploadShow">
-          <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" v-model:file-list="fileList" @change="changeUpload">+</el-upload>
+          <!-- before-upload只有开启自动上传才会触发 这个属于自动上传的生命周期函数  若返回false或者返回 Promise 且被 reject，则停止上传  -->
+          <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" v-model:file-list="fileList.data" ref="uploadRef" @change="changeUpload">+</el-upload>
+
+          <el-upload action="" :auto-upload="false" show-file-list list-type="picture-card" v-model:file-list="fileList1" ref="uploadRef2" @change="changeUpload2">+</el-upload>
         </div>
         <button @click="uploadShow = !uploadShow">切换</button>
         <div>
@@ -803,6 +842,20 @@ export default {
 
         </div>
         <div>有时候清空了数据 发现上传列表没有清空，这时候需要手动清空上传列表。</div>
+        <el-input type="text" v-model="text" @change="textChange"></el-input>
+
+        <div>
+          <!-- 正常来说 数组reactive 包不包一层对象 都无所谓  因为v3 reactive 对于数组也做了兼容 数组的索引就类似对象的key 所以可以代理 其实是proxy内部支持数组的代理 而defineProperty不支持 -->
+          <div>{{ arr1 }}</div>
+          <div>{{ arr2.data }}</div>
+          <span v-for="(item,index) in arr1">{{ item }}</span>
+          <span v-for="(item,index) in arr2.data">{{ item }}</span>
+          <button @click="arr1.pop();">删除arr1一个元素</button>
+          <button @click="arr2.data.pop();">删除arr2一个元素</button> 
+
+
+          <test-array :arr="arr2" />
+        </div>
       </template>
       <template v-else-if="flag === 26">
         <div v-for="(item,index) in list">

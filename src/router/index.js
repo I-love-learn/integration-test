@@ -27,6 +27,10 @@ const routes = [
     path: '/autoimport',
     component:()=>import('views/autoImport.vue')
   },
+  {
+    path: '/upload',
+    component:()=>import('views/Upload.vue')
+  },
 ]
 const router = createRouter({
   routes,
