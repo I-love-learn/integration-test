@@ -1,6 +1,5 @@
 <script setup>
-import '@/assets/css/base.css'
-
+  import "@/assets/css/base.css"
 </script>
 
 <template>
@@ -8,8 +7,8 @@ import '@/assets/css/base.css'
 </template>
 
 <style lang="scss">
-#app {
-  // color: $color;
-  height: 100vh;
-}
+  #app {
+    // color: $color;
+    height: 100vh;
+  }
 </style>
