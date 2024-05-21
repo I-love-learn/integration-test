@@ -521,6 +521,7 @@ const fileList1 = reactive([
 ])
 
 function changeUpload2() {
+  console.log(11)
   setTimeout(() => {
     fileList1.splice(1, 1)
     setTimeout(() => {
@@ -1012,6 +1013,7 @@ export default {
             v-model:file-list="fileList1"
             ref="uploadRef2"
             @change="changeUpload2"
+            @remove="changeUpload2"
             >+</el-upload
           >
         </div>
@@ -1081,6 +1083,11 @@ export default {
         >
           3
         </div>
+        <!-- on-click不是vue内置的语法 是elementplus的自定义语法 存在于upload组件 既能用@执行 也能用自定义属性执行 -->
+        <div
+          style="height: 30px; background-color: blue"
+          :on-click="hideTwo"
+        ></div>
       </template>
     </el-main>
   </el-container>
