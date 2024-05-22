@@ -570,8 +570,11 @@ function toggleShow() {
 }
 
 const twoShow = ref(false)
+// 判断是否是从一级移入2级的条件 默认是没有移入
+const isLeaveTwo = ref(true)
 const threeShow = ref(false)
-
+const fourShow = ref(false)
+const isLeaveFour = ref(true)
 function showTwo() {
   console.log("showTwo")
   twoShow.value = true
@@ -579,16 +582,45 @@ function showTwo() {
 
 function hideTwo() {
   console.log("hideTwo")
-  twoShow.value = false
+  requestAnimationFrame(() => {
+    if (isLeaveTwo.value) {
+      twoShow.value = false
+      // threeShow.value = false
+    }
+  })
 }
 
 function showThree() {
   console.log("showThree")
+  isLeaveTwo.value = false
   threeShow.value = true
 }
 function hideThree() {
   console.log("hideThree")
   threeShow.value = false
+  isLeaveTwo.value = true
+}
+
+function hoverThree() {
+  console.log("hoverThree")
+  fourShow.value = true
+}
+
+function leaveThree() {
+  requestAnimationFrame(() => {
+    if (isLeaveFour.value) {
+      fourShow.value = false
+    }
+  })
+}
+function hoverFour() {
+  console.log("hoverFour")
+  isLeaveFour.value = false
+}
+function leaveFour() {
+  console.log("leaveFour")
+  isLeaveFour.value = true
+  fourShow.value = false
 }
 </script>
 
@@ -655,6 +687,9 @@ export default {
       >
       <el-button type="primary" @click="flag = 27"
         >v-show同步还是异步</el-button
+      >
+      <el-button type="primary" @click="flag = 28"
+        >多个mouseleave会同时触发吗</el-button
       >
     </el-aside>
     <el-main style="position: relative">
@@ -1063,31 +1098,79 @@ export default {
           离开2隐藏2 3 离开123 隐藏23
         </p>
         <div
-          style="width: 50px; height: 50px; background-color: red"
+          style="width: 50px; background-color: red"
           @mouseenter="showTwo"
           @mouseleave="hideTwo"
         >
           1
+          <div
+            style="width: 50px; height: 50px; background-color: green"
+            v-show="twoShow"
+            @mouseenter="showThree"
+            @mouseleave="hideThree"
+          >
+            2
+            <div
+              style="width: 50px; height: 50px; background-color: yellow"
+              v-show="threeShow"
+              @mouseenter="hoverThree"
+              @mouseleave="leaveThree"
+            >
+              3
+              <div
+                style="width: 50px; height: 50px; background-color: blue"
+                v-show="fourShow"
+                @mouseenter="hoverFour"
+                @mouseleave="leaveFour"
+              >
+                4
+              </div>
+            </div>
+          </div>
         </div>
-        <div
-          style="width: 50px; height: 50px; background-color: green"
-          v-show="twoShow"
-          @mouseenter="showThree"
-          @mouseleave="hideThree"
-        >
-          2
-        </div>
-        <div
-          style="width: 50px; height: 50px; background-color: yellow"
-          v-if="threeShow"
-        >
-          3
-        </div>
+
         <!-- on-click不是vue内置的语法 是elementplus的自定义语法 存在于upload组件 既能用@执行 也能用自定义属性执行 -->
         <div
           style="height: 30px; background-color: blue"
           :on-click="hideTwo"
         ></div>
+      </template>
+      <template v-else-if="flag === 28">
+        <div
+          style="height: 200px; background-color: red"
+          @mouseenter="console.log('我进入一')"
+          @mouseleave="console.log('我离开一')"
+        >
+          <div
+            @mouseenter="console.log('我进入2')"
+            @mouseleave="console.log('我离开2')"
+            style="height: 200px"
+          >
+            <div
+              @mouseenter="console.log('我进入3')"
+              @mouseleave="console.log('我离开3')"
+              style="height: 200px"
+            ></div>
+          </div>
+        </div>
+
+        <div
+          style="height: 200px; background-color: red"
+          @mouseenter="console.log('我进入一')"
+          @mouseleave="console.log('我离开一')"
+        >
+          <div
+            @mouseenter="console.log('我进入2')"
+            @mouseleave="console.log('我离开2')"
+            style="height: 150px; background-color: brown"
+          >
+            <div
+              @mouseenter="console.log('我进入3')"
+              @mouseleave="console.log('我离开3')"
+              style="height: 100px; background-color: blueviolet"
+            ></div>
+          </div>
+        </div>
       </template>
     </el-main>
   </el-container>
