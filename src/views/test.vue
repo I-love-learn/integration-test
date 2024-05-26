@@ -691,6 +691,7 @@ export default {
       <el-button type="primary" @click="flag = 28"
         >多个mouseleave会同时触发吗</el-button
       >
+      <el-button type="primary" @click="flag = 29">v-if配合v-for bug</el-button>
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
