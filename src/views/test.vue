@@ -1173,6 +1173,7 @@ export default {
           </div>
         </div>
       </template>
+      <template v-else-if="flag === 29"> </template>
     </el-main>
   </el-container>
 </template>
