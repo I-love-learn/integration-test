@@ -6,6 +6,7 @@ import axios from "axios"
 import VantPicker from "@/components/VantPicker.vue"
 import SetUp from "@/components/SetUp.vue"
 import FlexVue from "@/components/FlexVue.vue"
+import $ from "jquery"
 console.log(SetUp)
 console.log(VantPicker)
 // flag 控制哪个模块显示
@@ -622,6 +623,41 @@ function leaveFour() {
   isLeaveFour.value = true
   fourShow.value = false
 }
+
+function jump(path) {
+  router.push(path)
+}
+
+function upload(e) {
+  console.log(e.target.files[0])
+  console.log(typeof e.target.files[0] === "object")
+  coolPostStart(
+    { file: e.target.files[0] },
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }
+  )
+  // $.ajax({
+  //   url: `/api/iot/device/robot/cooling/point/start`,
+  //   type: "POST",
+  //   contentType: "application/x-www-form-urlencoded",
+  //   data: { file: e.target.files[0] }
+  // })
+  // $.ajax({
+  //   url: "/api/iot/device/robot/cooling/point/start",
+  //   type: "get",
+  //   data: { a: 123 }
+  // })
+  // 用json无法给后端传输file对象 这是由于 不管是json还是 x-www-form-urlencoded 格式 如果值是file文件 前者会转成空对象 后者会转成 Object字符
+  // 只能用formdata formdata可以模拟表单数据 而表单是可以提交 文件的
+  const xhr = new XMLHttpRequest()
+  xhr.open("POST", "/api/iot/device/robot/cooling/point/start")
+  xhr.setRequestHeader("Content-type", "application/json")
+  // xhr.send(JSON.stringify({ file: e.target.files[0] }))
+  xhr.send(JSON.stringify({ file: { a: 1 } }))
+}
 </script>
 
 <script>
@@ -692,6 +728,13 @@ export default {
         >多个mouseleave会同时触发吗</el-button
       >
       <el-button type="primary" @click="flag = 29">v-if配合v-for bug</el-button>
+      <el-button type="primary" @click="flag = 30"
+        >路由跳转与router-link</el-button
+      >
+      <el-button type="primary" @click="flag = 31">class覆盖优先级</el-button>
+      <el-button type="primary" @click="flag = 32"
+        >上传可以使用json吗</el-button
+      >
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
@@ -1174,6 +1217,22 @@ export default {
         </div>
       </template>
       <template v-else-if="flag === 29"> </template>
+      <template v-else-if="flag === 30">
+        <router-link to="a">1</router-link>
+        <router-link :to="{ path: 'a' }">2</router-link>
+        <router-link to="/a">3</router-link>
+        <router-link :to="{ path: '/a' }">4</router-link>
+        <div @click="jump('a')">5</div>
+        <div @click="jump('/a')">6</div>
+        <router-view />
+      </template>
+      <template v-else-if="flag === 31">
+        <div class="a b c d">123</div>
+        <!-- class权重一样的情况下 以style里最后定义的class为准 因为后定义的class会覆盖前一个 和style一样 后定义的生效 因此可以得出一个结论组件里 父组件的class先生效 子组件的后生效 -->
+      </template>
+      <template v-else-if="flag === 32">
+        <input type="file" @change="upload" />
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -1268,5 +1327,17 @@ div {
 }
 .toggle {
   display: v-bind(showAndHide);
+}
+.b {
+  color: red;
+}
+.c {
+  color: yellow;
+}
+.d {
+  color: white;
+}
+.a {
+  color: blue;
 }
 </style>
