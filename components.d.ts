@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     404: typeof import('./src/views/404.vue')['default']
     AutoImport: typeof import('./src/views/autoImport.vue')['default']
+    ChildRoute: typeof import('./src/components/ChildRoute.vue')['default']
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']

@@ -12,6 +12,7 @@
     "@vant/auto-import-resolver": "^1.1.0",
     "axios": "^1.6.7",
     "element-plus": "^2.5.6",
+    "jquery": "^3.7.1",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "vant": "^4.8.7",
