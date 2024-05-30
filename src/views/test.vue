@@ -745,6 +745,9 @@ export default {
       <el-button type="primary" @click="flag = 32"
         >上传可以使用json吗</el-button
       >
+      <el-button type="primary" @click="flag = 33"
+        >vue scoped会继承吗</el-button
+      >
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
@@ -1257,6 +1260,13 @@ export default {
       <template v-else-if="flag === 32">
         <input type="file" @change="upload" />
       </template>
+      <template v-else-if="flag === 33">
+        <div class="scoped">
+          <div class="a">1</div>
+          <div class="b">2</div>
+        </div>
+        <test-scoped></test-scoped>
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -1363,5 +1373,14 @@ div {
 }
 .a {
   color: blue;
+}
+
+.scoped {
+  .a {
+    color: brown;
+  }
+  .b {
+    color: cadetblue;
+  }
 }
 </style>
