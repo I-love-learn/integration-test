@@ -35,6 +35,7 @@ declare module 'vue' {
     TestArray: typeof import('./src/components/TestArray.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
     TestChildSingle: typeof import('./src/components/TestChildSingle.vue')['default']
+    TestScoped: typeof import('./src/components/Test-Scoped.vue')['default']
     Upload: typeof import('./src/views/Upload.vue')['default']
     VanPicker: typeof import('vant/es')['Picker']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
