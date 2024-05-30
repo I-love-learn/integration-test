@@ -1,7 +1,7 @@
 // import { createApp } from 'vue'
 import "./style.css"
 import App from "./App.vue"
-
+import "@/assets/css/base.css"
 import "@/assets/styles/base.scss"
 
 import "@/assets/styles/base.less"

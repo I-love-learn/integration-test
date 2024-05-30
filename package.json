@@ -31,6 +31,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.24.0",
     "less": "^4.2.0",
+    "naive-ui": "^2.38.2",
     "sass": "^1.71.1",
     "typescript": "*",
     "unplugin-auto-import": "^0.17.5",

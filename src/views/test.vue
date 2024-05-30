@@ -668,6 +668,204 @@ function flagTo29() {
     data.data = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   }, 1000)
 }
+
+const classes = reactive({
+  data: [
+    {
+      id: 1,
+      name: "安全防护",
+      imageUrlPc:
+        "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+      children: [
+        { id: 1, name: "头部防护" },
+        { id: 2, name: "面部防护" },
+        { id: 3, name: "防护眼镜" },
+        { id: 4, name: "安全帽" },
+        { id: 5, name: "防护面罩" },
+        { id: 6, name: "手部防护" }
+      ]
+    },
+    {
+      id: 2,
+      name: "工具耗材",
+      imageUrlPc:
+        "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+      children: [
+        { id: 1, name: "头部防护" },
+        { id: 2, name: "面部防护" },
+        { id: 3, name: "防护眼镜" },
+        { id: 4, name: "安全帽" },
+        { id: 5, name: "防护面罩" },
+        { id: 6, name: "手部防护" }
+      ]
+    },
+    {
+      id: 3,
+      name: "行政办公",
+      imageUrlPc:
+        "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+      children: [
+        { id: 1, name: "头部防护" },
+        { id: 2, name: "面部防护" },
+        { id: 3, name: "防护眼镜" },
+        { id: 4, name: "安全帽" },
+        { id: 5, name: "防护面罩" },
+        { id: 6, name: "手部防护" }
+      ]
+    },
+    {
+      id: 4,
+      name: "给水排水",
+      imageUrlPc:
+        "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+      children: [
+        { id: 1, name: "头部防护" },
+        { id: 2, name: "面部防护" },
+        { id: 3, name: "防护眼镜" },
+        { id: 4, name: "安全帽" },
+        { id: 5, name: "防护面罩" },
+        { id: 6, name: "手部防护" }
+      ]
+    },
+    {
+      id: 5,
+      imageUrlPc:
+        "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+      name: "给水排水",
+      children: [
+        { id: 1, name: "头部防护" },
+        { id: 2, name: "面部防护" },
+        { id: 3, name: "防护眼镜" },
+        { id: 4, name: "安全帽" },
+        { id: 5, name: "防护面罩" },
+        { id: 6, name: "手部防护" }
+      ]
+    }
+  ]
+})
+
+watch(flag, (newvalue) => {
+  if (newvalue === 29) {
+    setTimeout(() => {
+      classes.data = [
+        {
+          id: 21,
+          name: "安全防护1",
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 31,
+          name: "工具耗材4",
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 32,
+          name: "行政办公",
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 43,
+          name: "给水排水",
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 51,
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          name: "给水排水",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 53,
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          name: "给水排水",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        },
+        {
+          id: 54,
+          imageUrlPc:
+            "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969",
+          name: "给水排水",
+          children: [
+            { id: 1, name: "头部防护" },
+            { id: 2, name: "面部防护" },
+            { id: 3, name: "防护眼镜" },
+            { id: 4, name: "安全帽" },
+            { id: 5, name: "防护面罩" },
+            { id: 6, name: "手部防护" }
+          ]
+        }
+      ]
+    }, 1000)
+  }
+})
+// map set
+new Map([[1, 2]])
+const mapResponsive = reactive(
+  new Map([
+    ["b", 1],
+    ["a", 2],
+    ["md", 3],
+    ["lg", 4],
+    ["xl", 5],
+    ["xxl", 6]
+  ])
+)
+const setResponsive = reactive(new Set([1, 2, 3, 4]))
+console.log(setResponsive)
+const symbolResponsive = reactive(Symbol("symbol"))
+console.log(symbolResponsive) // 不是响应式
 </script>
 
 <script>
@@ -747,6 +945,9 @@ export default {
       >
       <el-button type="primary" @click="flag = 33"
         >vue scoped会继承吗</el-button
+      >
+      <el-button type="primary" @click="flag = 34"
+        >map reactive 和set reactive</el-button
       >
     </el-aside>
     <el-main style="position: relative">
@@ -1243,6 +1444,63 @@ export default {
             </div>
           </template>
         </div>
+        <n-carousel
+          direction="vertical"
+          dot-placement="right"
+          mousewheel
+          :autoplay="false"
+          :show-arrow="false"
+          :show-dots="false"
+          :interval="5000"
+          style="height: 404px"
+        >
+          <li v-for="j in Math.ceil(classes.data.length / 4)" :key="j">
+            <template v-for="(item, index) in classes.data">
+              <div
+                class="py-20"
+                :key="index"
+                v-if="index < j * 4 && index >= (j - 1) * 4"
+              >
+                <div class="top flex ac sb bg-f6 mb-1 point">
+                  <div class="flex ac">
+                    <img
+                      :src="item.imageUrlPc"
+                      alt=""
+                      style="width: 30px; height: 30px"
+                      class="ml-13 icon"
+                    />
+                    <span class="col-blue2 fs-14 ml-13 ls-1">
+                      {{ item.name }}</span
+                    >
+                  </div>
+                </div>
+                <div class="bottom flex warp pl-15 pr-0 overflow-hide">
+                  <template v-for="(it, i) in item.children">
+                    <span
+                      :key="it.id"
+                      class="fs-14 col-999 children point ls-1 mr-12"
+                      v-if="i < 6"
+                      >{{ it.name }}</span
+                    >
+                  </template>
+                </div>
+              </div>
+            </template>
+          </li>
+        </n-carousel>
+
+        <h2>
+          经过测试不是v-if 配合v-for的问题 是走马灯组件的问题
+          只要定义的初始数据超过了能够渲染第一幕走马灯的数据
+          且新数据大于等于走马灯的初始数据 就会报错（key为 index的情况下）
+          报错信息是:DOMException: Failed to execute 'insertBefore' on 'Node':
+          The node before which the new node is to be inserted is not a child of
+          this node 并且如果初始数据长度长 而重新赋值的数据短 那么新渲染的dom
+          不会移除之前的 但会移除 多出的走马灯页面 如果是从0到有 或者从有到0
+          则会移除dom和走马灯 如果key是id 这种不可复用的话
+          只要初始数据超出第一页 后赋值的数据只要不等于0 就报错 从0到有
+          和从有到0都不报错 并且 id的话 从4变3 dom会减少 而index不会
+        </h2>
       </template>
       <template v-else-if="flag === 30">
         <router-link to="a">1</router-link>
@@ -1267,6 +1525,16 @@ export default {
         </div>
         <test-scoped></test-scoped>
       </template>
+      <template v-else-if="flag === 34">
+        <div v-for="(item, key, index) in mapResponsive">
+          <!-- 和数组一样 没有第三个参数 第二个参数是index item是[key,value] -->
+          {{ item }},{{ key }},{{ index }}
+        </div>
+        <div v-for="(item, key, index) in setResponsive">
+          <!-- 和数组一样 没有第三个参数 第二个参数是index item是value -->
+          {{ item }},{{ key }},{{ index }}
+        </div>
+      </template>
     </el-main>
   </el-container>
 </template>
@@ -1274,6 +1542,20 @@ export default {
 <style scoped lang="scss">
 div {
   color: var(--color-blue);
+  .dialog {
+    div {
+    }
+    div {
+      div {
+      }
+    }
+  }
+}
+div {
+}
+div {
+  div {
+  }
 }
 
 .el-container {
@@ -1294,12 +1576,62 @@ div {
   // 如果想写表达式则需要用引号包裹起来
   color: v-bind("color") !important;
 }
+button {
+}
+.deep1 {
+  .btn {
+  }
+}
+.deep2 {
+  .deep3 {
+    .deep4 {
+    }
+  }
+}
 :deep(.btn) {
   color: red;
   .el-button {
     span {
       font-size: 20px;
     }
+  }
+}
+p {
+}
+span {
+}
+br {
+}
+div {
+  div {
+  }
+  span {
+  }
+  button {
+  }
+}
+div {
+  div {
+    div {
+      div {
+      }
+    }
+  }
+}
+div {
+  div {
+    div {
+    }
+  }
+}
+div {
+  div {
+    div {
+    }
+  }
+}
+div {
+  div {
   }
 }
 // 不生效
@@ -1324,6 +1656,8 @@ div {
   100% {
     transform: translateX(100px);
   }
+}
+input {
 }
 .btn {
   transition: background-color 2s;
