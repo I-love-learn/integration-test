@@ -658,6 +658,16 @@ function upload(e) {
   // xhr.send(JSON.stringify({ file: e.target.files[0] }))
   xhr.send(JSON.stringify({ file: { a: 1 } }))
 }
+
+// v-for v-is
+const data = reactive({ data: [1, 2, 3, 4, 5, 6, 7, 8, 9] })
+
+function flagTo29() {
+  flag.value = 29
+  setTimeout(() => {
+    data.data = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  }, 1000)
+}
 </script>
 
 <script>
@@ -727,7 +737,7 @@ export default {
       <el-button type="primary" @click="flag = 28"
         >多个mouseleave会同时触发吗</el-button
       >
-      <el-button type="primary" @click="flag = 29">v-if配合v-for bug</el-button>
+      <el-button type="primary" @click="flagTo29">v-if配合v-for bug</el-button>
       <el-button type="primary" @click="flag = 30"
         >路由跳转与router-link</el-button
       >
@@ -1216,7 +1226,21 @@ export default {
           </div>
         </div>
       </template>
-      <template v-else-if="flag === 29"> </template>
+      <template v-else-if="flag === 29">
+        <div
+          v-for="(item, index) in Math.ceil(data.data.length / 4)"
+          :key="index"
+        >
+          <template v-for="(item1, index1) in data.data">
+            <div
+              v-if="index1 >= (index - 1) * 4 && index1 < index * 4"
+              :key="index1"
+            >
+              {{ item1 }}
+            </div>
+          </template>
+        </div>
+      </template>
       <template v-else-if="flag === 30">
         <router-link to="a">1</router-link>
         <router-link :to="{ path: 'a' }">2</router-link>
