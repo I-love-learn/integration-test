@@ -1083,6 +1083,7 @@ export default {
         <el-button type="primary" @click="clean">清空store</el-button>
         <div>
           直接修改store中state的值是会触发响应式的因为 store的值是响应式的
+           但是 pinia的 tools里不会出现这个我们直接定义赋值的属性
         </div>
       </template>
 
