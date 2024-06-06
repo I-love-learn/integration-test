@@ -871,6 +871,8 @@ const dd = reactive({
   a: 1,
   b: 2
 })
+
+const isshow = ref(false)
 </script>
 
 <script>
@@ -956,6 +958,9 @@ export default {
       >
       <el-button type="primary" @click="flag = 35"
         >props reactive测试</el-button
+      >
+      <el-button type="primary" @click="flag = 36"
+        >transition 折叠过度动画</el-button
       >
     </el-aside>
     <el-main style="position: relative">
@@ -1547,11 +1552,46 @@ export default {
       <template v-else-if="flag === 35">
         <test-props :data="dd" />
       </template>
+      <template v-else-if="flag === 36">
+        <el-button type="primary" @click="isshow = !isshow">切换</el-button>
+        <!-- v-if和v-show都可以过度 高度过度 前提是必须设置要过度的元素高度 -->
+        <transition name="expand">
+          <div style="background-color: red" v-if="isshow" class="abcdefg">
+            1
+          </div>
+        </transition>
+
+        <transition-group name="expand">
+          <div style="background-color: red" v-if="isshow" class="abcdefg">
+            1
+          </div>
+          <div style="background-color: blue" v-if="isshow" class="abcdefg">
+            1
+          </div>
+          <div style="background-color: yellow" v-if="isshow" class="abcdefg">
+            1
+          </div>
+          <div style="background-color: black" v-if="isshow" class="abcdefg">
+            1
+          </div>
+        </transition-group>
+      </template>
     </el-main>
   </el-container>
 </template>
 
 <style scoped lang="scss">
+.abcdefg {
+  height: 100px;
+}
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 1s;
+}
+.expand-enter-from,
+.expand-leave-to {
+  height: 0px;
+}
 div {
   color: var(--color-blue);
   .dialog {
