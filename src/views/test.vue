@@ -866,6 +866,11 @@ const setResponsive = reactive(new Set([1, 2, 3, 4]))
 console.log(setResponsive)
 const symbolResponsive = reactive(Symbol("symbol"))
 console.log(symbolResponsive) // 不是响应式
+
+const dd = reactive({
+  a: 1,
+  b: 2
+})
 </script>
 
 <script>
@@ -948,6 +953,9 @@ export default {
       >
       <el-button type="primary" @click="flag = 34"
         >map reactive 和set reactive</el-button
+      >
+      <el-button type="primary" @click="flag = 35"
+        >props reactive测试</el-button
       >
     </el-aside>
     <el-main style="position: relative">
@@ -1082,8 +1090,8 @@ export default {
         >
         <el-button type="primary" @click="clean">清空store</el-button>
         <div>
-          直接修改store中state的值是会触发响应式的因为 store的值是响应式的
-           但是 pinia的 tools里不会出现这个我们直接定义赋值的属性
+          直接修改store中state的值是会触发响应式的因为 store的值是响应式的 但是
+          pinia的 tools里不会出现这个我们直接定义赋值的属性
         </div>
       </template>
 
@@ -1535,6 +1543,9 @@ export default {
           <!-- 和数组一样 没有第三个参数 第二个参数是index item是value -->
           {{ item }},{{ key }},{{ index }}
         </div>
+      </template>
+      <template v-else-if="flag === 35">
+        <test-props :data="dd" />
       </template>
     </el-main>
   </el-container>

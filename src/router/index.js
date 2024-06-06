@@ -1,4 +1,4 @@
-import { createWebHashHistory, createRouter } from "vue-router"
+import { createWebHistory, createRouter } from "vue-router"
 
 const routes = [
   {
@@ -36,11 +36,20 @@ const routes = [
   {
     path: "/upload",
     component: () => import("views/Upload.vue")
+  },
+  {
+    path: "/path1/path2",
+    children: [
+      {
+        path: "path3",
+        component: () => import("views/path.vue")
+      }
+    ]
   }
 ]
 const router = createRouter({
   routes,
-  history: createWebHashHistory()
+  history: createWebHistory()
 })
 
 router.beforeEach((to, from, next) => {
