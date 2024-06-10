@@ -962,6 +962,9 @@ export default {
       <el-button type="primary" @click="flag = 36"
         >transition 折叠过度动画</el-button
       >
+      <el-button type="primary" @click="flag = 37"
+        >全局变量 在template里直接用</el-button
+      >
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
@@ -1556,25 +1559,111 @@ export default {
         <el-button type="primary" @click="isshow = !isshow">切换</el-button>
         <!-- v-if和v-show都可以过度 高度过度 前提是必须设置要过度的元素高度 -->
         <transition name="expand">
-          <div style="background-color: red" v-if="isshow" class="abcdefg">
+          <div style="background-color: red" v-show="isshow" class="abcdefg">
             1
           </div>
         </transition>
 
-        <transition-group name="expand">
-          <div style="background-color: red" v-if="isshow" class="abcdefg">
+        <!-- <transition-group name="expand">
+          <div
+            style="background-color: red"
+            v-if="isshow"
+            :key="1"
+            class="abcdefg"
+          >
             1
           </div>
-          <div style="background-color: blue" v-if="isshow" class="abcdefg">
+          <div
+            style="background-color: blue"
+            v-if="isshow"
+            :key="2"
+            class="abcdefg"
+          >
             1
           </div>
-          <div style="background-color: yellow" v-if="isshow" class="abcdefg">
+          <div
+            style="background-color: yellow"
+            v-if="isshow"
+            :key="3"
+            class="abcdefg"
+          >
             1
           </div>
-          <div style="background-color: black" v-if="isshow" class="abcdefg">
+          <div
+            style="background-color: black"
+            v-if="isshow"
+            :key="4"
+            class="abcdefg"
+          >
             1
           </div>
-        </transition-group>
+        </transition-group> -->
+        <br />
+        <br />
+
+        <!-- <transition-group name="expand">
+          <div
+            style="background-color: red"
+            v-show="isshow"
+            class="abcdefg"
+            :key="1"
+          >
+            2
+          </div>
+          <div
+            style="background-color: blue"
+            v-show="isshow"
+            class="abcdefg"
+            :key="2"
+          >
+            2
+          </div>
+          <div
+            style="background-color: yellow"
+            v-show="isshow"
+            class="abcdefg"
+            :key="3"
+          >
+            2
+          </div>
+          <div
+            style="background-color: black"
+            v-show="isshow"
+            class="abcdefg"
+            :key="4"
+          >
+            2
+          </div>
+        </transition-group> -->
+      </template>
+      <template v-else-if="flag === 37">
+        <!-- 直接在胡子语法里使用不可以 报错 -->
+        <!-- {{ window }}
+        {{ math }} -->
+        <!-- Math Object String这种是可以直接使用的 console JSON也行 但是window 和localStorage不行 -->
+        {{ JSON }}
+        {{ console }}
+        {{ Object }}
+        <!-- template的 global和 浏览器的那个global不是一回事 这个是proxy对象 -->
+        {{ global }}
+        {{ Promise }}
+        {{ prototype }}
+        {{ __proto__ }}
+        {{ globalThis }}
+        {{ setTimeout }}
+        <el-button @click="console.log(123)">按钮</el-button>
+        <el-button @click="console.log(window)">按钮</el-button>
+        <el-button @click="console.log(Math)">按钮</el-button>
+        <el-button @click="console.log(String)">按钮</el-button>
+        <el-button @click="console.log(global)">按钮</el-button>
+        <el-button
+          @click="
+            () => {
+              console.log(Window)
+            }
+          "
+          >按钮</el-button
+        >
       </template>
     </el-main>
   </el-container>
@@ -1586,7 +1675,7 @@ export default {
 }
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 1s;
+  transition: all 6s;
 }
 .expand-enter-from,
 .expand-leave-to {
