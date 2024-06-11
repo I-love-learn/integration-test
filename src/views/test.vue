@@ -873,6 +873,9 @@ const dd = reactive({
 })
 
 const isshow = ref(false)
+
+const num1 = ref()
+const num2 = ref()
 </script>
 
 <script>
@@ -964,6 +967,9 @@ export default {
       >
       <el-button type="primary" @click="flag = 37"
         >全局变量 在template里直接用</el-button
+      >
+      <el-button type="primary" @click="flag = 38"
+        >el-input输入整数测试</el-button
       >
     </el-aside>
     <el-main style="position: relative">
@@ -1664,6 +1670,14 @@ export default {
           "
           >按钮</el-button
         >
+      </template>
+      <template v-else-if="flag === 38">
+        <!-- el-input是受控的 他的v-model 是组件v-model 也就是：value + update：value 如果不适用v-model 则没有双向绑定数据 因此无法输入内容 但原生不会 -->
+        <!-- v-model.number 默认没有小数 是整数 加了type number就能用小数了 -->
+        <el-input max="10" v-model.number="num1" />
+        <!-- 原生则不是 原生.number就可用小数 因为组件v-model是element自己封装的 -->
+        <!-- type number的缺点可以输入+-这样的符号 -->
+        <input max="10" type="number" v-model.number="num2" />
       </template>
     </el-main>
   </el-container>
