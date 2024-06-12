@@ -9,6 +9,7 @@ declare global {
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const bb: typeof import('./utils/other.js')['bb']
   const cloneDeep: typeof import('lodash')['cloneDeep']
   const computed: typeof import('vue')['computed']
   const coolPostStart: typeof import('./api/request.js')['coolPostStart']
@@ -99,6 +100,7 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly bb: UnwrapRef<typeof import('./utils/other.js')['bb']>
     readonly cloneDeep: UnwrapRef<typeof import('lodash')['cloneDeep']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly coolPostStart: UnwrapRef<typeof import('./api/request.js')['coolPostStart']>
@@ -182,6 +184,7 @@ declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly bb: UnwrapRef<typeof import('./utils/other.js')['bb']>
     readonly cloneDeep: UnwrapRef<typeof import('lodash')['cloneDeep']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly coolPostStart: UnwrapRef<typeof import('./api/request.js')['coolPostStart']>

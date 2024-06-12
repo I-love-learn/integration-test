@@ -1,6 +1,7 @@
 <script setup>
 import { useGlobal, useStore } from "@/store"
 import { coolPostStart, delRoomPerson } from "@/api/request"
+import { bb } from "@/utils/other"
 import axios from "axios"
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from "@/components/VantPicker.vue"
@@ -876,6 +877,10 @@ const isshow = ref(false)
 
 const num1 = ref()
 const num2 = ref()
+
+function aa() {
+  console.log(222222222)
+}
 </script>
 
 <script>
@@ -1678,6 +1683,41 @@ export default {
         <!-- 原生则不是 原生.number就可用小数 因为组件v-model是element自己封装的 -->
         <!-- type number的缺点可以输入+-这样的符号 -->
         <input max="10" type="number" v-model.number="num2" />
+        <!-- v-model.number的作用是 输入的数字是number类型 而非字符串 但是 他不能保证 只能输入数字 依然可以输入汉字 输入的汉字是字符串类型 也就是说它只能把字符串的数字 转换成 数值 并不能限定只能输入数字 -->
+        <el-input type="text" v-model.number="num2"></el-input>
+        <input type="text" v-model="num2" />
+        <!-- 而type=number 则可以限制 只能输入数字 但这里要注意是字符串数字 如果要转换成数值 则需要使用.number修饰符 -->
+        <!-- 如果 type=number和type=text 同时绑定一个value 则用后者值转字符串 用前者值转number -->
+        <input type="number" v-model.number="num2" />
+        <!-- vue template中 $event是事件对象 而event是函数的事件对象 -->
+        <input type="number" @input="console.log($event.target.value)" />
+        <!-- 直接写函数的话 默认第一个接受参数是事件对象e -->
+        <!-- https://cn.vuejs.org/guide/essentials/event-handling.html#event-handling  箭头函数和直接写的函数调用与js代码统一叫做内联事件处理 而定义在setup中的函数 这里通过函数名使用 叫方法处理 -->
+        <!-- 箭头函数不能写()执行 这一点要和 函数名() 区分 -->
+        <input
+          type="number"
+          @input="
+            (e) => {
+              console.log(e.target.value)
+            }
+          "
+        />
+        <!-- 这么写 mounted会立即执行打印1000000000000 -->
+        <input
+          type="number"
+          @input="
+            ((e) => {
+              console.log(10000000000000000)
+            })()
+          "
+        />
+        <!-- 但是这么写函数又不会立刻执行  -->
+        <input type="number" @input="aa()" />
+        <!-- 只写一个() 默认执行bb 写两个才执行bbreturn的函数 -->
+        <input type="number" @input="bb()" />
+        <!-- https://segmentfault.com/q/1010000016258709?bd_source_light=4746641  https://blog.csdn.net/weixin_56008510/article/details/121948791  加不加括号的区别 在于是否自动传递事件对象e 而定义函数加括号 会认为是立即执行函数 temolate渲染就执行 https://www.zhihu.com/question/55753541/answer/146197733 -->
+        <input type="number" v-model.number="num2" />
+        <input type="number" v-model.number="num2" />
       </template>
     </el-main>
   </el-container>
