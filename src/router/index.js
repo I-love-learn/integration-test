@@ -30,6 +30,10 @@ const routes = [
     ]
   },
   {
+    path: "/hooks",
+    component: () => import("views/hooks.vue")
+  },
+  {
     path: "/autoimport",
     component: () => import("views/autoImport.vue")
   },

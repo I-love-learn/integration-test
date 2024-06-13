@@ -7,6 +7,8 @@ import axios from "axios"
 import VantPicker from "@/components/VantPicker.vue"
 import SetUp from "@/components/SetUp.vue"
 import FlexVue from "@/components/FlexVue.vue"
+
+import { returnARef } from "@/hooks"
 import $ from "jquery"
 console.log(SetUp)
 console.log(VantPicker)
@@ -881,6 +883,8 @@ const num2 = ref()
 function aa() {
   console.log(222222222)
 }
+
+console.log(returnARef())
 </script>
 
 <script>
@@ -976,6 +980,7 @@ export default {
       <el-button type="primary" @click="flag = 38"
         >el-input输入整数测试</el-button
       >
+      <el-button type="primary" @click="flag = 39">测试函数输出ref</el-button>
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
@@ -1718,6 +1723,13 @@ export default {
         <!-- https://segmentfault.com/q/1010000016258709?bd_source_light=4746641  https://blog.csdn.net/weixin_56008510/article/details/121948791  加不加括号的区别 在于是否自动传递事件对象e 而定义函数加括号 会认为是立即执行函数 temolate渲染就执行 https://www.zhihu.com/question/55753541/answer/146197733 -->
         <input type="number" v-model.number="num2" />
         <input type="number" v-model.number="num2" />
+      </template>
+      <template v-else-if="flag === 39">
+        <p>{{ returnARef() }}</p>
+        <p>
+          的确有这种情况 原因未知 就是外部引入的ref对象
+          渲染时多出来双引号了字符串类型的
+        </p>
       </template>
     </el-main>
   </el-container>

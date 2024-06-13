@@ -22,6 +22,7 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
+    Hooks: typeof import('./src/views/hooks.vue')['default']
     MoreText: typeof import('./src/components/MoreText.vue')['default']
     MyInput: typeof import('./src/components/MyInput.vue')['default']
     NCarousel: typeof import('naive-ui')['NCarousel']

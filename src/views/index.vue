@@ -25,6 +25,9 @@ function jump(address) {
     <el-button type="primary" @click="jump({ path: '/path1/path2' })"
       >定义多级路由</el-button
     >
+    <el-button type="primary" @click="jump({ path: '/hooks' })"
+      >测试hooks无限调用问题</el-button
+    >
     <!-- <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>
     <el-button type="warning">Warning</el-button>
