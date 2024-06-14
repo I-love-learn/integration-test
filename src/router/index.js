@@ -30,6 +30,10 @@ const routes = [
     ]
   },
   {
+    path: "/test2",
+    component: () => import("views/TestTwo.vue")
+  },
+  {
     path: "/hooks",
     component: () => import("views/hooks.vue")
   },
