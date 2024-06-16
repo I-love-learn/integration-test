@@ -54,9 +54,16 @@ const num4 = ref("")
 // value我们输入的 如果value绑定的那个属性变化 则界面也会更新 如果那个属性不符合规则没变化 或者没绑定value则界面也会更新 因为原生的input 展示的value是 e.traget.value 是以这个为准的  当绑定了value 每当value的值改变e.traget.value也会同步更新 否则就是e.target.value更新而value不变
 function input(e) {
   console.log(e.data)
-  let regex = /^\d*\.?\d+$/
+  console.log(e.target.value)
+
+  let regex = /^([0-9]\d*(.\d*)?)|(0.\d*[1-9][0-9])|(0.\d*[1-9])$/
+  // 让他可以检测小数点 但是小数点又不可以乱放
+  console.log(regex.test(e.data))
+
   if (!regex.test(e.data)) {
-    return (e.target.value = e.target.value.replace(e.data, ""))
+    // console.log(e.target.value.replace(e.data, ""))
+    // 这么写的话 输入汉字的时候 会清空 e.target已有的值
+    e.target.value = num3.value
   } else {
     num3.value = e.target.value
   }
