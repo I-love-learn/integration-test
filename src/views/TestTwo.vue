@@ -209,7 +209,7 @@ function startAnimal(e) {
 
         pos.left = dom.x + "px"
         pos.top = dom.y + "px"
-        pos.transition = "all 5s"
+        pos.transition = "all 5s cubic-bezier(0.5, -0.5, 1, 1)"
       })
     })
     // const dom = document.querySelector("#warp").getBoundingClientRect()
