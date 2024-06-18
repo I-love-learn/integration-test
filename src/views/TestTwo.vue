@@ -74,6 +74,37 @@ function input(e) {
   //   ""
   // )
 }
+
+const pos = reactive({
+  top: 0,
+  left: 0,
+  width: "100px",
+  height: "100px",
+  backgroundColor: "red",
+  transition: "none"
+})
+
+function startAnimal(e) {
+  console.log(e)
+
+  pos.left = e.clientX - 25 + "px"
+  pos.top = e.clientY - 25 + "px"
+  const dom = document.querySelector("#warp").getBoundingClientRect()
+  // requestAnimationFrame(() => {
+  //   console.log(dom)
+
+  //   pos.left = dom.x + "px"
+  //   pos.top = dom.y + "px"
+  //   pos.transition = "all 5s"
+  // })
+
+  requestAnimationFrame(() => {
+    // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
+    pos.left = dom.x + "px"
+    pos.top = dom.y + "px"
+    pos.transition = "all 5s"
+  })
+}
 </script>
 
 <template>
@@ -89,6 +120,9 @@ function input(e) {
           >
           <el-button @click="flag = 3" type="primary"
             >el-input 输入正数包括小数的写法</el-button
+          >
+          <el-button @click="flag = 4" type="primary"
+            >动画过渡问题测试</el-button
           >
         </div>
       </el-aside>
@@ -131,6 +165,26 @@ function input(e) {
 
           <input type="text" :value="num3" @input="input" />
           <el-input type="text" :model-value="num4" />
+        </template>
+        <template v-else-if="flag === 4">
+          <div class="btn-warp">
+            <div style="position: fixed" :style="pos"></div>
+            <el-button type="primary" @click="startAnimal"
+              >点我出现动画</el-button
+            >
+
+            <div
+              style="
+                position: fixed;
+                width: 100px;
+                height: 100px;
+                right: 300px;
+                top: 200px;
+                background-color: red;
+              "
+              id="warp"
+            ></div>
+          </div>
         </template>
       </el-main>
     </el-container>
