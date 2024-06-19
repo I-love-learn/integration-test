@@ -84,17 +84,17 @@ const pos = reactive({
   transition: "none"
 })
 
-function addToShopCart(params: { skuId: number; count: number }) {
-  const a = {
-    ...params,
-    code: 0
-  }
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(a)
-    }, 100)
-  })
-}
+// function addToShopCart(params: { skuId: number; count: number }) {
+//   const a = {
+//     ...params,
+//     code: 0
+//   }
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(a)
+//     }, 100)
+//   })
+// }
 
 // function startAnimal(e) {
 //   const ary = [
@@ -140,56 +140,109 @@ function addToShopCart(params: { skuId: number; count: number }) {
 //   })
 // }
 
-// function addToShopCart(params: { skuId: number; count: number }) {
-//   const a = {
-//     ...params,
-//     code: 0
-//   }
-//   return Promise.resolve(a)
-// }
+function addToShopCart(params: { skuId: number; count: number }) {
+  const a = {
+    ...params,
+    code: 0
+  }
+  return Promise.resolve(a)
+}
+
+function startAnimal(e) {
+  const ary = [
+    { num: 1, id: 1 },
+    { num: 2, id: 2 }
+  ]
+  const asyncArray = []
+  ary.forEach((element) => {
+    if (element.num > 0) {
+      asyncArray.push(
+        addToShopCart({
+          skuId: element.id,
+          count: element.num
+        })
+      )
+    }
+  })
+  Promise.all(asyncArray).then((res) => {
+    const flag = res.some((item) => {
+      return item.code === 0
+    })
+    if (flag) {
+      pos.left = e.clientX - 25 + "px" // 1
+      pos.top = e.clientY - 25 + "px" // 2
+      pos.transition = "none" // 3
+      const dom = document.querySelector("#warp").getBoundingClientRect()
+      // requestAnimationFrame(() => {
+      //   console.log(dom)
+
+      //   pos.left = dom.x + "px"
+      //   pos.top = dom.y + "px"
+      //   pos.transition = "all 5s"
+      // })
+      // 有一种感觉 就是如果 promise.all 接受的异步任务 不是放到当前微任务队列完成的 而是放在下一个宏任务的微队列运行的话 则 会无视掉上面的 1 2 3代码 首次执行时  后面每次执行才会 执行 123的代码
+      requestAnimationFrame(() => {
+        // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
+        pos.left = dom.x + "px"
+        pos.top = dom.y + "px"
+        pos.transition = "all 5s"
+      })
+    }
+  })
+}
 
 // function startAnimal(e) {
-//   const ary = [
-//     { num: 1, id: 1 },
-//     { num: 2, id: 2 }
-//   ]
-//   const asyncArray = []
-//   ary.forEach((element) => {
-//     if (element.num > 0) {
-//       asyncArray.push(
-//         addToShopCart({
-//           skuId: element.id,
-//           count: element.num
-//         })
-//       )
-//     }
-//   })
+//   new Promise((res, rej) => {
+//     setTimeout(() => {
+//       res(123)
+//     }, 1000)
+//   }).then(() => {
+//     requestAnimationFrame(() => {
+//       pos.left = e.clientX - 25 + "px" // 1
+//       pos.top = e.clientY - 25 + "px" // 2
+//       pos.transition = "none" // 3
+//       // 这么写就好了
+//       requestAnimationFrame(() => {
+//         const dom = document.querySelector("#warp").getBoundingClientRect()
+//         console.log(dom)
 
-// Promise.all(asyncArray).then((res) => {
-//   const flag = res.some((item) => {
-//     return item.code === 0
-//   })
-//   if (flag) {
-//     pos.left = e.clientX - 25 + "px" // 1
-//     pos.top = e.clientY - 25 + "px" // 2
-//     pos.transition = "none" // 3
-//     const dom = document.querySelector("#warp").getBoundingClientRect()
+//         pos.left = dom.x + "px"
+//         pos.top = dom.y + "px"
+//         pos.transition = "all 5s cubic-bezier(0.5, -0.5, 1, 1)"
+//       })
+//     })
+//     // const dom = document.querySelector("#warp").getBoundingClientRect()
+//     // @ 和getBoundingClientRect() 无关
+//     // const dom = {
+//     //   x: 1100,
+//     //   y: 400
+//     // }
 //     // requestAnimationFrame(() => {
 //     //   console.log(dom)
 
+//     // pos.left = dom.x + "px"
+//     // pos.top = dom.y + "px"
+//     // pos.transition = "all 5s"
+//     // })
+//     // 有一种感觉 就是如果 promise.all 接受的异步任务 不是放到当前微任务队列完成的 而是放在下一个宏任务的微队列运行的话 则 会无视掉上面的 1 2 3代码 首次执行时  后面每次执行才会 执行 123的代码
+//     // 几乎不出闪现
+//     // requestAnimationFrame(() => {
+//     //   // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
 //     //   pos.left = dom.x + "px"
 //     //   pos.top = dom.y + "px"
 //     //   pos.transition = "all 5s"
 //     // })
-//     // 有一种感觉 就是如果 promise.all 接受的异步任务 不是放到当前微任务队列完成的 而是放在下一个宏任务的微队列运行的话 则 会无视掉上面的 1 2 3代码 首次执行时  后面每次执行才会 执行 123的代码
-//     requestAnimationFrame(() => {
-//       // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
-//       pos.left = dom.x + "px"
-//       pos.top = dom.y + "px"
-//       pos.transition = "all 5s"
-//     })
-//   }
-// })
+//     // 大概率出 闪现 也就是我们希望的效果 火狐的话几乎都是闪现  浏览器的处理不同
+
+//     // 也就是说promise中调用requestAnimationFrame的话 为了确保动画的流畅性 好像只会记录元素的起始位置和结束位置产生动画 而不像计时器会跳跃 （猜测）
+
+//     // 知道了 是vue的问题 vue是异步更新队列的也就是说 pos的属性虽然改变了 但是 dom还没有更新
+//     // setTimeout(() => {
+//     //   pos.left = dom.x + "px"
+//     //   pos.top = dom.y + "px"
+//     //   pos.transition = "all 5s"
+//     // }, 0)
+//   })
 // }
 
 function startAnimal(e) {
