@@ -245,6 +245,19 @@ function startAnimal(e) {
     // }, 0)
   })
 }
+
+function handleAnimal() {
+  const con = document.querySelector(".con")
+  const ball = document.querySelector(".ball")
+
+  ball.style.transform = "translateY(0)"
+  con.style.transform = "translateX(0)"
+  // 动态 transform 不会触发元素的重新渲染
+  ball.clientWidth //，加入这个代码，让页面重新渲染，从而达到有过渡的效果。
+
+  ball.style.transform = "translateY(300px)"
+  con.style.transform = "translateX(100px)"
+}
 </script>
 
 <template>
@@ -264,6 +277,7 @@ function startAnimal(e) {
           <el-button @click="flag = 4" type="primary"
             >动画过渡问题测试</el-button
           >
+          <el-button @click="flag = 5" type="primary">抛物线过度测试</el-button>
         </div>
       </el-aside>
       <el-main>
@@ -326,6 +340,13 @@ function startAnimal(e) {
             ></div>
           </div>
         </template>
+        <template v-else-if="flag === 5">
+          <div class="con">
+            <div class="ball"></div>
+          </div>
+
+          <button @click="handleAnimal">执行抛物线动画</button>
+        </template>
       </el-main>
     </el-container>
   </div>
@@ -335,7 +356,24 @@ function startAnimal(e) {
 .common-layout {
   height: 100vh;
 }
+.con {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  left: 100px;
+  top: 300px;
+  position: fixed;
+  transition: 2s linear;
+}
 
+.ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #0d84ff;
+  position: absolute;
+  transition: 2s cubic-bezier(0.5, -0.5, 1, 1);
+}
 .modal {
   position: fixed;
   left: 0;
