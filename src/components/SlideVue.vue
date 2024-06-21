@@ -1,5 +1,11 @@
 <script setup>
-const isOpen = ref(false);
+const isOpen = ref(false)
+
+const a = ref(1)
+
+defineExpose({
+  a
+})
 </script>
 
 <template>
@@ -12,7 +18,6 @@ const isOpen = ref(false);
       <slot>这里的数据将被替换</slot>
     </div>
   </transition>
-
 </template>
 
 <style lang="scss" scoped>

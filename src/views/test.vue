@@ -885,6 +885,15 @@ function aa() {
 }
 
 console.log(returnARef())
+
+const slide = ref()
+
+function printSlide() {
+  console.log(slide)
+  // 使用的时候 被解包了
+  console.log(slide.value.a) // 1
+  console.log(slide.value.a.value)
+}
 </script>
 
 <script>
@@ -1157,7 +1166,8 @@ export default {
         <component :is="VantPicker" a="a" />
       </template>
       <template v-else-if="flag === 11">
-        <slide-vue />
+        <button @click="printSlide">打印</button>
+        <slide-vue ref="slide" />
       </template>
       <template v-else-if="flag === 12">
         <set-up :attr="attr" />
