@@ -29,6 +29,9 @@ function jump(address) {
     <el-button type="primary" @click="jump({ path: '/hooks' })"
       >测试hooks无限调用问题</el-button
     >
+    <el-button type="primary" @click="jump({ path: '/updated' })"
+      >测试update声明周期执行时机</el-button
+    >
     <!-- <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>
     <el-button type="warning">Warning</el-button>

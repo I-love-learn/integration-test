@@ -32,7 +32,7 @@ var timer = setInterval(() => {
 }, 2000)
 
 onMounted(() => {
-  console.log("页面更新了")
+  console.log("页面进入了")
 })
 
 function lose() {
@@ -245,59 +245,59 @@ function startAnimal(e) {
 //   })
 // }
 
-function startAnimal(e) {
-  new Promise((res, rej) => {
-    setTimeout(() => {
-      res(123)
-    }, 1000)
-  }).then(() => {
-    requestAnimationFrame(() => {
-      pos.left = e.clientX - 25 + "px" // 1
-      pos.top = e.clientY - 25 + "px" // 2
-      pos.transition = "none" // 3
-      // 这么写就好了
-      requestAnimationFrame(() => {
-        const dom = document.querySelector("#warp").getBoundingClientRect()
-        console.log(dom)
+// function startAnimal(e) {
+//   new Promise((res, rej) => {
+//     setTimeout(() => {
+//       res(123)
+//     }, 1000)
+//   }).then(() => {
+//     requestAnimationFrame(() => {
+//       pos.left = e.clientX - 25 + "px" // 1
+//       pos.top = e.clientY - 25 + "px" // 2
+//       pos.transition = "none" // 3
+//       // 这么写就好了
+//       requestAnimationFrame(() => {
+//         const dom = document.querySelector("#warp").getBoundingClientRect()
+//         console.log(dom)
 
-        pos.left = dom.x + "px"
-        pos.top = dom.y + "px"
-        pos.transition = "all 5s cubic-bezier(0.5, -0.5, 1, 1)"
-      })
-    })
-    // const dom = document.querySelector("#warp").getBoundingClientRect()
-    // @ 和getBoundingClientRect() 无关
-    // const dom = {
-    //   x: 1100,
-    //   y: 400
-    // }
-    // requestAnimationFrame(() => {
-    //   console.log(dom)
+//         pos.left = dom.x + "px"
+//         pos.top = dom.y + "px"
+//         pos.transition = "all 5s cubic-bezier(0.5, -0.5, 1, 1)"
+//       })
+//     })
+//     // const dom = document.querySelector("#warp").getBoundingClientRect()
+//     // @ 和getBoundingClientRect() 无关
+//     // const dom = {
+//     //   x: 1100,
+//     //   y: 400
+//     // }
+//     // requestAnimationFrame(() => {
+//     //   console.log(dom)
 
-    // pos.left = dom.x + "px"
-    // pos.top = dom.y + "px"
-    // pos.transition = "all 5s"
-    // })
-    // 有一种感觉 就是如果 promise.all 接受的异步任务 不是放到当前微任务队列完成的 而是放在下一个宏任务的微队列运行的话 则 会无视掉上面的 1 2 3代码 首次执行时  后面每次执行才会 执行 123的代码
-    // 几乎不出闪现
-    // requestAnimationFrame(() => {
-    //   // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
-    //   pos.left = dom.x + "px"
-    //   pos.top = dom.y + "px"
-    //   pos.transition = "all 5s"
-    // })
-    // 大概率出 闪现 也就是我们希望的效果 火狐的话几乎都是闪现  浏览器的处理不同
+//     // pos.left = dom.x + "px"
+//     // pos.top = dom.y + "px"
+//     // pos.transition = "all 5s"
+//     // })
+//     // 有一种感觉 就是如果 promise.all 接受的异步任务 不是放到当前微任务队列完成的 而是放在下一个宏任务的微队列运行的话 则 会无视掉上面的 1 2 3代码 首次执行时  后面每次执行才会 执行 123的代码
+//     // 几乎不出闪现
+//     // requestAnimationFrame(() => {
+//     //   // 多次点击startAnimal 动画只执行第一次 原因是 动画还没来得及执行 pos.left = dom.x + "px" pos.top = dom.y + "px" 下一帧就要执行 pos.left = dom.x + "px"     pos.top = dom.y + "px" 然后动画就会继续执行 后者 前者跳过了
+//     //   pos.left = dom.x + "px"
+//     //   pos.top = dom.y + "px"
+//     //   pos.transition = "all 5s"
+//     // })
+//     // 大概率出 闪现 也就是我们希望的效果 火狐的话几乎都是闪现  浏览器的处理不同
 
-    // 也就是说promise中调用requestAnimationFrame的话 为了确保动画的流畅性 好像只会记录元素的起始位置和结束位置产生动画 而不像计时器会跳跃 （猜测）
+//     // 也就是说promise中调用requestAnimationFrame的话 为了确保动画的流畅性 好像只会记录元素的起始位置和结束位置产生动画 而不像计时器会跳跃 （猜测）
 
-    // 知道了 是vue的问题 vue是异步更新队列的也就是说 pos的属性虽然改变了 但是 dom还没有更新
-    // setTimeout(() => {
-    //   pos.left = dom.x + "px"
-    //   pos.top = dom.y + "px"
-    //   pos.transition = "all 5s"
-    // }, 0)
-  })
-}
+//     // 知道了 是vue的问题 vue是异步更新队列的也就是说 pos的属性虽然改变了 但是 dom还没有更新
+//     // setTimeout(() => {
+//     //   pos.left = dom.x + "px"
+//     //   pos.top = dom.y + "px"
+//     //   pos.transition = "all 5s"
+//     // }, 0)
+//   })
+// }
 
 function handleAnimal() {
   const con = document.querySelector(".con")
@@ -311,6 +311,22 @@ function handleAnimal() {
   ball.style.transform = "translateY(300px)"
   con.style.transform = "translateX(100px)"
 }
+
+onUpdated(() => {
+  console.log("更新了")
+})
+const message = ref("Hello, Vue 3!")
+
+function changeMessage() {
+  message.value = "Message changed!"
+}
+// 正常是会触发 updated与beforeUpdate的 state改变的时候
+onUpdated(() => {
+  console.log("Component updated!")
+})
+onBeforeUpdate(() => {
+  console.log("Component before update!")
+})
 </script>
 
 <template>
@@ -331,6 +347,9 @@ function handleAnimal() {
             >动画过渡问题测试</el-button
           >
           <el-button @click="flag = 5" type="primary">抛物线过度测试</el-button>
+          <el-button @click="flag = 6" type="primary"
+            >updated生命周期不执行</el-button
+          >
         </div>
       </el-aside>
       <el-main>
@@ -399,6 +418,19 @@ function handleAnimal() {
           </div>
 
           <button @click="handleAnimal">执行抛物线动画</button>
+        </template>
+        <template v-else-if="flag === 6">
+          <div>
+            插槽使用的响应式数据变化只会触发子组件updated生命周期
+            而不会触发父组件的 也就是说 子组件内部更新 父组件不会触发更新钩子
+            父组件state变化影响到子组件的 才会父子都触发updated钩子
+            <div>
+              <slot-test>
+                <h1>{{ message }}</h1>
+                <button @click="changeMessage">Change Message</button>
+              </slot-test>
+            </div>
+          </div>
         </template>
       </el-main>
     </el-container>

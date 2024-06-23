@@ -53,6 +53,10 @@ const routes = [
         component: () => import("views/path.vue")
       }
     ]
+  },
+  {
+    path: "/updated",
+    component: () => import("views/update.vue")
   }
 ]
 const router = createRouter({

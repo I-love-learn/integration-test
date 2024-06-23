@@ -2,13 +2,14 @@
 import { useGlobal, useStore } from "@/store"
 import { coolPostStart, delRoomPerson } from "@/api/request"
 import { bb } from "@/utils/other"
+import { a1 } from "@/hooks/index"
 import axios from "axios"
 // vantpicker是被动态组件使用的 因此需要导入 不属于动态导入的范畴
 import VantPicker from "@/components/VantPicker.vue"
 import SetUp from "@/components/SetUp.vue"
 import FlexVue from "@/components/FlexVue.vue"
 
-import { returnARef } from "@/hooks"
+import { returnARef, returnARef2 } from "@/hooks"
 import $ from "jquery"
 console.log(SetUp)
 console.log(VantPicker)
@@ -894,12 +895,37 @@ function printSlide() {
   console.log(slide.value.a) // 1
   console.log(slide.value.a.value)
 }
+// 也就是说如果我们在函数内部定义的ref对象 并return 给模板调用 那么ref 不是响应式的
+
+// 错了ref是响应的 只不过每次页面更新 都创建新的ref 然后return 导致值一直是初始的
+function RetRef() {
+  const a = ref("1")
+
+  setInterval(() => {
+    a.value = a.value + 1
+  }, 1000)
+  return a
+}
+// 但是如果这个ref return 出来并且被赋值给setup变量 那么这个ref 是响应式的
+const bb1 = RetRef()
+
+const bb2 = ref("1")
+setInterval(() => {
+  bb2.value = bb2.value + 1
+}, 1000)
+
+onUpdated(() => {
+  console.log("更新")
+})
 </script>
 
 <script>
 export default {
   mounted() {
     console.log(this) // 组件代理对象
+  },
+  updated() {
+    console.log("更新")
   }
 }
 </script>
@@ -1736,10 +1762,18 @@ export default {
       </template>
       <template v-else-if="flag === 39">
         <p>{{ returnARef() }}</p>
+        <p>{{ returnARef2() }}</p>
+        <p>{{ a1 }}</p>
         <p>
           的确有这种情况 原因未知 就是外部引入的ref对象
           渲染时多出来双引号了字符串类型的
         </p>
+
+        <p>{{ RetRef() }}</p>
+        <p>不触发响应式</p>
+
+        <p>{{ bb1 }}</p>
+        <p>{{ bb2 }}</p>
       </template>
     </el-main>
   </el-container>
