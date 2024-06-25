@@ -327,6 +327,22 @@ onUpdated(() => {
 onBeforeUpdate(() => {
   console.log("Component before update!")
 })
+
+// 上传
+const src = ref("")
+
+function upload(e) {
+  const file = e.target.files[0]
+  // 可以预览 甚至不需要转base64
+  // src.value = window.URL.createObjectURL(file)
+
+  // 同理 base64 也可下载 这俩都可以用同样的功能 细节有所差别
+  const fr = new FileReader()
+  const a = document.createElement("a")
+  a.download = "zy.png"
+  a.href = fr.readAsDataURL(file)
+  a.click()
+}
 </script>
 
 <template>
@@ -349,6 +365,9 @@ onBeforeUpdate(() => {
           <el-button @click="flag = 5" type="primary">抛物线过度测试</el-button>
           <el-button @click="flag = 6" type="primary"
             >updated生命周期不执行</el-button
+          >
+          <el-button @click="flag = 7" type="primary"
+            >FileReader.readAsDataURL(file)和URL createObjectURL()</el-button
           >
         </div>
       </el-aside>
@@ -430,6 +449,13 @@ onBeforeUpdate(() => {
                 <button @click="changeMessage">Change Message</button>
               </slot-test>
             </div>
+          </div>
+        </template>
+        <template v-else-if="flag === 7">
+          <div>
+            <input type="file" @change="upload" />
+
+            <img :src="src" alt="" width="500" height="500" />
           </div>
         </template>
       </el-main>
