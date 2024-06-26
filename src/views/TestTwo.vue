@@ -1,6 +1,9 @@
 <script setup lang="ts">
 // 一个文件夹下同时有 同名js和ts 省略文件后缀 优先导入js
 import { useAnalysisDict } from "@/hooks/index.ts"
+// import "element-plus/dist/index.css"
+import "element-plus/theme-chalk/el-select.css"
+import { ElSelect, ElInputNumber } from "element-plus"
 const flag = ref(0)
 
 const count = ref(1)
@@ -369,6 +372,9 @@ function upload(e) {
           <el-button @click="flag = 7" type="primary"
             >FileReader.readAsDataURL(file)和URL createObjectURL()</el-button
           >
+          <el-button @click="flag = 8" type="primary"
+            >手动导入和自动导入同时存在样式丢失了</el-button
+          >
         </div>
       </el-aside>
       <el-main>
@@ -457,6 +463,10 @@ function upload(e) {
 
             <img :src="src" alt="" width="500" height="500" />
           </div>
+        </template>
+        <template v-else-if="flag === 8">
+          <el-select></el-select>
+          <el-input-number></el-input-number>
         </template>
       </el-main>
     </el-container>
