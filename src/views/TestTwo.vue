@@ -346,6 +346,9 @@ function upload(e) {
   a.href = fr.readAsDataURL(file)
   a.click()
 }
+
+const radioModel = ref(0)
+const radioModel2 = ref(0)
 </script>
 
 <template>
@@ -374,6 +377,9 @@ function upload(e) {
           >
           <el-button @click="flag = 8" type="primary"
             >手动导入和自动导入同时存在样式丢失了</el-button
+          >
+          <el-button @click="flag = 9" type="primary"
+            >el-radio 不带group的用法</el-button
           >
         </div>
       </el-aside>
@@ -467,6 +473,15 @@ function upload(e) {
         <template v-else-if="flag === 8">
           <el-select></el-select>
           <el-input-number></el-input-number>
+        </template>
+
+        <template v-else-if="flag === 9">
+          <div>
+            <el-radio value="1" v-model="radioModel" label="1"></el-radio>
+            <el-radio value="2" v-model="radioModel" label="2"></el-radio>
+            <el-radio value="1" v-model="radioModel2" label="1"></el-radio>
+            <el-radio value="2" v-model="radioModel2" label="2"></el-radio>
+          </div>
         </template>
       </el-main>
     </el-container>

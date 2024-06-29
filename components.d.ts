@@ -20,6 +20,7 @@ declare module 'vue' {
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
+    ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRow: typeof import('element-plus/es')['ElRow']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
     Hooks: typeof import('./src/views/hooks.vue')['default']
