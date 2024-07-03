@@ -381,6 +381,9 @@ const radioModel2 = ref(0)
           <el-button @click="flag = 9" type="primary"
             >el-radio 不带group的用法</el-button
           >
+          <el-button @click="router.push(undefined)" type="primary"
+            >测试跳转undefined （会直接报错）</el-button
+          >
         </div>
       </el-aside>
       <el-main>
