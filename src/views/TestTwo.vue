@@ -349,6 +349,19 @@ function upload(e) {
 
 const radioModel = ref(0)
 const radioModel2 = ref(0)
+
+const react = reactive({
+  data: {
+    b: 1
+  }
+})
+// template未用到的响应式数据 不会触发 updated
+// setInterval(() => {
+//   react.data++
+// }, 1000)
+onUpdated(() => {
+  console.log("更新了")
+})
 </script>
 
 <template>
@@ -383,6 +396,9 @@ const radioModel2 = ref(0)
           >
           <el-button @click="router.push(undefined)" type="primary"
             >测试跳转undefined （会直接报错）</el-button
+          >
+          <el-button @click="flag = 10" type="primary"
+            >template没用到的proxy 会触发updated吗</el-button
           >
         </div>
       </el-aside>
@@ -485,6 +501,11 @@ const radioModel2 = ref(0)
             <el-radio value="1" v-model="radioModel2" label="1"></el-radio>
             <el-radio value="2" v-model="radioModel2" label="2"></el-radio>
           </div>
+        </template>
+        <template v-else-if="flag === 10">
+          <h2>{{ react.data.b }}</h2>
+          <!-- 直接替换数据是会更新了 -->
+          <button @click="react.data = { b: 2 }">点击</button>
         </template>
       </el-main>
     </el-container>
