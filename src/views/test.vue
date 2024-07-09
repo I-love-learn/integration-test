@@ -1777,6 +1777,7 @@ export default {
       </template>
     </el-main>
   </el-container>
+  <router-view />
 </template>
 
 <style scoped lang="scss">
