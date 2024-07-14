@@ -26,6 +26,20 @@ const routes = [
       {
         path: "a/bb",
         component: () => import("../components/ChildRoute.vue")
+      },
+      {
+        path: "1",
+        component: () => import("../components/ChildRoute.vue")
+      }
+    ]
+  },
+  {
+    path: "/test/:id",
+    component: () => import("../components/ChildRoute.vue"),
+    children: [
+      {
+        path: "a/bb",
+        component: () => import("../components/ChildRoute.vue")
       }
     ]
   },
