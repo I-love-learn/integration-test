@@ -362,6 +362,19 @@ const react = reactive({
 onUpdated(() => {
   console.log("更新了")
 })
+
+const value = ref(1)
+
+function change() {
+  nextTick(() => {
+    value.value++
+    console.log(value.value, "我还没更新呢")
+  })
+  value.value++
+}
+watch(value, (newValue, oldValue) => {
+  console.log("value更新了")
+})
 </script>
 
 <template>
@@ -400,6 +413,7 @@ onUpdated(() => {
           <el-button @click="flag = 10" type="primary"
             >template没用到的proxy 会触发updated吗</el-button
           >
+          <el-button @click="flag = 11" type="primary">测试watch时机</el-button>
         </div>
       </el-aside>
       <el-main>
@@ -506,6 +520,17 @@ onUpdated(() => {
           <h2>{{ react.data.b }}</h2>
           <!-- 直接替换数据是会更新了 -->
           <button @click="react.data = { b: 2 }">点击</button>
+        </template>
+        <template v-else-if="flag === 11">
+          <div>
+            <el-button @click="change">点击</el-button>
+          </div>
+          <div>
+            watch的执行时间 如果nexttick写在数据改变前
+            则watch执行时机在nexttick之后 如果nexttick写在数据改变后
+            则watch执行时机在nexttick之前 感觉更像是数据改变的时候
+            新创建了一个nexttick1放在 nexttick后执行了
+          </div>
         </template>
       </el-main>
     </el-container>
