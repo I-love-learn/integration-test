@@ -47,7 +47,7 @@ function TestAsyncFunc() {
     // 可以
     console.log(res.message) // 4
 
-    // some 回调如果是 async异步 只会执行一次 因为some是同步的，如果使用异步则始终返回true
+    // some 回调如果是 async异步 只会执行一次 因为some是同步的，如果使用异步则始终返回promise  而promise会被认为是true
 
     // promise的状态 只会改变一次 如果我们想要测试 则每次都return 一个新的promise
     ARRAY.some(async (item) => {
@@ -1392,7 +1392,9 @@ export default {
           如果upload绑定了filelist属性，那么上传文件列表是绑定在filelist属性中的。
           fileList删除数据，那么上传列表也会删除。
           fileList新增数据，那么上传列表也会新增。
-          v-model:file-list则会双向绑定fileList属性。
+          v-model:file-list则会双向绑定fileList属性。 并且fileList
+          必须是reactive对象的形式 而不能是reactive数组的形式
+          否则删除数据后ui没有更新 这里不知道为什么element 内部怎么实现的
         </div>
         <div>
           有时候清空了数据 发现上传列表没有清空，这时候需要手动清空上传列表。
