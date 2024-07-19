@@ -47,7 +47,44 @@ onUpdated(() => {
   console.log("我更新了")
 })
 
-const fileList = ref([])
+const fileList = ref([
+  {
+    url: "https://img0.baidu.com/it/u=2804005887,994501744&fm=253&fmt=auto&app=138&f=JPEG?w=200&h=200",
+    name: "123"
+  }
+])
+
+function remove() {
+  console.log(123)
+
+  console.log(fileList)
+}
+
+function beforeRemove() {
+  console.log(456)
+}
+
+function beforeUpload() {
+  console.log(789)
+}
+
+function change() {
+  // change事件中return false并不会阻止 往filelist里添加内容 正确做法是如果不符合条件直接删除最后一个元素即可
+  // return false
+  fileList.value.pop()
+  console.log(123)
+  // console.log(fileList[0].name)
+  setTimeout(() => {
+    fileList.value.pop()
+
+    // console.log(fileList.value)
+    console.log(fileList)
+  }, 1000)
+}
+
+function onClick() {
+  console.log(1)
+}
 </script>
 
 <template>
@@ -62,6 +99,7 @@ const fileList = ref([])
         <el-button @click="flag = 4"
           >测试el-upload 多选删除其中一个是怎么做到的</el-button
         >
+        <el-button @click="flag = 5">测试el-upload数据绑定</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -96,6 +134,49 @@ const fileList = ref([])
               :auto-upload="false"
             />
           </div>
+        </template>
+
+        <template v-else-if="flag === 5">
+          <div>
+            <el-upload
+              action=""
+              v-model:file-list="fileList"
+              list-type="picture-card"
+              :auto-upload="false"
+              @change="change"
+              @remove="remove"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
+            />
+          </div>
+          <div>on-事件可以用@ 可以用: 但before-remove这种只给用冒号</div>
+          <div>
+            before-upload 只有自动上传才生效 before-remove手动上传也触发
+          </div>
+          <div>el-upload不绑定任何数据的情况下 上传会直接显示本地的图片</div>
+          <div>
+            如果绑定了file-list 则默认可以展示file-list中的文件
+            删除的话还会自动清除file-list里的内容
+          </div>
+          <div>
+            如果filelist是reactive([]) 我们添加图片后
+            可以看到在devtools工具里长度的确变成了2 0是默认的那个图片
+            reactive对象 1是我们刚传的 并且删除1 图片也的确消失了
+            但是如果不用devtools 而是在 change事件里通过fileList.pop()删除数据
+            发现filelist长度变成了0 新加的图片也没有 原来的也被删掉了
+            且不触发ui更新
+          </div>
+          <div>
+            也就是说如果filelist是reactive([]) 即便使用v-model
+            也不会触发数据删除 ui更新
+            而不用v-model虽然也可以触发删除同步移除了fileList的内容
+            但新增不会往filelist里添加数据
+          </div>
+          <div>
+            :on-click 原生不能写成@click 但el-upload可以 :onClick 原生是这种写法
+            也就是:on = @
+          </div>
+          <button :on-click="onClick" :onClick="onClick">click</button>
         </template>
       </el-main>
     </el-container>

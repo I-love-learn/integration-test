@@ -21,7 +21,6 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
-    ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Father: typeof import('./src/components/sanji/father.vue')['default']
@@ -31,6 +30,7 @@ declare module 'vue' {
     Hooks: typeof import('./src/views/hooks.vue')['default']
     MoreText: typeof import('./src/components/MoreText.vue')['default']
     MyInput: typeof import('./src/components/MyInput.vue')['default']
+    NCarousel: typeof import('naive-ui')['NCarousel']
     ParamsRouteOne: typeof import('./src/components/paramsRoute/paramsRouteOne.vue')['default']
     ParamsRouteTwo: typeof import('./src/components/paramsRoute/paramsRouteTwo.vue')['default']
     Path: typeof import('./src/views/path.vue')['default']
@@ -50,6 +50,7 @@ declare module 'vue' {
     Update: typeof import('./src/views/update.vue')['default']
     UpdatedTest: typeof import('./src/components/UpdatedTest.vue')['default']
     Upload: typeof import('./src/views/Upload.vue')['default']
+    VanPicker: typeof import('vant/es')['Picker']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
     Views: typeof import('./src/views/index.vue')['default']
   }
