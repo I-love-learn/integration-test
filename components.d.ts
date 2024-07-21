@@ -28,6 +28,7 @@ declare module 'vue' {
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
     H: typeof import('./src/components/h.vue')['default']
     Hooks: typeof import('./src/views/hooks.vue')['default']
+    ModelVue: typeof import('./src/components/ModelVue.vue')['default']
     MoreText: typeof import('./src/components/MoreText.vue')['default']
     MyInput: typeof import('./src/components/MyInput.vue')['default']
     NCarousel: typeof import('naive-ui')['NCarousel']

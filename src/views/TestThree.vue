@@ -85,6 +85,25 @@ function change() {
 function onClick() {
   console.log(1)
 }
+// await Promise 只可以返回成功状态的值 如果遇到reject 则会停止运行 并且返回一个rejected promise
+async function Fun() {
+  await Promise.reject(1)
+  console.log(123)
+}
+
+Fun()
+  .then((res) => {
+    console.log(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+const three = ref(3)
+
+onUpdated(() => {
+  console.log("组件更新了")
+})
 </script>
 
 <template>
@@ -181,6 +200,8 @@ function onClick() {
       </el-main>
     </el-container>
   </div>
+
+  <ModelVue v-model="three" />
 </template>
 
 <style lang="scss">
