@@ -214,5 +214,5 @@ onUpdated(() => {
   font-size: 16px;
 }
 </style>
-<!-- 不写scoped的情况下 scss里的deep会不生效 也就无法样式穿透了 -->
-<style src="@/assets/css/test.scss"></style>
+<!-- 不写scoped的情况下 scss里的:deep会导致原本应该生效的样式不生效了 也就是说 scoped才可以使用deep 不使用scoped就使用deep 反倒会导致样式作废 因为打包后样式 还是:deep() css不认这个语法 -->
+<style src="@/assets/css/test.scss" scoped></style>
