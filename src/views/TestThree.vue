@@ -202,6 +202,10 @@ onUpdated(() => {
   </div>
 
   <ModelVue v-model="three" />
+
+  测试style
+  <source />
+  <div class="color">123456</div>
 </template>
 
 <style lang="scss">
@@ -210,3 +214,5 @@ onUpdated(() => {
   font-size: 16px;
 }
 </style>
+<!-- 不写scoped的情况下 scss里的deep会不生效 也就无法样式穿透了 -->
+<style src="@/assets/css/test.scss"></style>
