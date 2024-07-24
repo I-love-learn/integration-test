@@ -375,6 +375,8 @@ function change() {
 watch(value, (newValue, oldValue) => {
   console.log("value更新了")
 })
+
+const time = ref()
 </script>
 
 <template>
@@ -414,6 +416,9 @@ watch(value, (newValue, oldValue) => {
             >template没用到的proxy 会触发updated吗</el-button
           >
           <el-button @click="flag = 11" type="primary">测试watch时机</el-button>
+          <el-button @click="flag = 12" type="primary"
+            >datepicker可以跨年选吗</el-button
+          >
         </div>
       </el-aside>
       <el-main>
@@ -531,6 +536,17 @@ watch(value, (newValue, oldValue) => {
             则watch执行时机在nexttick之前 感觉更像是数据改变的时候
             新创建了一个nexttick1放在 nexttick后执行了
           </div>
+        </template>
+        <template v-else-if="flag === 12">
+          unlink-panels取消两个面板的联动
+          <el-date-picker
+            v-model="time"
+            unlink-panels
+            type="daterange"
+            placeholder="选择日期"
+          ></el-date-picker>
+
+          可以 但是操作麻烦
         </template>
       </el-main>
     </el-container>
