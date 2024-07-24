@@ -538,18 +538,19 @@ const list = reactive(["1", "2", "3"])
 
 const uploadShow = ref(true)
 
-function changeUpload(file) {
+function changeUpload(file, filelist) {
   console.log(1)
-  setTimeout(() => {
-    fileList.data.splice(1, 1)
-  }, 1000)
+  fileList.data.splice(1, 1)
   // uploadRef.value.clearFiles()
   // setTimeout(() => {
   //   console.log(fileList);
-  //   fileList.data.push({
-  //     url:'https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969'
-  //   })
-  // }, 2000);
+  // fileList.data.push({
+  //   url: "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969"
+  // })
+  // }, 0)
+  filelist.push({
+    url: "https://t14.baidu.com/it/u=122816844,712275297&fm=224&app=112&size=h200&n=0&f=PNG?sec=1715533200&t=296085a25226e7ed9a44453eb6aae969"
+  })
 }
 
 const text = ref("")
@@ -1376,6 +1377,17 @@ export default {
             ref="uploadRef2"
             @change="changeUpload2"
             @remove="changeUpload2"
+            >+</el-upload
+          >
+
+          <el-upload
+            action=""
+            :auto-upload="false"
+            show-file-list
+            list-type="picture-card"
+            :file-list="fileList.data"
+            ref="uploadRef"
+            @change="changeUpload"
             >+</el-upload
           >
         </div>
