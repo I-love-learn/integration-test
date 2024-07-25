@@ -104,6 +104,8 @@ const three = ref(3)
 onUpdated(() => {
   console.log("组件更新了")
 })
+
+const value2 = ref([])
 </script>
 
 <template>
@@ -206,6 +208,30 @@ onUpdated(() => {
   测试style
   <source />
   <div class="color">123456</div>
+
+  <div style="width: 100px; display: flex">
+    <el-date-picker
+      v-model="value2"
+      type="datetimerange"
+      start-placeholder="Start date"
+      end-placeholder="End date"
+      format="YYYY-MM-DD HH:mm:ss"
+      date-format="YYYY/MM/DD ddd"
+      time-format="A hh:mm:ss"
+    />
+  </div>
+  <!-- el-date-picker 放到row col里 会自适应 本质上是放到flex布局里 会自适应 明天看看为什么 -->
+  <el-row style="width: 100px">
+    <el-date-picker
+      v-model="value2"
+      type="datetimerange"
+      start-placeholder="Start date"
+      end-placeholder="End date"
+      format="YYYY-MM-DD HH:mm:ss"
+      date-format="YYYY/MM/DD ddd"
+      time-format="A hh:mm:ss"
+    />
+  </el-row>
 </template>
 
 <style lang="scss">
