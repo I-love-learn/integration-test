@@ -106,6 +106,12 @@ onUpdated(() => {
 })
 
 const value2 = ref([])
+
+const listData = ref([
+  "一个和桑挑水吃",
+  "一个和桑挑水吃一个和桑挑水吃",
+  "一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水"
+])
 </script>
 
 <template>
@@ -121,6 +127,7 @@ const value2 = ref([])
           >测试el-upload 多选删除其中一个是怎么做到的</el-button
         >
         <el-button @click="flag = 5">测试el-upload数据绑定</el-button>
+        <el-button @click="flag = 6">el-card 高度怎么来的</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -198,6 +205,15 @@ const value2 = ref([])
             也就是:on = @
           </div>
           <button :on-click="onClick" :onClick="onClick">click</button>
+        </template>
+        <template v-else-if="flag === 6">
+          <el-card></el-card>
+          <!-- 默认只有padding大小 -->
+
+          <el-row>
+            <!-- v-for渲染的dom 样式每个都是独立的 那我也不知道为啥那里会高度不一样了 -->
+            <el-card v-for="item in listData" :key="item">{{ item }}</el-card>
+          </el-row>
         </template>
       </el-main>
     </el-container>
