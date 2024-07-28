@@ -208,6 +208,8 @@ const listData = ref([
         </template>
         <template v-else-if="flag === 6">
           <el-card></el-card>
+          <!-- el-card 里面的el-card_body这个东西高度默认不等于el-card 并且他也不是flex布局 本质上是el-card-body 撑起了el-card 如果el-card外部容器是flex 那么会导致el-card继承高度 但el-card-body不会继承高度  -->
+          <!-- 其实还是flex的问题 默认flex子元素高度等于父元素 除非设置align-items -->
           <!-- 默认只有padding大小 -->
 
           <el-row>
