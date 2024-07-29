@@ -67,7 +67,7 @@ function beforeRemove() {
 function beforeUpload() {
   console.log(789)
 }
-
+const uploadRef = ref()
 function change() {
   // change事件中return false并不会阻止 往filelist里添加内容 正确做法是如果不符合条件直接删除最后一个元素即可
   // return false
@@ -81,7 +81,13 @@ function change() {
     console.log(fileList)
   }, 1000)
 }
+function change1(a, v) {
+  console.log(v)
+  // console.log(uploadRef.value)
+  // const input = uploadRef.value.querySelectorAll("input[type='file']")
 
+  console.log(document.querySelectorAll("input[type='file']"))
+}
 function onClick() {
   console.log(1)
 }
@@ -172,6 +178,18 @@ const listData = ref([
               list-type="picture-card"
               :auto-upload="false"
               @change="change"
+              @remove="remove"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
+            />
+            <el-upload
+              action=""
+              v-model:file-list="fileList"
+              list-type="picture-card"
+              :auto-upload="false"
+              @change="change1"
+              multiple
+              ref="uploadRef"
               @remove="remove"
               :before-remove="beforeRemove"
               :before-upload="beforeUpload"
