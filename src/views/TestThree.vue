@@ -1,4 +1,5 @@
 <script setup>
+import { ArrowDown } from "@element-plus/icons-vue"
 const flag = ref(1)
 
 const data = reactive({
@@ -7,7 +8,7 @@ const data = reactive({
     b: 2
   }
 })
-
+const value = ref("")
 console.log(toRef(() => data.data)) // getterRef
 
 const a = toRef(data, "data")
@@ -118,6 +119,279 @@ const listData = ref([
   "一个和桑挑水吃一个和桑挑水吃",
   "一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水吃一个和桑挑水"
 ])
+
+const props1 = {
+  checkStrictly: true
+}
+const value1 = ref("")
+const options = [
+  {
+    value: "guide",
+    label: "Guide",
+    children: [
+      {
+        value: "disciplines",
+        label: "Disciplines",
+        children: [
+          {
+            value: "consistency",
+            label: "Consistency"
+          },
+          {
+            value: "feedback",
+            label: "Feedback"
+          },
+          {
+            value: "efficiency",
+            label: "Efficiency"
+          },
+          {
+            value: "controllability",
+            label: "Controllability"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "side nav",
+            label: "Side Navigation"
+          },
+          {
+            value: "top nav",
+            label: "Top Navigation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "component",
+    label: "Component",
+    children: [
+      {
+        value: "basic",
+        label: "Basic",
+        children: [
+          {
+            value: "layout",
+            label: "Layout"
+          },
+          {
+            value: "color",
+            label: "Color"
+          },
+          {
+            value: "typography",
+            label: "Typography"
+          },
+          {
+            value: "icon",
+            label: "Icon"
+          },
+          {
+            value: "button",
+            label: "Button"
+          }
+        ]
+      },
+      {
+        value: "form",
+        label: "Form",
+        children: [
+          {
+            value: "radio",
+            label: "Radio"
+          },
+          {
+            value: "checkbox",
+            label: "Checkbox"
+          },
+          {
+            value: "input",
+            label: "Input"
+          },
+          {
+            value: "input-number",
+            label: "InputNumber"
+          },
+          {
+            value: "select",
+            label: "Select"
+          },
+          {
+            value: "cascader",
+            label: "Cascader"
+          },
+          {
+            value: "switch",
+            label: "Switch"
+          },
+          {
+            value: "slider",
+            label: "Slider"
+          },
+          {
+            value: "time-picker",
+            label: "TimePicker"
+          },
+          {
+            value: "date-picker",
+            label: "DatePicker"
+          },
+          {
+            value: "datetime-picker",
+            label: "DateTimePicker"
+          },
+          {
+            value: "upload",
+            label: "Upload"
+          },
+          {
+            value: "rate",
+            label: "Rate"
+          },
+          {
+            value: "form",
+            label: "Form"
+          }
+        ]
+      },
+      {
+        value: "data",
+        label: "Data",
+        children: [
+          {
+            value: "table",
+            label: "Table"
+          },
+          {
+            value: "tag",
+            label: "Tag"
+          },
+          {
+            value: "progress",
+            label: "Progress"
+          },
+          {
+            value: "tree",
+            label: "Tree"
+          },
+          {
+            value: "pagination",
+            label: "Pagination"
+          },
+          {
+            value: "badge",
+            label: "Badge"
+          }
+        ]
+      },
+      {
+        value: "notice",
+        label: "Notice",
+        children: [
+          {
+            value: "alert",
+            label: "Alert"
+          },
+          {
+            value: "loading",
+            label: "Loading"
+          },
+          {
+            value: "message",
+            label: "Message"
+          },
+          {
+            value: "message-box",
+            label: "MessageBox"
+          },
+          {
+            value: "notification",
+            label: "Notification"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "menu",
+            label: "Menu"
+          },
+          {
+            value: "tabs",
+            label: "Tabs"
+          },
+          {
+            value: "breadcrumb",
+            label: "Breadcrumb"
+          },
+          {
+            value: "dropdown",
+            label: "Dropdown"
+          },
+          {
+            value: "steps",
+            label: "Steps"
+          }
+        ]
+      },
+      {
+        value: "others",
+        label: "Others",
+        children: [
+          {
+            value: "dialog",
+            label: "Dialog"
+          },
+          {
+            value: "tooltip",
+            label: "Tooltip"
+          },
+          {
+            value: "popover",
+            label: "Popover"
+          },
+          {
+            value: "card",
+            label: "Card"
+          },
+          {
+            value: "carousel",
+            label: "Carousel"
+          },
+          {
+            value: "collapse",
+            label: "Collapse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "resource",
+    label: "Resource",
+    children: [
+      {
+        value: "axure",
+        label: "Axure Components"
+      },
+      {
+        value: "sketch",
+        label: "Sketch Templates"
+      },
+      {
+        value: "docs",
+        label: "Design Documentation"
+      }
+    ]
+  }
+]
 </script>
 
 <template>
@@ -134,6 +408,10 @@ const listData = ref([
         >
         <el-button @click="flag = 5">测试el-upload数据绑定</el-button>
         <el-button @click="flag = 6">el-card 高度怎么来的</el-button>
+        <el-button @click="flag = 7"
+          >el-input 点击下拉箭头图标无法触发click事件</el-button
+        >
+        <el-button @click="flag = 8">级联下拉 change触发时机</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -234,6 +512,33 @@ const listData = ref([
             <!-- v-for渲染的dom 样式每个都是独立的 那我也不知道为啥那里会高度不一样了 -->
             <el-card v-for="item in listData" :key="item">{{ item }}</el-card>
           </el-row>
+        </template>
+        <template v-else-if="flag === 7">
+          <el-input
+            v-model="value"
+            placeholder="请选择配送地"
+            style="width: 212px; height: 32px"
+            :suffix-icon="ArrowDown"
+            readonly
+            class="select-address"
+            @click="console.log(123)"
+          >
+          </el-input>
+          确实 需要在input外包一层
+        </template>
+        <template v-else-if="flag === 8">
+          <button @click="value1 = 'consistency'">变</button>
+          <el-cascader
+            v-model="value1"
+            :options="options"
+            :props="props1"
+            clearable
+            @change="console.log('我变了')"
+          />
+
+          <div>
+            不会 v-model的值改变 ui会变化 但不触发change change是手动选择才触发
+          </div>
         </template>
       </el-main>
     </el-container>
