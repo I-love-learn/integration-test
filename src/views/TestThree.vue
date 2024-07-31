@@ -123,6 +123,7 @@ const listData = ref([
 const props1 = {
   checkStrictly: true
 }
+
 const value1 = ref("")
 const options = [
   {
@@ -392,6 +393,14 @@ const options = [
     ]
   }
 ]
+
+const tableData = ref([
+  {
+    name: "name1",
+    state: false
+  },
+  { name: "name2", state: false }
+])
 </script>
 
 <template>
@@ -412,6 +421,12 @@ const options = [
           >el-input 点击下拉箭头图标无法触发click事件</el-button
         >
         <el-button @click="flag = 8">级联下拉 change触发时机</el-button>
+        <el-button @click="flag = 9"
+          >style background template不生效吗</el-button
+        >
+        <el-button @click="flag = 10"
+          >el-switch 手动改变值 会触发change吗</el-button
+        >
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -539,6 +554,82 @@ const options = [
           <div>
             不会 v-model的值改变 ui会变化 但不触发change change是手动选择才触发
           </div>
+        </template>
+        <template v-else-if="flag === 9">
+          <div
+            style="
+              background-image: url(../assets/vue.svg);
+              width: 80px;
+              height: 80px;
+            "
+          ></div>
+          <div
+            style="
+              background-image: url(../assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png);
+              width: 80px;
+              height: 80px;
+            "
+          ></div>
+          <div
+            style="
+              background-image: url('../assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png');
+              width: 80px;
+              height: 80px;
+            "
+          ></div>
+          <div
+            style="
+              background-image: url('/lx9pflerpej90fgz8xwd7bx39gt5zw6.png');
+              width: 80px;
+              height: 80px;
+            "
+          ></div>
+          <div
+            style="
+              background-image: url('src/assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png');
+              width: 80px;
+              height: 80px;
+            "
+          ></div>
+          <img src="../assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png" alt="" />
+
+          测试得出 img style里的background 路径会解析成最终编译后的路径
+          无论是相对路径还是绝对路径 亦或者是@这种配置后的路径 但是background
+          写在内连style解析后 是字符串 不会解析@ 以及相对路径
+          但通过绝对路径访问图片可以
+        </template>
+        <template v-else-if="flag === 10">
+          <el-switch v-model="value" @change="console.log(value)" />
+          <div>不会触发change</div>
+
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column type="name"> </el-table-column>
+            <el-table-column label="状态" width="180">
+              <template #default="{ row }">
+                <el-switch
+                  v-model="row.state"
+                  @change="console.log(row.state)"
+                />
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <button
+            @click="
+              tableData = [
+                {
+                  name: 'name1',
+                  state: true
+                },
+                { name: 'name2', state: true }
+              ]
+            "
+          >
+            数据改变
+          </button>
+
+          数据改变不会触发switch selected 级联 等控件的change事件
+          因为是手动通过点击组件交互修改数据才会触发change
         </template>
       </el-main>
     </el-container>

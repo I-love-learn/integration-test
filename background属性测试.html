@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .warp {
+      width: 300px;
+      height: 300px;
+      padding: 50px;
+      border: 100px solid;
+      background: url('./public/lx9pflerpej90fgz8xwd7bx39gt5zw6.png') no-repeat center 100%/100%;
+      background-clip: border-box;
+    }
+
+    .warp1 {
+      width: 300px;
+      height: 300px;
+      padding: 50px;
+      border: 100px dashed;
+      background: url('./public/lx9pflerpej90fgz8xwd7bx39gt5zw6.png') no-repeat;
+      background-position: center;
+      background-clip: border-box;
+      background-size: 100% 100%;
+
+    }
+
+    .warp3 {
+      width: 300px;
+      height: 300px;
+      padding: 50px;
+      border: 100px dashed;
+      background: url('./public/lx9pflerpej90fgz8xwd7bx39gt5zw6.png') no-repeat center/100% 100%;
+    }
+
+    .warp4 {
+      width: 300px;
+      height: 300px;
+      padding: 50px;
+      border: 100px dashed;
+      background: border-box url('./public/lx9pflerpej90fgz8xwd7bx39gt5zw6.png') no-repeat center/100% 100%;
+    }
+
+    .warp5 {
+      width: 300px;
+      height: 300px;
+      padding: 50px;
+      border: 100px dashed;
+      background: url('./public/lx9pflerpej90fgz8xwd7bx39gt5zw6.png') no-repeat center/100% 100%;
+      background-clip: padding-box;
+      background-origin: content-box;
+      /* origin决定图片怎么放、clip决定图片的尺寸大小 以及是否要在border padding上设置背景图 二者各有各的功能 */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="warp"></div>
+  <div class="warp1"></div>
+  <div class="warp3"></div>
+  <div class="warp4"></div>
+  <div class="warp5"></div>
+</body>
+
+</html>
