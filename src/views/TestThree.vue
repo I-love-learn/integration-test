@@ -401,9 +401,85 @@ const tableData = ref([
   },
   { name: "name2", state: false }
 ])
+const cd = ref(1)
+const unit = computed(() => {
+  console.log(123456)
+  return cd.value + 1
+})
+
+setTimeout(() => {
+  cd.value++
+}, 10)
+
+const objj = {}
+let temp = 3
+Object.defineProperty(objj, "a", {
+  get() {
+    console.log("我被读取")
+    return temp
+  },
+  set(v) {
+    console.log("我被修改")
+    temp = v
+  }
+})
+
+objj.a = 1
+
+const zhi1 = ref(1)
+
+const zhi2 = ref(2)
+// setTimeout(() => {
+//   zhi1.value++
+// }, 10)
+// setTimeout(() => {
+//   zhi1.value++
+// }, 1000)
+// 计算属性执行时内部修改了 被计算的属性会导致 计算属性再执行一次 仅第一次修改 这样可以避免无限执行 其实理论上来讲是不应该多这一次计算的 因为值不是异步修改的
+// 但如果计算属性内部是异步修改被计算属性的话会导致无限执行
+const co = computed(() => {
+  console.log("%c计算属性", "color:red;font-size:20px")
+  // if (zhi1.value === 2) {
+  //   zhi2.value = 2
+  // }
+
+  // Promise.resolve意思是 立即返回一个 已经执行完成的promise 这里123444 打印在456789之前 因为这里resolve里的内容是函数 所以这里会立即执行函数 而then 这里的then执行时机是微任务里 这里我本来猜测 computed执行也是放到微任务里的 但是这里如果我写了微任务异步 也会导致无限执行 那就意味着 computed执行是宏任务的
+  // Promise.resolve(
+  //   (() => {
+  //     console.log(123444)
+  //     zhi1.value++
+  //   })()
+  // ).then(() => {})
+  console.log(456789)
+  // zhi2.value++
+
+  // 也就是说 每次计算属性外部修改了 计算属性的依赖后 计算属性会执行一次 然后遇到这里内部修改依赖 也会触发一次计算 但是在那个计算属性里 不会触发下一次计算了 戛然而止了 防止无限计算 但是如果是异步修改的话 会无限计算
+  zhi1.value++
+  return zhi1.value + zhi2.value
+})
+setTimeout(() => {
+  zhi2.value = 4
+}, 10)
+// watch里如果修改了 比如++ 被watch的对象 会造成无限监听 内存溢出 但是赋值不会 要避免在watch和computed对依赖进行修改
+// 还有一种情况要避免就是 像这里 如果计算属性里 zhi1++  而这里监听zhi1 将zhi1每次赋值为3 也会造成computed和watch 互相影响 导致无限监听
+watch(zhi2, (newValue, oldValue) => {
+  console.log(newValue, oldValue)
+  zhi2.value = 3
+})
+// watch(zhi2, (newValue, oldValue) => {
+//   console.log(newValue, oldValue)
+//   zhi2.value = 5
+// })
+// 以后可以研究计算属性和watch执行顺序
+const aaaa = computed(() => {
+  const a = zhi2.value++
+  // 计算属性必须要return 才会生效
+  return a
+})
 </script>
 
 <template>
+  {{ aaaa }}
   <div class="common-layout">
     <el-container>
       <el-aside width="500px">
@@ -427,6 +503,7 @@ const tableData = ref([
         <el-button @click="flag = 10"
           >el-switch 手动改变值 会触发change吗</el-button
         >
+        <el-button @click="flag = 11">计算属性的触发时机</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -633,11 +710,16 @@ const tableData = ref([
           数据改变不会触发switch selected 级联 等控件的change事件
           因为是手动通过点击组件交互修改数据才会触发change
         </template>
+        <template v-else-if="flag === 11">
+          计算属性 会在属性初始化后计算 以及属性更改后第二次计算
+        </template>
       </el-main>
     </el-container>
   </div>
 
   <ModelVue v-model="three" />
+  <div>{{ unit }}</div>
+  <p>{{ co }}</p>
 
   测试style
   <source />
