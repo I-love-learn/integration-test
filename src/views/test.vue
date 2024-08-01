@@ -1792,6 +1792,7 @@ export default {
     </el-main>
   </el-container>
   <router-view />
+  <p>{{ RetRef() }}</p>
 </template>
 
 <style scoped lang="scss">
