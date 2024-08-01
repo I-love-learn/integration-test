@@ -597,6 +597,8 @@ const tableData = ref([
           无论是相对路径还是绝对路径 亦或者是@这种配置后的路径 但是background
           写在内连style解析后 是字符串 不会解析@ 以及相对路径
           但通过绝对路径访问图片可以
+          测试环境可以通过src/assets/images这种绝对路径来访问 打包后不可以
+          因为background 内联不会解析 而是当字符串处理路径
         </template>
         <template v-else-if="flag === 10">
           <el-switch v-model="value" @change="console.log(value)" />
