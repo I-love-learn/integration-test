@@ -457,9 +457,9 @@ const co = computed(() => {
   zhi1.value++
   return zhi1.value + zhi2.value
 })
-setTimeout(() => {
-  zhi2.value = 4
-}, 10)
+// setTimeout(() => {
+//   zhi2.value = 4
+// }, 10)
 // watch里如果修改了 比如++ 被watch的对象 会造成无限监听 内存溢出 但是赋值不会 要避免在watch和computed对依赖进行修改
 // 还有一种情况要避免就是 像这里 如果计算属性里 zhi1++  而这里监听zhi1 将zhi1每次赋值为3 也会造成computed和watch 互相影响 导致无限监听
 watch(zhi2, (newValue, oldValue) => {
@@ -471,14 +471,23 @@ watch(zhi2, (newValue, oldValue) => {
 //   zhi2.value = 5
 // })
 // 以后可以研究计算属性和watch执行顺序
-const aaaa = computed(() => {
-  const a = zhi2.value++
-  // 计算属性必须要return 才会生效
-  return a
+// const aaaa = computed(() => {
+//   const a = zhi2.value++
+//   // 计算属性必须要return 才会生效
+//   return a
+// })
+
+const aaa = ref(1)
+
+const aaCom = computed(() => {
+  console.log("计算属性------")
+  aaa.value++
+  return aaa.value
 })
 </script>
 
 <template>
+  {{ aaCom }}
   {{ aaaa }}
   <div class="common-layout">
     <el-container>

@@ -56,6 +56,7 @@ declare module 'vue' {
     TestArray: typeof import('./src/components/TestArray.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
     TestChildSingle: typeof import('./src/components/TestChildSingle.vue')['default']
+    TestFour: typeof import('./src/views/TestFour.vue')['default']
     TestProps: typeof import('./src/components/TestProps.vue')['default']
     TestScoped: typeof import('./src/components/Test-Scoped.vue')['default']
     TestThree: typeof import('./src/views/TestThree.vue')['default']
