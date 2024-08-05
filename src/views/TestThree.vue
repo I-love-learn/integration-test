@@ -484,6 +484,12 @@ const aaCom = computed(() => {
   aaa.value++
   return aaa.value
 })
+
+const router = useRouter()
+
+onUpdated(() => {
+  console.log("更新了")
+})
 </script>
 
 <template>
@@ -513,6 +519,7 @@ const aaCom = computed(() => {
           >el-switch 手动改变值 会触发change吗</el-button
         >
         <el-button @click="flag = 11">计算属性的触发时机</el-button>
+        <el-button @click="flag = 12">route 参数变化触发update吗</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -721,6 +728,9 @@ const aaCom = computed(() => {
         </template>
         <template v-else-if="flag === 11">
           计算属性 会在属性初始化后计算 以及属性更改后第二次计算
+        </template>
+        <template v-else-if="flag === 12">
+          <button @click="router.push('/test3?type=1')">切换</button>
         </template>
       </el-main>
     </el-container>
