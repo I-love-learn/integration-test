@@ -490,6 +490,8 @@ const router = useRouter()
 onUpdated(() => {
   console.log("更新了")
 })
+
+const cardShow = ref(false)
 </script>
 
 <template>
@@ -520,6 +522,7 @@ onUpdated(() => {
         >
         <el-button @click="flag = 11">计算属性的触发时机</el-button>
         <el-button @click="flag = 12">route 参数变化触发update吗</el-button>
+        <el-button @click="flag = 13">el-card大小变化 有过度吗</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -731,6 +734,19 @@ onUpdated(() => {
         </template>
         <template v-else-if="flag === 12">
           <button @click="router.push('/test3?type=1')">切换</button>
+        </template>
+        <template v-else-if="flag === 13">
+          <el-card
+            style="width: 500px; height: 300px"
+            v-if="cardShow"
+          ></el-card>
+          经过证明 el-card 和 el-row 都没有过度效果 默认
+          <el-row :gutter="20">
+            <el-col :span="cardShow ? 10 : 24" style="background-color: red"
+              >23</el-col
+            >
+          </el-row>
+          <el-button @click="cardShow = !cardShow">切换大小</el-button>
         </template>
       </el-main>
     </el-container>
