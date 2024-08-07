@@ -86,7 +86,8 @@ function change1(a, v) {
   console.log(v)
   // console.log(uploadRef.value)
   // const input = uploadRef.value.querySelectorAll("input[type='file']")
-
+  // uploadRef.value.clearFiles() // 情况ui与v-model的上传列表
+  fileList.value.pop()
   console.log(document.querySelectorAll("input[type='file']"))
 }
 function onClick() {
