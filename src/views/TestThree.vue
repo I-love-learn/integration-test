@@ -493,6 +493,24 @@ onUpdated(() => {
 })
 
 const cardShow = ref(false)
+
+const form = reactive({
+  name: "",
+  age: ""
+})
+const formRef = ref()
+const formRef2 = ref()
+function test() {
+  Object.assign(form, { name: "", age: "" })
+  console.log(form)
+  formRef.value?.resetFields()
+  formRef2.value?.resetFields()
+  console.log(form)
+}
+
+const showForm = ref(true)
+
+const check = ref()
 </script>
 
 <template>
@@ -524,6 +542,10 @@ const cardShow = ref(false)
         <el-button @click="flag = 11">计算属性的触发时机</el-button>
         <el-button @click="flag = 12">route 参数变化触发update吗</el-button>
         <el-button @click="flag = 13">el-card大小变化 有过度吗</el-button>
+        <el-button @click="flag = 14">el-form不认object.assign吗</el-button>
+        <el-button @click="flag = 15"
+          >stop无法阻止el-checkbox的点击文字触发选中事件？</el-button
+        >
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -741,13 +763,66 @@ const cardShow = ref(false)
             style="width: 500px; height: 300px"
             v-if="cardShow"
           ></el-card>
-          经过证明 el-card 和 el-row 都没有过度效果 默认
+          经过证明 el-card 和 el-row 都没有过度效果 默认 我意思是v-if 但是
+          大小变化有过度的
           <el-row :gutter="20">
             <el-col :span="cardShow ? 10 : 24" style="background-color: red"
               >23</el-col
             >
           </el-row>
           <el-button @click="cardShow = !cardShow">切换大小</el-button>
+        </template>
+        <template v-else-if="flag === 14">
+          <div v-if="showForm">
+            <el-form :model="form" ref="formRef">
+              <el-form-item>
+                <el-input
+                  type="text"
+                  v-model="form.name"
+                  placeholder="Name"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-input
+                  type="text"
+                  v-model="form.age"
+                  placeholder="age"
+                ></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div v-else>
+            <el-form :model="form" ref="formRef2">
+              <el-form-item>
+                <el-input
+                  type="text"
+                  v-model="form.name"
+                  placeholder="Name"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-input
+                  type="text"
+                  v-model="form.age"
+                  placeholder="age"
+                ></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <button @click="test">重置</button>
+          <button @click=";(showForm = !showForm), (form.name = 'xxxxxx')">
+            切换form
+          </button>
+        </template>
+        <template v-else-if="flag === 15">
+          默认checkbox 单独使用时 要通过true-value
+          false-value设置选中和不选中的值 否则默认就是truefalse value不生效
+          哦哦知道了 我的elementplus 版本太低了 这是2.6以上才有的
+          <el-checkbox v-model="check" :true-value="123"
+            ><span @click.stop="console.log(1)">点我点我点我</span></el-checkbox
+          >
+
+          证实 不能阻止
         </template>
       </el-main>
     </el-container>
