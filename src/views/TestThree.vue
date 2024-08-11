@@ -511,6 +511,16 @@ function test() {
 const showForm = ref(true)
 
 const check = ref()
+
+const v = ref("")
+
+function testInput1() {
+  console.log(event.target.value)
+  event.target.value = event.target.value.replace(/\D/g, "")
+}
+function testInput2() {
+  console.log(event.target.value)
+}
 </script>
 
 <template>
@@ -546,6 +556,7 @@ const check = ref()
         <el-button @click="flag = 15"
           >stop无法阻止el-checkbox的点击文字触发选中事件？</el-button
         >
+        <el-button @click="flag = 16">测试v-model语法糖</el-button>
       </el-aside>
       <el-main>
         <template v-if="flag === 1">
@@ -823,6 +834,9 @@ const check = ref()
           >
 
           证实 不能阻止
+        </template>
+        <template v-else-if="flag === 16">
+          <input type="text" v-model="v" @input="testInput1" />
         </template>
       </el-main>
     </el-container>
