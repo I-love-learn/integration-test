@@ -56,6 +56,10 @@ const routes = [
     component: () => import("views/TestFour.vue")
   },
   {
+    path: "/test5",
+    component: () => import("views/TestFive.vue")
+  },
+  {
     path: "/hooks",
     component: () => import("views/hooks.vue")
   },
