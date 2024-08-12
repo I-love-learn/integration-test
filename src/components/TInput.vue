@@ -13,6 +13,7 @@ watch(
   }
 )
 const testInput1 = (e) => {
+  // 这里e.target.value 每一次拿的是上一次的值 + 新输入的值
   console.log(e.target.value) // 11a
   setTimeout(() => {
     console.log(0)
@@ -27,8 +28,13 @@ const testInput1 = (e) => {
   // 为什么这里要e.target.value 而不让父组件的事件中直接用 modelValue呢 这是因为如果 emit("update:modelValue")在 emit("input")后触发的话 会导致父组件传的值还没有更新 先触发了input事件
   emit("input", e.target.value)
 }
-// 正则加g的好处是  英文状态下输入a 会匹配a 然后replace没问题 中文输入时 按住a 不放手只会replace第一次 后面的虽然也会触发input 但是没有清空 不知道为啥
+// 正则加g的好处是  英文状态下输入a 会匹配a 然后replace没问题 中文输入时 按住a 不放手只会replace第一次 后面的虽然也会触发input 但是没有清空 不知道为啥 是因为正则不g 只匹配一次 而中文输入法按住不松手 输入的拼音字符是连续的 而不是单个的 比如a aa aaa 按第一次是一个a 第二次是两个a 和英文不同 英文每次按下都算一个
 // 明晚继续研究为什么 el-input 会回显值 而其它两个不会
+// el-input 貌似它的input事件 覆盖后的target.value的值 并没有正确回显到input里 猜想是 value值改变又会重新赋值一次给 target.value？？
+// 不过通过mounted直接获取el-input中input 直接addEventListener input 就不会有这个情况了  通过打印可以看出 v-model绑定的值更新在 el-input的 @input后 但是在 input 的input前 这也许证明了为什么后者replace的值会生效 而前者不会吧 因为前者replace又被v-model的值覆盖了
+
+// 明天测试 通过组件拿到的dom input触发时机 和 组件内部的input 执行顺序
+// 为什么 后面两个输入框改变第一个没有出现值呢
 </script>
 
 <template>
