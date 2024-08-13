@@ -48,6 +48,7 @@ declare module 'vue' {
     SetUp: typeof import('./src/components/SetUp.vue')['default']
     SlideVue: typeof import('./src/components/SlideVue.vue')['default']
     SlotTest: typeof import('./src/components/SlotTest.vue')['default']
+    T2Input: typeof import('./src/components/T2Input.vue')['default']
     Test: typeof import('./src/views/test.vue')['default']
     TestArray: typeof import('./src/components/TestArray.vue')['default']
     TestChildMultiple: typeof import('./src/components/TestChildMultiple.vue')['default']
