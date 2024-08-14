@@ -10,6 +10,8 @@ watch(
   () => props.modelValue,
   (n, o) => {
     console.log(n, o)
+
+    // emit("update:modelValue", n)
   }
 )
 const testInput1 = (e) => {
@@ -34,11 +36,16 @@ const testInput1 = (e) => {
 // 不过通过mounted直接获取el-input中input 直接addEventListener input 就不会有这个情况了  通过打印可以看出 v-model绑定的值更新在 el-input的 @input后 但是在 input 的input前 这也许证明了为什么后者replace的值会生效 而前者不会吧 因为前者replace又被v-model的值覆盖了
 
 // 明天测试 通过组件拿到的dom input触发时机 和 组件内部的input 执行顺序
-// 为什么 后面两个输入框改变第一个没有出现值呢
+// dom的input 触发最晚 在数据更新后
+// 为什么 后面两个输入框改变第一个没有出现值呢  因为数值变化 并没有触发组件的emit("update:modelValue") 因为这个咱们是放在 input事件里触发的  难道说el-input是放到watch里触发的？  妈的 我傻逼了 我没有吧 传过来的值绑定给 input
+const input = ref(null)
+defineExpose({
+  input
+})
 </script>
 
 <template>
-  <div>
-    <input type="text" @input="testInput1" />
+  <div ref="input">
+    <input type="text" :value="modelValue" @input="testInput1" />
   </div>
 </template>
