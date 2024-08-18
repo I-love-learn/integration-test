@@ -60,6 +60,7 @@ onMounted(() => {
 const input3 = ref()
 
 const objectSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
+  console.log(rowIndex, row)
   if (columnIndex === 0) {
     if (rowIndex % 2 === 0) {
       return {
@@ -103,6 +104,13 @@ const tableData = [
     amount1: "621",
     amount2: "2.2",
     amount3: 17
+  },
+  {
+    id: "12987126",
+    name: "Tom",
+    amount1: "539",
+    amount2: "4.1",
+    amount3: 15
   },
   {
     id: "12987126",
