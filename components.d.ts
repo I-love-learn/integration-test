@@ -15,6 +15,7 @@ declare module 'vue' {
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
     ElRow: typeof import('element-plus/es')['ElRow']

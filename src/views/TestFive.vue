@@ -120,6 +120,19 @@ const tableData = [
     amount3: 15
   }
 ]
+
+const cascaderData = [
+  {
+    label: "甲乙丙丁",
+    value: "1",
+    able: 0
+  },
+  {
+    label: "甲乙丙丁1",
+    value: "1",
+    able: 1
+  }
+]
 </script>
 
 <template>
@@ -147,6 +160,15 @@ const tableData = [
           <el-table-column prop="amount2" label="Amount 2" />
           <el-table-column prop="amount3" label="Amount 3" />
         </el-table>
+      </fieldset>
+      <fieldset>
+        <legend>级联选择器 禁用属性是0还是1</legend>
+        <el-cascader
+          :options="cascaderData"
+          :props="{
+            disabled: 'able'
+          }"
+        />
       </fieldset>
     </form>
   </div>
