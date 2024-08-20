@@ -133,6 +133,9 @@ const cascaderData = [
     able: 1
   }
 ]
+
+const show = ref(false)
+const loading = ref(true)
 </script>
 
 <template>
@@ -169,6 +172,16 @@ const cascaderData = [
             disabled: 'able'
           }"
         />
+      </fieldset>
+      <fieldset>
+        <legend>dialog 使用v-loading</legend>
+        <el-button @click="show = true">出来吧 dialog</el-button>
+        <el-dialog v-loading="loading" title="title" width="30%" v-model="show">
+          0000000000
+        </el-dialog>
+
+        dialog 的确不能直接使用v-loading 否则不生效还会警告
+        因为dialog组件没有根元素
       </fieldset>
     </form>
   </div>

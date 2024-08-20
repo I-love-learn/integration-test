@@ -16,6 +16,7 @@ declare module 'vue' {
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCascader: typeof import('element-plus/es')['ElCascader']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -54,5 +55,8 @@ declare module 'vue' {
     Upload: typeof import('./src/views/Upload.vue')['default']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
     Views: typeof import('./src/views/index.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
