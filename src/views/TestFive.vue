@@ -136,6 +136,23 @@ const cascaderData = [
 
 const show = ref(false)
 const loading = ref(true)
+const form1 = ref()
+const form2 = ref()
+const form = reactive({
+  name: ""
+})
+const flag = ref(false)
+const resetForm = () => {
+  flag.value = true
+  Object.assign(form, { name: "" })
+  form1.value.resetFields()
+  form2.value.resetFields()
+  form3.value?.resetFields()
+}
+
+const activeName = ref("first")
+
+const form3 = ref()
 </script>
 
 <template>
@@ -182,6 +199,34 @@ const loading = ref(true)
 
         dialog 的确不能直接使用v-loading 否则不生效还会警告
         因为dialog组件没有根元素
+      </fieldset>
+
+      <fieldset>
+        <legend>el-form 值还原了是什么问题</legend>
+        原因是自己代码的问题 在resetForm后又重新给form赋值了
+        跟是不是执行resetFields 和el-tab 没有任何关系
+        <el-tabs v-model="activeName" class="demo-tabs">
+          <el-tab-pane label="User" name="first">
+            <el-form :model="form" ref="form1">
+              <el-form-item label="活动名称" prop="name">
+                <el-input v-model="form.name" />
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+          <el-tab-pane label="Config" name="second"
+            ><el-form :model="form" ref="form2">
+              <el-form-item label="活动名称" prop="name">
+                <el-input v-model="form.name" />
+              </el-form-item> </el-form
+          ></el-tab-pane>
+        </el-tabs>
+
+        <button @click="resetForm" type="button">重置</button>
+        <el-form :model="form" ref="form3" v-if="flag">
+          <el-form-item label="活动名称" prop="name">
+            <el-input v-model="form.name" />
+          </el-form-item>
+        </el-form>
       </fieldset>
     </form>
   </div>
