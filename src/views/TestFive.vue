@@ -141,10 +141,15 @@ const form2 = ref()
 const form = reactive({
   name: ""
 })
+form.name = "111"
 const flag = ref(false)
+// setTimeout(() => {
+
+// }, 0)
 const resetForm = () => {
   flag.value = true
   Object.assign(form, { name: "" })
+  form.name = "111"
   form1.value.resetFields()
   form2.value.resetFields()
   form3.value?.resetFields()
@@ -227,6 +232,11 @@ const form3 = ref()
             <el-input v-model="form.name" />
           </el-form-item>
         </el-form>
+
+        不过 formRef.value.resetFields()记录的初始值是 onMounted前的初始值
+        如果这个值在onMounted前被修改了 那么初始值也会变
+        这个初始值不会因为后续再重新给form的某个属性赋值 而被更改
+        因为他就是初始值
       </fieldset>
     </form>
   </div>
