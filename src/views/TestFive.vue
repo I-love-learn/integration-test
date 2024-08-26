@@ -165,6 +165,52 @@ onMounted(() => {
   zs.colSpan = 4
   // js控制表格合并
 })
+
+const options = ref([
+  {
+    value: "Option1",
+    label: "Option1"
+  },
+  {
+    value: "Option2",
+    label: "Option2"
+  },
+  {
+    value: "Option3",
+    label: "Option3"
+  },
+  {
+    value: "Option4",
+    label: "Option4"
+  },
+  {
+    value: "Option5",
+    label: "Option5"
+  }
+])
+setTimeout(() => {
+  options.value = [
+    {
+      value: "Option1",
+      label: "Option1"
+    },
+    {
+      value: "Option2",
+      label: "Option2"
+    },
+    {
+      value: "Option3",
+      label: "Option3"
+    },
+    {
+      value: "Option4",
+      label: "Option4"
+    }
+  ]
+}, 10000)
+function changeM() {
+  console.log(1234)
+}
 </script>
 
 <template>
@@ -287,6 +333,24 @@ onMounted(() => {
         这一点和原生表格合并不一样 因为0在原生表格里没有意义（火狐除外）
         vue中封装组件想要控制合并的话 我想td得需要v-if去动态渲染了
         后面可以自己封装一个可以合并单元格得table组件。
+      </fieldset>
+
+      <fieldset>
+        <legend>el-select change触发时机</legend>
+        <el-select
+          v-model="value"
+          @change="changeM"
+          class="m-2"
+          placeholder="Select"
+          size="large"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </fieldset>
     </form>
   </div>
