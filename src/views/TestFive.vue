@@ -158,6 +158,13 @@ const resetForm = () => {
 const activeName = ref("first")
 
 const form3 = ref()
+
+onMounted(() => {
+  console.log(zs)
+
+  zs.colSpan = 4
+  // js控制表格合并
+})
 </script>
 
 <template>
@@ -237,6 +244,49 @@ const form3 = ref()
         如果这个值在onMounted前被修改了 那么初始值也会变
         这个初始值不会因为后续再重新给form的某个属性赋值 而被更改
         因为他就是初始值
+      </fieldset>
+      <fieldset>
+        <legend>表格合并</legend>
+        element的form与naiveui的表格合并比起来后者更简单
+        因为后者只需要声明哪些需要合并 而前者还需要声明哪些不需要合并
+        从原生表格合并 看el表格合并 原生的表格合并中 如果表格td
+        需要rowspan或者colspan合并了 那么被合并的td 就不要写了
+        否则会造成布局变乱 在原生table里 rowspan和colspan 设置0是无效的 最低是1
+        <table border>
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>任务1</th>
+              <th>任务2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="zs">张三</td>
+              <td colspan="0">抽烟</td>
+              <td>喝酒</td>
+              <td>烫头</td>
+            </tr>
+            <tr>
+              <td rowspan="2">李四</td>
+              <td colspan="3">抽烟</td>
+              <!-- <td colspan="1">喝酒</td>
+              <td colspan="1">烫头</td> -->
+            </tr>
+            <tr>
+              <!-- <td>王五</td> -->
+              <td colspan="1">抽烟</td>
+              <td colspan="1">喝酒</td>
+              <td colspan="1">烫头</td>
+            </tr>
+          </tbody>
+        </table>
+
+        而在el里 除了需要声明需要合并的单元格 还需要声明 不需要合并的单元格
+        rowspan和colspan用1 表示 而合并后需要隐藏的单元格 则使用 0 0 表示
+        这一点和原生表格合并不一样 因为0在原生表格里没有意义（火狐除外）
+        vue中封装组件想要控制合并的话 我想td得需要v-if去动态渲染了
+        后面可以自己封装一个可以合并单元格得table组件。
       </fieldset>
     </form>
   </div>
