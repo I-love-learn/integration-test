@@ -257,9 +257,39 @@ const data = ref([
   }
 ])
 
+const origin = [
+  {
+    date: "2016-05-03",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles"
+  },
+  {
+    date: "2016-05-02",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles"
+  },
+  {
+    date: "2016-05-04",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles"
+  },
+  {
+    date: "2016-05-01",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles"
+  }
+]
+const tableData1 = reactive({ data: origin })
+
+const a = ref("2016-05-03")
+
+setTimeout(() => {
+  tableData1.data = origin
+  a.value = "2016-05-04"
+}, 5000)
 const currentNodeKey = ref(1)
 setTimeout(() => {
-  // currentNodeKey.value = 2
+  currentNodeKey.value = 2
   data.value = [
     {
       id: 1,
@@ -304,12 +334,13 @@ setTimeout(() => {
       ]
     }
   ]
-  setTimeout(() => {
-    currentNodeKey.value = 2
-  }, 10)
+  // setTimeout(() => {
+  //   currentNodeKey.value = 2
+  // }, 10)
 }, 6000)
 function handleExpand(a, b, c, d) {
   console.log(a, b, c, d)
+
   // currentNodeKey.value = a.id
   // setTimeout(() => {
   //   data.value = [
@@ -358,7 +389,9 @@ function handleExpand(a, b, c, d) {
   //   ]
   // }, 500)
 }
-
+function handleClick(a, b, c, d) {
+  currentNodeKey.value = 2
+}
 const open = ref(false)
 
 const formG = ref({
@@ -384,6 +417,21 @@ function openD() {
   //     name2: "222"
   //   }
   // })
+}
+
+// el-form的终极重置机制
+// 初始值
+const f = ref({
+  name: "0"
+})
+
+const formR = ref()
+
+const s = ref(false)
+
+function sShow() {
+  s.value = true
+  f.value.name = "74151"
 }
 </script>
 
@@ -535,10 +583,18 @@ function openD() {
           tree的data如果重新赋值前修改了current-node-key的值 不会生效 虽然值变了
           但选中还是之前的选中dom样式 并且后面再修改为相同的值也不会生效
           正确做法是赋值后 等下一次渲染再赋值 就可以了
+          https://www.jianshu.com/p/d3dfb3b2ad51
+          https://blog.csdn.net/sun2331/article/details/109855521
+          每次list数据更新 如果想让选中某个节点都要重新设置
           这个下一次渲染最好放在nexttick里而不要放在计时器里 计时器会有闪现
           而nexttick是同步的因为nexttick执行时间dom还没有渲染
         </p>
-        <p></p>
+        <p>
+          正常去切换currentNodeKey是会生效的
+          但如果currentNodeKey和data同时变化则不会生效了
+          正确做法是currentNodeKey变化要在data赋值后面的微任务或者宏任务内
+        </p>
+        <p>这只是结论 至于为什么会有这种清空 还需要去element得源码中查看</p>
         <el-tree
           style="max-width: 600px"
           :data="data"
@@ -551,6 +607,7 @@ function openD() {
           accordion
           node-key="id"
           @node-expand="handleExpand"
+          @node-click="handleClick"
         />
       </fieldset>
 
@@ -574,6 +631,45 @@ function openD() {
         </el-dialog>
 
         <el-button @click="openD">打开</el-button>
+      </fieldset>
+      <fieldset>
+        <legend>el-form 的终极重置机制</legend>
+        <p>表单如果想要resetFields生效和 表单校验生效prop必不可少</p>
+        <p>
+          form会记录它创建时 beforeMounted时的值 作为初始值
+          因此只要在此之前修改的值都会作为初始值。
+        </p>
+        <p>
+          因此如果我们做dialog嵌套form的时候一定要注意 如果dialog打开时
+          我们在给form赋值时 执行了dialog打开 那么form会记录这个值
+          后续如果不手动清空的话使用resetfileds会还原初始值
+        </p>
+        <el-form ref="formR" :model="f" v-if="s">
+          <el-form-item prop="name">
+            <el-input v-model="f.name"></el-input>
+          </el-form-item>
+        </el-form>
+
+        <el-button @click="$refs.formR.resetFields()">reset</el-button>
+        <el-button @click="sShow">出来吧 弹框</el-button>
+      </fieldset>
+      <fieldset>
+        <legend>el-table current-row-key 切换</legend>
+        <p>
+          current-row-key是会让高亮行切换的 但是不知道为什么我们的项目里就不行
+          后面再研究吧
+        </p>
+        <el-table
+          :data="tableData1.data"
+          table-layout="fixed"
+          v-model:current-row-key="a"
+          row-key="date"
+          highlight-current-row
+        >
+          <el-table-column prop="date" label="Date" />
+          <el-table-column prop="name" label="Name" />
+          <el-table-column prop="address" label="Address" />
+        </el-table>
       </fieldset>
     </form>
   </div>
