@@ -211,6 +211,180 @@ setTimeout(() => {
 function changeM() {
   console.log(1234)
 }
+
+const data = ref([
+  {
+    id: 1,
+    label: "Level one 1",
+    children: [
+      {
+        id: 11,
+        label: "Level two 1-1",
+        children: [
+          {
+            id: 111,
+            label: "Level three 1-1-1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    label: "Level one 2",
+    children: [
+      {
+        id: 21,
+        label: "Level two 2-1",
+        children: [
+          {
+            id: 211,
+            label: "Level three 2-1-1"
+          }
+        ]
+      },
+      {
+        id: 22,
+        label: "Level two 2-2",
+        children: [
+          {
+            id: 221,
+            label: "Level three 2-2-1"
+          }
+        ]
+      }
+    ]
+  }
+])
+
+const currentNodeKey = ref(1)
+setTimeout(() => {
+  // currentNodeKey.value = 2
+  data.value = [
+    {
+      id: 1,
+      label: "Level one 1",
+      children: [
+        {
+          id: 11,
+          label: "Level two 1-1",
+          children: [
+            {
+              id: 111,
+              label: "Level three 1-1-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 2,
+      label: "Level one 2",
+      children: [
+        {
+          id: 21,
+          label: "Level two 2-1",
+          children: [
+            {
+              id: 211,
+              label: "Level three 2-1-1"
+            }
+          ]
+        },
+        {
+          id: 22,
+          label: "Level two 2-2",
+          children: [
+            {
+              id: 221,
+              label: "Level three 2-2-1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  setTimeout(() => {
+    currentNodeKey.value = 2
+  }, 10)
+}, 6000)
+function handleExpand(a, b, c, d) {
+  console.log(a, b, c, d)
+  // currentNodeKey.value = a.id
+  // setTimeout(() => {
+  //   data.value = [
+  //     {
+  //       id: 1,
+  //       label: "Level one 1",
+  //       children: [
+  //         {
+  //           id: 11,
+  //           label: "Level two 1-1",
+  //           children: [
+  //             {
+  //               id: 111,
+  //               label: "Level three 1-1-1"
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       id: 2,
+  //       label: "Level one 2",
+  //       children: [
+  //         {
+  //           id: 21,
+  //           label: "Level two 2-1",
+  //           children: [
+  //             {
+  //               id: 211,
+  //               label: "Level three 2-1-1"
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           id: 22,
+  //           label: "Level two 2-2",
+  //           children: [
+  //             {
+  //               id: 221,
+  //               label: "Level three 2-2-1"
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }, 500)
+}
+
+const open = ref(false)
+
+const formG = ref({
+  name: "",
+  name2: ""
+})
+
+const formRef = ref()
+
+function openD() {
+  // formG.value = {
+  //   name: "111",
+  //   name2: "222"
+  // }
+  open.value = true
+  formG.value = {
+    name: "111",
+    name2: "222"
+  }
+  // nextTick(() => {
+  //   formG.value = {
+  //     name: "111",
+  //     name2: "222"
+  //   }
+  // })
+}
 </script>
 
 <template>
@@ -351,6 +525,55 @@ function changeM() {
             :value="item.value"
           />
         </el-select>
+      </fieldset>
+
+      <fieldset>
+        <legend>el-tree 数据更新后的默认选中</legend>
+        <p>highlight-current 让树选中带高亮</p>
+        <p>current-node-key+node-key 让树默认带高亮节点</p>
+        <p>
+          tree的data如果重新赋值前修改了current-node-key的值 不会生效 虽然值变了
+          但选中还是之前的选中dom样式 并且后面再修改为相同的值也不会生效
+          正确做法是赋值后 等下一次渲染再赋值 就可以了
+          这个下一次渲染最好放在nexttick里而不要放在计时器里 计时器会有闪现
+          而nexttick是同步的因为nexttick执行时间dom还没有渲染
+        </p>
+        <p></p>
+        <el-tree
+          style="max-width: 600px"
+          :data="data"
+          :current-node-key="currentNodeKey"
+          highlight-current
+          :props="{
+            children: 'children',
+            label: 'label'
+          }"
+          accordion
+          node-key="id"
+          @node-expand="handleExpand"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>dialog的form 表单重置</legend>
+        <p>
+          如果form是放在dialog里的 那么初始值以dialog创建的时候
+          也就是open值改变时的值为准 重置方法后续重置的也是那时候的值
+        </p>
+        <el-dialog v-model="open">
+          <el-form :model="formG" ref="formRef">
+            <el-form-item label="活动名称" prop="name">
+              <el-input type="text" v-model="formG.name"></el-input>
+            </el-form-item>
+            <el-form-item label="活动名称2" prop="name2">
+              <el-input type="text" v-model="formG.name2"></el-input>
+            </el-form-item>
+          </el-form>
+
+          <el-button @click="formRef.resetFields()">重置</el-button>
+        </el-dialog>
+
+        <el-button @click="openD">打开</el-button>
       </fieldset>
     </form>
   </div>

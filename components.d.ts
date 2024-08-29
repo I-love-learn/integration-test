@@ -28,6 +28,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTree: typeof import('element-plus/es')['ElTree']
     Father: typeof import('./src/components/sanji/father.vue')['default']
     Father1: typeof import('./src/components/toRef/Father1.vue')['default']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']
