@@ -171,7 +171,7 @@ export default defineConfig(({ mode }) => {
     // 服务配置
     server: {
       // 服务端口
-      port: 3000,
+      port: 3010,
       // 服务端口
       open: true, // 在服务器启动时自动在浏览器中打开应用程序
       // 服务端口 host设置0.0.0.0 可局域网内访问 和在packagejson中配置host 一样 port同理

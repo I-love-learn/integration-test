@@ -284,7 +284,7 @@ const tableData1 = reactive({ data: origin })
 const a = ref("2016-05-03")
 
 setTimeout(() => {
-  tableData1.data = origin
+  tableData1.data = [...origin]
   a.value = "2016-05-04"
 }, 5000)
 const currentNodeKey = ref(1)
