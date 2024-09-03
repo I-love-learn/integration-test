@@ -287,9 +287,19 @@ setTimeout(() => {
   tableData1.data = [...origin]
   a.value = "2016-05-04"
 }, 5000)
-const currentNodeKey = ref(1)
+const currentNodeKey = ref()
+onBeforeMount(() => {
+  currentNodeKey.value = 1
+})
+// el-tree的data 每次变化重新赋值时 会使用一开始初始时的currentkey的值作为默认选中 default-expanded 不会 它会拿当前值作为默认展开
+
+// 总结 el-tree 如果data不重新赋值 那么无论手动更改 currentkey还是default-expanded-keys 都会生效 但是如果data重新赋值 那么重新赋值currentkey不会使用当前的值 而是使用一开始初始时的currentkey的值 而 default-expanded 使用的是当前的值
+const keys = ref()
 setTimeout(() => {
   currentNodeKey.value = 2
+  keys.value = [1]
+}, 3000)
+setTimeout(() => {
   data.value = [
     {
       id: 1,
@@ -318,16 +328,6 @@ setTimeout(() => {
             {
               id: 211,
               label: "Level three 2-1-1"
-            }
-          ]
-        },
-        {
-          id: 22,
-          label: "Level two 2-2",
-          children: [
-            {
-              id: 221,
-              label: "Level three 2-2-1"
             }
           ]
         }
@@ -599,6 +599,7 @@ function sShow() {
           style="max-width: 600px"
           :data="data"
           :current-node-key="currentNodeKey"
+          :default-expanded-keys="keys"
           highlight-current
           :props="{
             children: 'children',
