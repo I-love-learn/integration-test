@@ -433,6 +433,391 @@ function sShow() {
   s.value = true
   f.value.name = "74151"
 }
+
+const optionsCascader = [
+  {
+    value: "guide",
+    label: "Guide",
+    disabled: true,
+    children: [
+      {
+        value: "disciplines",
+        label: "Disciplines",
+        children: [
+          {
+            value: "consistency",
+            label: "Consistency"
+          },
+          {
+            value: "feedback",
+            label: "Feedback"
+          },
+          {
+            value: "efficiency",
+            label: "Efficiency"
+          },
+          {
+            value: "controllability",
+            label: "Controllability"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "side nav",
+            label: "Side Navigation"
+          },
+          {
+            value: "top nav",
+            label: "Top Navigation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "component",
+    label: "Component",
+    children: [
+      {
+        value: "basic",
+        label: "Basic",
+        children: [
+          {
+            value: "layout",
+            label: "Layout"
+          },
+          {
+            value: "color",
+            label: "Color"
+          },
+          {
+            value: "typography",
+            label: "Typography"
+          },
+          {
+            value: "icon",
+            label: "Icon"
+          },
+          {
+            value: "button",
+            label: "Button"
+          }
+        ]
+      },
+      {
+        value: "form",
+        label: "Form",
+        children: [
+          {
+            value: "radio",
+            label: "Radio"
+          },
+          {
+            value: "checkbox",
+            label: "Checkbox"
+          },
+          {
+            value: "input",
+            label: "Input"
+          },
+          {
+            value: "input-number",
+            label: "InputNumber"
+          },
+          {
+            value: "select",
+            label: "Select"
+          },
+          {
+            value: "cascader",
+            label: "Cascader"
+          },
+          {
+            value: "switch",
+            label: "Switch"
+          },
+          {
+            value: "slider",
+            label: "Slider"
+          },
+          {
+            value: "time-picker",
+            label: "TimePicker"
+          },
+          {
+            value: "date-picker",
+            label: "DatePicker"
+          },
+          {
+            value: "datetime-picker",
+            label: "DateTimePicker"
+          },
+          {
+            value: "upload",
+            label: "Upload"
+          },
+          {
+            value: "rate",
+            label: "Rate"
+          },
+          {
+            value: "form",
+            label: "Form"
+          }
+        ]
+      },
+      {
+        value: "data",
+        label: "Data",
+        children: [
+          {
+            value: "table",
+            label: "Table"
+          },
+          {
+            value: "tag",
+            label: "Tag"
+          },
+          {
+            value: "progress",
+            label: "Progress"
+          },
+          {
+            value: "tree",
+            label: "Tree"
+          },
+          {
+            value: "pagination",
+            label: "Pagination"
+          },
+          {
+            value: "badge",
+            label: "Badge"
+          }
+        ]
+      },
+      {
+        value: "notice",
+        label: "Notice",
+        children: [
+          {
+            value: "alert",
+            label: "Alert"
+          },
+          {
+            value: "loading",
+            label: "Loading"
+          },
+          {
+            value: "message",
+            label: "Message"
+          },
+          {
+            value: "message-box",
+            label: "MessageBox"
+          },
+          {
+            value: "notification",
+            label: "Notification"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "menu",
+            label: "Menu"
+          },
+          {
+            value: "tabs",
+            label: "Tabs"
+          },
+          {
+            value: "breadcrumb",
+            label: "Breadcrumb"
+          },
+          {
+            value: "dropdown",
+            label: "Dropdown"
+          },
+          {
+            value: "steps",
+            label: "Steps"
+          }
+        ]
+      },
+      {
+        value: "others",
+        label: "Others",
+        children: [
+          {
+            value: "dialog",
+            label: "Dialog"
+          },
+          {
+            value: "tooltip",
+            label: "Tooltip"
+          },
+          {
+            value: "popover",
+            label: "Popover"
+          },
+          {
+            value: "card",
+            label: "Card"
+          },
+          {
+            value: "carousel",
+            label: "Carousel"
+          },
+          {
+            value: "collapse",
+            label: "Collapse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "resource",
+    label: "Resource",
+    children: [
+      {
+        value: "axure",
+        label: "Axure Components"
+      },
+      {
+        value: "sketch",
+        label: "Sketch Templates"
+      },
+      {
+        value: "docs",
+        label: "Design Documentation"
+      }
+    ]
+  },
+  {
+    label: "哥们在这给你说唱",
+    value: "dz",
+    children: [
+      {
+        label: "1",
+        value: "1"
+      },
+      {
+        label: "5",
+        value: "5",
+        disabled: true,
+        children: [
+          {
+            label: "5-1",
+            value: "5-1",
+            disabled: true
+          },
+          {
+            label: "5-2",
+            value: "5-2",
+            disabled: true
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const ds = ref(false)
+
+const dataTree = ref([])
+function cf() {
+  ds.value = true
+  ab()
+}
+function ab() {
+  setTimeout(() => {
+    dataTree.value = [
+      {
+        value: "1",
+        label: "Level one 1",
+        children: [
+          {
+            value: "1-1",
+            label: "Level two 1-1",
+            children: [
+              {
+                value: "1-1-1",
+                label: "Level three 1-1-1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        value: "2",
+        label: "Level one 2",
+        children: [
+          {
+            value: "2-1",
+            label: "Level two 2-1",
+            children: [
+              {
+                value: "2-1-1",
+                label: "Level three 2-1-1"
+              }
+            ]
+          },
+          {
+            value: "2-2",
+            label: "Level two 2-2",
+            children: [
+              {
+                value: "2-2-1",
+                label: "Level three 2-2-1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        value: "3",
+        label: "Level one 3",
+        children: [
+          {
+            value: "3-1",
+            label: "Level two 3-1",
+            children: [
+              {
+                value: "3-1-1",
+                label: "Level three 3-1-1"
+              }
+            ]
+          },
+          {
+            value: "3-2",
+            label: "Level two 3-2",
+            children: [
+              {
+                value: "3-2-1",
+                label: "Level three 3-2-1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }, 100)
+}
+
+const formT = ref(null)
+
+const rules = reactive({
+  select: [{ required: true, message: "请选择活动区域", trigger: "change" }]
+})
 </script>
 
 <template>
@@ -671,6 +1056,34 @@ function sShow() {
           <el-table-column prop="name" label="Name" />
           <el-table-column prop="address" label="Address" />
         </el-table>
+      </fieldset>
+
+      <fieldset>
+        <legend>el-cascader级联选择器</legend>
+
+        <el-cascader
+          :options="optionsCascader"
+          :props="{ checkStrictly: true }"
+        ></el-cascader>
+      </fieldset>
+
+      <fieldset>
+        <legend>treeselect选择器 多选</legend>
+
+        <el-dialog v-model="ds" append-to-body>
+          <el-form :model="formT" :rules="rules">
+            <el-form-item label="选择" prop="select">
+              <el-tree-select
+                v-model="formT.select"
+                :data="dataTree"
+                multiple
+                style="width: 240px"
+              />
+            </el-form-item>
+          </el-form>
+        </el-dialog>
+
+        <el-button @click="cf">展示树</el-button>
       </fieldset>
     </form>
   </div>
