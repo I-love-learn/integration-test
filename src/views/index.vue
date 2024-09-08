@@ -16,6 +16,9 @@ function jump(address) {
     <el-button type="primary" @click="jump('/test3')">测试3</el-button>
     <el-button type="primary" @click="jump('/test4')">测试4</el-button>
     <el-button type="primary" @click="jump('/test5')">测试5</el-button>
+    <el-button type="primary" @click="jump('/el-test')"
+      >测试element组件</el-button
+    >
     <el-button type="primary" @click="jump('/autoimport')"
       >测试autoimport</el-button
     >

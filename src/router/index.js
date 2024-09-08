@@ -83,6 +83,16 @@ const routes = [
   {
     path: "/updated",
     component: () => import("views/update.vue")
+  },
+  {
+    path: "/el-test",
+    component: () => import("views/ElTest.vue"),
+    children: [
+      {
+        path: "el-tree",
+        component: () => import("views/el/ElTreeTest.vue")
+      }
+    ]
   }
 ]
 const router = createRouter({
