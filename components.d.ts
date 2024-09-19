@@ -15,7 +15,6 @@ declare module 'vue' {
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElButtton: typeof import('element-plus/es')['ElButtton']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -27,15 +26,14 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTableTest: typeof import('./src/views/el/ElTableTest.vue')['default']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTest: typeof import('./src/views/ElTest.vue')['default']
     ElTree: typeof import('element-plus/es')['ElTree']
-<<<<<<< HEAD
-    ElTreeTest: typeof import('./src/views/el/ElTreeTest.vue')['default']
-=======
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
->>>>>>> e1630775e8bc34de2c03c4220d05f2527ad088f7
+    ElTreeTest: typeof import('./src/views/el/ElTreeTest.vue')['default']
+    EventVue: typeof import('./src/components/EventVue.vue')['default']
     Father: typeof import('./src/components/sanji/father.vue')['default']
     Father1: typeof import('./src/components/toRef/Father1.vue')['default']
     FlexVue: typeof import('./src/components/FlexVue.vue')['default']

@@ -11,6 +11,10 @@ function handleClick(path) {
       <router-link to="/el-test/el-tree">
         <el-button type="primary">el-tree</el-button>
       </router-link>
+
+      <router-link to="/el-test/el-table">
+        <el-button type="primary">el-table</el-button>
+      </router-link>
     </div>
 
     <div>
