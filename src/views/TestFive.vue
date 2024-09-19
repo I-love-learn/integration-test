@@ -818,6 +818,45 @@ const formT = ref(null)
 const rules = reactive({
   select: [{ required: true, message: "请选择活动区域", trigger: "change" }]
 })
+
+const boolean = ref(false)
+
+function handleSubmit() {
+  console.log(event)
+  // 可行
+  // event.preventDefault()
+  return false
+}
+const ipt = ref()
+onMounted(() => {
+  ipt.value.onchange = function () {
+    console.log(222)
+  }
+})
+
+const count = ref(1)
+
+const event1 = () => {
+  console.log(1)
+  count.value++
+}
+const event2 = () => {
+  console.log(2)
+  count.value++
+}
+const event3 = () => {
+  console.log(3)
+  count.value++
+}
+const event4 = () => {
+  console.log(4)
+  count.value++
+}
+const event5 = () => {
+  console.log(5)
+}
+
+const arrayMethods = [event1, event2, event3, event4, event5]
 </script>
 
 <template>
@@ -1084,6 +1123,88 @@ const rules = reactive({
         </el-dialog>
 
         <el-button @click="cf">展示树</el-button>
+      </fieldset>
+
+      <fieldset>
+        <legend>测试vif false的内容还会解析吗</legend>
+        <p>
+          v-if的内容 只有当 v-if为true时才会解析执行 包括自定义属性 因为v-if
+          render的时候是通过三元表达式分支执行的
+        </p>
+        <div v-if="boolean" :a="a.b.cc">
+          {{ a.b.cc }}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>.prevent与preventDefault</legend>
+        <!-- 阻止跳转默认 -->
+        <a href="www.baidu.com" @click.prevent>百度</a>
+        <!-- 这个不生效 其他两个生效 -->
+        <a href="www.baidu.com" @click="() => false">百度</a>
+        <a
+          href="www.baidu.com"
+          @click="
+            () => {
+              return false
+            }
+          "
+          >百度</a
+        >
+        <a href="www.baidu.com" @click="(e) => e.preventDefault()">百度</a>
+
+        <form action="" @submit="handleSubmit">
+          <input type="text" />
+        </form>
+        <!-- 内联事件 最终转换为(e)=> 而直接写事件名 最终转换的也是(e)=> 也就是说无论vue的事件是如何定义的 最终都要多包一层 而不是直接通过onxxx绑定的  最有可能的还是addEventListener 因为如果是onxxx 会出现事件覆盖 这里没有  -->
+        <input
+          type="text"
+          @change="handleSubmit"
+          ref="ipt"
+          id="ipt"
+          @input="console.log(1)"
+        />
+
+        <p>
+          @change 和 onchange可以同时 触发 也就证明了 @change不是简简单单的
+          onchange的另一种写法 又因为removeEventListener 没有移除事件
+          那也排除了addEventListener绑定事件
+        </p>
+
+        getEventListeners 谷歌控制台提供的获取元素所有事件的方法
+
+        <p>
+          直接写在方法内部得代码 最终会作为事件内容 放在函数里
+          也就是listener.value 如果是用的setup里定义得方法 listener.value
+          直接就是那个函数 如果写函数执行 则和直接写代码一样
+          会包裹到函数里执行listener.value是(e)=> setup.事件()
+        </p>
+        <event-vue
+          @click="console.log(1)"
+          id="even"
+          @change="console.log(2)"
+          @i="handleClick()"
+        />
+
+        vue2中事件处理
+        https://blog.csdn.net/m0_52711377/article/details/127821080
+        vue3中事件处理 https://juejin.cn/post/7206576861051584573
+        vue中对事件的处理 只需要绑定一次addeventListener 然后事件更新是通过修改
+        invoker的value引用的 因此性能很好 与传统的add 与removelistener相比
+        不过这里暂时不理解为什么要做这个测试 vue的事件不也是只绑定一次吗
+        https://cloud.tencent.com.cn/developer/article/2021177 Vuejs 设计与实现
+        —— 渲染器核心：挂载与更新
+        https://blog.csdn.net/m0_64572085/article/details/129228019 vue
+        数据变化更新视图原理之 vdom（虚拟dom）、vnode（虚拟节点）、
+        diff算法、为什么不能用index作为key? 渲染器的好帮手 VNode
+        https://zhuanlan.zhihu.com/p/632190953 vdom 是虚拟dom树 vnode是树的节点
+        这一点和真实dom和node关系是一致的
+        <!-- arrayMethods[count] -->
+
+        <!-- 据我测试 组件的事件都是一次绑定的 暂时没有看到事件会切换的场景阿 那为什么vue还要用invoker来调用事件呢 难道仅仅是为了移除时好移除？ 这个以后有机会再研究吧 -->
+        <button id="btn" type="button" @click="count === 1 ? event1 : event2">
+          按钮
+        </button>
       </fieldset>
     </form>
   </div>

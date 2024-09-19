@@ -91,6 +91,10 @@ const routes = [
       {
         path: "el-tree",
         component: () => import("views/el/ElTreeTest.vue")
+      },
+      {
+        path: "el-table",
+        component: () => import("views/el/ElTableTest.vue")
       }
     ]
   }
