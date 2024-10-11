@@ -857,6 +857,11 @@ const event5 = () => {
 }
 
 const arrayMethods = [event1, event2, event3, event4, event5]
+
+const k = ref({
+  name: "k",
+  age: undefined
+})
 </script>
 
 <template>
@@ -1205,6 +1210,12 @@ const arrayMethods = [event1, event2, event3, event4, event5]
         <button id="btn" type="button" @click="count === 1 ? event1 : event2">
           按钮
         </button>
+      </fieldset>
+
+      <fieldset>
+        <legend>插槽 插槽默认值测试</legend>
+        <!-- 插槽的默认值是插槽没使用或者使用了 但值是空的情况下 显示默认值 -->
+        <slot-test-v2>{{ k.age }}</slot-test-v2>
       </fieldset>
     </form>
   </div>

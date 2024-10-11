@@ -8,9 +8,23 @@ import axios from "axios"
 import VantPicker from "@/components/VantPicker.vue"
 import SetUp from "@/components/SetUp.vue"
 import FlexVue from "@/components/FlexVue.vue"
-
+import http from "@/utils/http"
 import { returnARef, returnARef2 } from "@/hooks"
 import $ from "jquery"
+Promise.resolve().then(() => {
+  console.log("我先还是你先3")
+})
+http({
+  url: "/api/v1/room/list"
+})
+
+setTimeout(() => {
+  console.log("我先还是你先1")
+}, 0)
+
+Promise.resolve().then(() => {
+  console.log("我先还是你先2")
+})
 console.log(SetUp)
 console.log(VantPicker)
 // flag 控制哪个模块显示
