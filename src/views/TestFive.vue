@@ -26,7 +26,7 @@ function testInput1() {
   // })
   // value.value = target.value
 }
-
+console.log(useCssModule()) // object
 const input = ref()
 const input2 = ref()
 onMounted(() => {
@@ -1213,7 +1213,7 @@ const k = ref({
       </fieldset>
 
       <fieldset>
-        <legend>插槽 插槽默认值测试</legend>
+        <legend :class="$style.red">插槽 插槽默认值测试</legend>
         <!-- 插槽的默认值是插槽没使用或者使用了 但值是空的情况下 显示默认值 -->
         <slot-test-v2>{{ k.age }}</slot-test-v2>
       </fieldset>
@@ -1222,3 +1222,9 @@ const k = ref({
 </template>
 
 <style lang="scss" scoped></style>
+
+<style module>
+.red {
+  color: red;
+}
+</style>
