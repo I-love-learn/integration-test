@@ -15,6 +15,10 @@ function handleClick(path) {
       <router-link to="/el-test/el-table">
         <el-button type="primary">el-table</el-button>
       </router-link>
+
+      <router-link to="/el-test/el-form">
+        <el-button type="primary">el-form</el-button>
+      </router-link>
     </div>
 
     <div>

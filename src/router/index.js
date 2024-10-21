@@ -95,6 +95,10 @@ const routes = [
       {
         path: "el-table",
         component: () => import("views/el/ElTableTest.vue")
+      },
+      {
+        path: "el-form",
+        component: () => import("views/el/ElFormTest.vue")
       }
     ]
   }
