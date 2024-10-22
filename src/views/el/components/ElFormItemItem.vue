@@ -14,20 +14,60 @@ const rules = reactive({
       //   console.log(v)
       // }
     }
+  ],
+  starRating: [
+    {
+      required: true,
+      message: "请选择评分",
+      trigger: "change",
+      validator(a, v, cb) {
+        console.log(v)
+        if (v < 1) {
+          cb(new Error("请选择评分"))
+        } else {
+          cb()
+        }
+      }
+    }
   ]
 })
 
 const form = defineModel()
 console.log(form)
 const props = defineProps({
-  i: Number
+  i: Number,
+  abc: Number
+})
+// 不触发updated  原因是插槽不触发当前的updated
+console.log(form)
+// const emit = defineEmits(["update"])
+watch(
+  form,
+  (newvalue) => {
+    console.log(newvalue)
+    // emit("update", newvalue)
+  },
+  {
+    deep: true
+  }
+)
+onUpdated(() => {
+  console.log("更新了")
 })
 </script>
 
 <template>
   <div>
+    {{ form }}
     <el-form-item label="活动名称" :rules="rules.name" :prop="`${i}.name`">
       <el-input v-model="form.name"></el-input>
+    </el-form-item>
+    <el-form-item
+      label="活动名称"
+      :rules="rules.starRating"
+      :prop="`${i}.starRating`"
+    >
+      <el-rate v-model="form.starRating" />
     </el-form-item>
     <el-form-item label="活动区域" :prop="`${i}.region`">
       <el-select v-model="form.region" placeholder="请选择活动区域">

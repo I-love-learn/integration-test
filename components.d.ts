@@ -15,7 +15,6 @@ declare module 'vue' {
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -24,16 +23,11 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElmInput: typeof import('./src/components/ElmInput.vue')['default']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElRate: typeof import('element-plus/es')['ElRate']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    ElTable: typeof import('element-plus/es')['ElTable']
-    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTableTest: typeof import('./src/views/el/ElTableTest.vue')['default']
-    ElTabPane: typeof import('element-plus/es')['ElTabPane']
-    ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTest: typeof import('./src/views/ElTest.vue')['default']
-    ElTree: typeof import('element-plus/es')['ElTree']
-    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElTreeTest: typeof import('./src/views/el/ElTreeTest.vue')['default']
     EventVue: typeof import('./src/components/EventVue.vue')['default']
     Father: typeof import('./src/components/sanji/father.vue')['default']
@@ -70,8 +64,5 @@ declare module 'vue' {
     Upload: typeof import('./src/views/Upload.vue')['default']
     VantPicker: typeof import('./src/components/VantPicker.vue')['default']
     Views: typeof import('./src/views/index.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
