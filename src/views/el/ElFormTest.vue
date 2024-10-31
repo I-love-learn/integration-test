@@ -25,7 +25,10 @@ const rules = reactive({
       message: "请选择评分",
       trigger: ["blur", "change"],
       //
-      min: 4
+      min: 4,
+      validator: (a, v) => {
+        console.log(v)
+      }
     }
   ],
   eat: [
@@ -271,7 +274,7 @@ onMounted(() => {
       </el-form-item>
 
       <el-form-item label="活动星级" prop="starRating">
-        <el-rate v-model.number="formT.starRating" />
+        <el-rate v-model="formT.starRating" />
       </el-form-item>
 
       <el-form-item label="活动时间" prop="time">
