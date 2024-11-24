@@ -2,7 +2,7 @@
 import router from "@/router"
 
 import { ElMessage } from "element-plus"
-
+http("/api/test22")
 function jump(address) {
   ElMessage.success("error")
   router.push(address)
@@ -44,4 +44,9 @@ function jump(address) {
     <el-button type="warning">Warning</el-button>
     <el-button type="danger">Danger</el-button> -->
   </el-row>
+
+  <div>
+    <el-radio></el-radio>
+    <router-view></router-view>
+  </div>
 </template>

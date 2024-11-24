@@ -14,10 +14,31 @@ const routes = [
     path: "/:id(\\d+)",
     component: () => import("../components/paramsRoute/paramsRouteOne.vue")
   },
-
+  {
+    path: "/router",
+    component: () => import("views/RouterTest.vue"),
+    children: [
+      {
+        path: "/router/child",
+        component: () => import("views/router/FirsetRouter.vue"),
+        children: [
+          {
+            path: "/router/child/child",
+            component: () => import("views/router/SecondRouter.vue")
+          }
+        ]
+      }
+    ]
+  },
   {
     path: "/",
-    component: () => import("views/index.vue")
+    component: () => import("views/index.vue"),
+    children: [
+      {
+        path: "/r",
+        component: () => import("views/RouterTest.vue")
+      }
+    ]
   },
   {
     path: "/test",
@@ -103,6 +124,10 @@ const routes = [
       {
         path: "el-skeleton",
         component: () => import("views/el/ElSkeletonTest.vue")
+      },
+      {
+        path: "el-input-number",
+        component: () => import("views/el/ElInputNumberTest.vue")
       }
     ]
   }
