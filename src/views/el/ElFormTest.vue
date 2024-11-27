@@ -79,6 +79,13 @@ const rules = reactive({
       trigger: ["change", "blur"],
       message: "请选择时间"
     }
+  ],
+  jilian: [
+    {
+      required: true,
+      message: "请选择",
+      trigger: ["change", "blur"]
+    }
   ]
 })
 
@@ -87,13 +94,14 @@ const abc = ref(123)
 const open = ref(false)
 const formRef = ref()
 function submit() {
-  formRef.value.validate((valid) => {
-    if (valid) {
-      ElMessage.success("验证成功")
-    } else {
-      ElMessage.error("验证失败")
-    }
-  })
+  formRef.value.resetFields()
+  // formRef.value.validate((valid) => {
+  //   if (valid) {
+  //     ElMessage.success("验证成功")
+  //   } else {
+  //     ElMessage.error("验证失败")
+  //   }
+  // })
 }
 
 const formT = ref({
@@ -170,8 +178,278 @@ function edit() {
 onMounted(() => {
   console.log(dg.value)
 })
+
+const options = [
+  {
+    value: "guide",
+    label: "Guide",
+    children: [
+      {
+        value: "disciplines",
+        label: "Disciplines",
+        children: [
+          {
+            value: "consistency",
+            label: "Consistency"
+          },
+          {
+            value: "feedback",
+            label: "Feedback"
+          },
+          {
+            value: "efficiency",
+            label: "Efficiency"
+          },
+          {
+            value: "controllability",
+            label: "Controllability"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "side nav",
+            label: "Side Navigation"
+          },
+          {
+            value: "top nav",
+            label: "Top Navigation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "component",
+    label: "Component",
+    children: [
+      {
+        value: "basic",
+        label: "Basic",
+        children: [
+          {
+            value: "layout",
+            label: "Layout"
+          },
+          {
+            value: "color",
+            label: "Color"
+          },
+          {
+            value: "typography",
+            label: "Typography"
+          },
+          {
+            value: "icon",
+            label: "Icon"
+          },
+          {
+            value: "button",
+            label: "Button"
+          }
+        ]
+      },
+      {
+        value: "form",
+        label: "Form",
+        children: [
+          {
+            value: "radio",
+            label: "Radio"
+          },
+          {
+            value: "checkbox",
+            label: "Checkbox"
+          },
+          {
+            value: "input",
+            label: "Input"
+          },
+          {
+            value: "input-number",
+            label: "InputNumber"
+          },
+          {
+            value: "select",
+            label: "Select"
+          },
+          {
+            value: "cascader",
+            label: "Cascader"
+          },
+          {
+            value: "switch",
+            label: "Switch"
+          },
+          {
+            value: "slider",
+            label: "Slider"
+          },
+          {
+            value: "time-picker",
+            label: "TimePicker"
+          },
+          {
+            value: "date-picker",
+            label: "DatePicker"
+          },
+          {
+            value: "datetime-picker",
+            label: "DateTimePicker"
+          },
+          {
+            value: "upload",
+            label: "Upload"
+          },
+          {
+            value: "rate",
+            label: "Rate"
+          },
+          {
+            value: "form",
+            label: "Form"
+          }
+        ]
+      },
+      {
+        value: "data",
+        label: "Data",
+        children: [
+          {
+            value: "table",
+            label: "Table"
+          },
+          {
+            value: "tag",
+            label: "Tag"
+          },
+          {
+            value: "progress",
+            label: "Progress"
+          },
+          {
+            value: "tree",
+            label: "Tree"
+          },
+          {
+            value: "pagination",
+            label: "Pagination"
+          },
+          {
+            value: "badge",
+            label: "Badge"
+          }
+        ]
+      },
+      {
+        value: "notice",
+        label: "Notice",
+        children: [
+          {
+            value: "alert",
+            label: "Alert"
+          },
+          {
+            value: "loading",
+            label: "Loading"
+          },
+          {
+            value: "message",
+            label: "Message"
+          },
+          {
+            value: "message-box",
+            label: "MessageBox"
+          },
+          {
+            value: "notification",
+            label: "Notification"
+          }
+        ]
+      },
+      {
+        value: "navigation",
+        label: "Navigation",
+        children: [
+          {
+            value: "menu",
+            label: "Menu"
+          },
+          {
+            value: "tabs",
+            label: "Tabs"
+          },
+          {
+            value: "breadcrumb",
+            label: "Breadcrumb"
+          },
+          {
+            value: "dropdown",
+            label: "Dropdown"
+          },
+          {
+            value: "steps",
+            label: "Steps"
+          }
+        ]
+      },
+      {
+        value: "others",
+        label: "Others",
+        children: [
+          {
+            value: "dialog",
+            label: "Dialog"
+          },
+          {
+            value: "tooltip",
+            label: "Tooltip"
+          },
+          {
+            value: "popover",
+            label: "Popover"
+          },
+          {
+            value: "card",
+            label: "Card"
+          },
+          {
+            value: "carousel",
+            label: "Carousel"
+          },
+          {
+            value: "collapse",
+            label: "Collapse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "resource",
+    label: "Resource",
+    children: [
+      {
+        value: "axure",
+        label: "Axure Components"
+      },
+      {
+        value: "sketch",
+        label: "Sketch Templates"
+      },
+      {
+        value: "docs",
+        label: "Design Documentation"
+      }
+    ]
+  }
+]
 </script>
 <!-- 动态增删表单  把rules绑定在 el-form-item上 单独写在form上不生效 -->
+
 <template>
   <!-- :rules="[
             { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -392,7 +670,15 @@ onMounted(() => {
       <el-form-item label="花多少钱" prop="pay">
         <el-input v-model.number="formT.pay"> </el-input>
       </el-form-item>
-
+      <el-form-item label="级联" prop="jilian">
+        <el-cascader
+          v-model="form.jilian"
+          :options="options"
+          :props="{
+            multiple: true
+          }"
+        />
+      </el-form-item>
       <el-form-item label="活动星级" prop="starRating">
         <el-rate v-model.number="formT.starRating" />
       </el-form-item>
