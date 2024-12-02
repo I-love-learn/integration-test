@@ -1,3 +1,4 @@
+import RouterTest from "@/views/RouterTest.vue"
 import { createWebHistory, createRouter } from "vue-router"
 
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
   },
   {
     path: "/router",
-    component: () => import("views/RouterTest.vue"),
+    component: RouterTest,
     children: [
       {
         path: "/router/child",
