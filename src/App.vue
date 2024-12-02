@@ -1,13 +1,19 @@
 <script setup>
 import "@/assets/css/base.css"
 import h from "@/components/h.vue"
-
+import svg from "./assets/vue.svg"
 http("/api/123")
-
+console.log(svg)
 onBeforeMount(() => {
   http("/api/123456")
 })
-
+console.log(new URL("./assets/vue.svg", import.meta.url), import.meta)
+console.log(
+  new URL("./assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png", import.meta.url),
+  import.meta
+)
+console.log(import.meta.dirname, import.meta.filename)
+console.log(import.meta.ENV)
 onMounted(() => {
   http("/api/000")
 })
