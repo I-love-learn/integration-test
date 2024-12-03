@@ -1,3 +1,4 @@
+import FirsetRouterVue from "@/views/router/FirsetRouter.vue"
 import RouterTest from "@/views/RouterTest.vue"
 import { createWebHistory, createRouter } from "vue-router"
 
@@ -20,8 +21,10 @@ const routes = [
     component: RouterTest,
     children: [
       {
+        // path: "/router/child",
+        // component: () => import("views/router/FirsetRouter.vue"),
         path: "/router/child",
-        component: () => import("views/router/FirsetRouter.vue"),
+        component: FirsetRouterVue,
         children: [
           {
             path: "/router/child/child",

@@ -46,6 +46,7 @@ function jump(address) {
   </el-row>
 
   <div>
+    <!-- <router-view></router-view> -->
     <el-radio></el-radio>
     <router-view></router-view>
   </div>
