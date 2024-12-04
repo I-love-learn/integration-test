@@ -193,6 +193,13 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(/^\/test/, "")
         }
       }
+    },
+    build: {
+      lib: {
+        entry: "./src/main.js",
+        name: "lib",
+        formats: ["umd"]
+      }
     }
   }
 })

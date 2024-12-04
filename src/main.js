@@ -35,3 +35,7 @@ app.use(router)
 app.use(pinia)
 app.component("MoreText", MoreText)
 app.mount("#app")
+
+export function FuncAbc() {
+  return 123
+}
