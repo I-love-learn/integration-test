@@ -194,11 +194,23 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
+    // build: {
+    //   lib: {
+    //     entry: "./src/main.js",
+    //     name: "lib",
+    //     formats: ["umd"]
+    //   }
+    // }
     build: {
-      lib: {
-        entry: "./src/main.js",
-        name: "lib",
-        formats: ["umd"]
+      outDir: "build",
+      assetsDir: "assets",
+      manifest: false,
+      rollupOptions: {
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`
+        }
       }
     }
   }
