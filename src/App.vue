@@ -29,6 +29,7 @@ setTimeout(() => {
 <template>
   <h />
   <router-view></router-view>
+  <div id="app1"></div>
 </template>
 
 <style lang="scss">

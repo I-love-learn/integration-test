@@ -3,6 +3,7 @@ import "./style.css"
 import App from "./App.vue"
 import "@/assets/css/base.css"
 import "@/assets/styles/base.scss"
+import { registerMicroApps, start } from "qiankun"
 
 import "@/assets/styles/base.less"
 import { createApp } from "vue"
@@ -20,7 +21,20 @@ console.log(import.meta.env)
 // vue2中，webpack帮我们做了处理，使浏览器可以直接识别node的process.env变量，从而实现了浏览器识别环境变量的功能。
 // vite中我们的代码运行在浏览器环境中，因此是无法识别process.env变量的。（这意味着，vite中识别环境变量的方式与webpack中不同） 除了运行在nodejs端的 vite.config.js 能获取process.env
 // 但是我们可以通过import.meta.env来获取环境变量 反正经我测试没办法去修改process.env.ENV_MODE的值
-
+registerMicroApps([
+  {
+    // name是随便填的吗
+    name: "reactApp",
+    entry: "//localhost:8080",
+    container: "#app1",
+    activeRule: "/cc"
+  }
+])
+// 启动 qiankun
+start()
+setTimeout(() => {
+  console.log(window.__POWERED_BY_QIANKUN__)
+}, 3000)
 const app = createApp(App)
 console.log(app)
 // 创建一个pinia应用实例 可以被app应用所使用 因为其内部含有一个install方法
