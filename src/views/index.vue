@@ -7,6 +7,7 @@ function jump(address) {
   ElMessage.success("error")
   router.push(address)
 }
+const color = "red"
 </script>
 
 <template>
@@ -46,8 +47,20 @@ function jump(address) {
   </el-row>
 
   <div>
+    <div class="tt">
+      <div class="tb">12</div>
+    </div>
     <!-- <router-view></router-view> -->
     <el-radio></el-radio>
     <router-view></router-view>
   </div>
 </template>
+
+<style scoped>
+.tt {
+  background-color: v-bind(color);
+}
+.tb {
+  background-color: v-bind(color);
+}
+</style>

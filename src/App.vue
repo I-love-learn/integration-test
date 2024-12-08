@@ -7,6 +7,7 @@ console.log(svg)
 onBeforeMount(() => {
   http("/api/123456")
 })
+
 console.log(new URL("./assets/vue.svg", import.meta.url), import.meta)
 console.log(
   new URL("./assets/lx9pflerpej90fgz8xwd7bx39gt5zw6.png", import.meta.url),
@@ -24,17 +25,48 @@ setTimeout(() => {
   // inject("test", "test")
   // useRouter().push("/about")
 }, 5000)
+
+const color = "blue"
+const color1 = "orange"
+
+const id = "idv"
 </script>
 
 <template>
-  <h />
-  <router-view></router-view>
-  <div id="app1"></div>
+  <div>
+    <h />
+    <router-view></router-view>
+    <div id="app1" style="height: 600px"></div>
+    <div id="app2" style="height: 600px">
+      <div class="abc">123</div>
+      <div>123</div>
+    </div>
+
+    <div :class="id">0000</div>
+  </div>
 </template>
 
 <style lang="scss">
+// scss定义变量
+$id: idv;
+$pink: pink;
+// scss使用变量 css变量不需要#{}使用 但类名需要 因为$符号本身也是css的符号 所以需要转义
+// scss中#{}是字符串拼接
+.#{$id} {
+  color: $pink;
+}
 #app {
   // color: $color;
   height: 100vh;
+}
+
+#app1 {
+  background-color: v-bind(color);
+}
+#app2 {
+  background-color: v-bind(color);
+}
+.abc {
+  background-color: v-bind(color1);
 }
 </style>
