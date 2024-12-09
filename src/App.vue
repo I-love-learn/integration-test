@@ -16,6 +16,7 @@ console.log(
 console.log(import.meta.dirname, import.meta.filename)
 console.log(import.meta.ENV)
 onMounted(() => {
+  console.log("基座app挂载")
   http("/api/000")
 })
 // https://blog.csdn.net/weixin_45747310/article/details/122895496  useRouter()的执行一定要在setup内  而不能放在setup中的其他函数内部执行  否则返回值是undefined
@@ -37,12 +38,13 @@ const id = "idv"
     <h />
     <router-view></router-view>
     <div id="app1" style="height: 600px"></div>
-    <div id="app2" style="height: 600px">
-      <div class="abc">123</div>
-      <div>123</div>
-    </div>
+    <div id="app2" style="height: 600px"></div>
+    <div class="abc">123</div>
+    <div>123</div>
 
     <div :class="id">0000</div>
+
+    <my-input />
   </div>
 </template>
 
