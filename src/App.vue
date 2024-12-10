@@ -37,8 +37,11 @@ const id = "idv"
   <div>
     <h />
     <router-view></router-view>
-    <div id="app1" style="height: 600px"></div>
     <div id="app2" style="height: 600px"></div>
+    <div id="app4" style="height: 600px"></div>
+    <div id="app1" style="height: 600px"></div>
+    <div id="app3" style="height: 600px"></div>
+
     <div class="abc">123</div>
     <div>123</div>
 

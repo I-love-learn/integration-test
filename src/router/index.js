@@ -1,7 +1,7 @@
 import FirsetRouterVue from "@/views/router/FirsetRouter.vue"
 import RouterTest from "@/views/RouterTest.vue"
 import { createWebHistory, createRouter } from "vue-router"
-
+import async from "@/views/asyncVue.vue"
 const routes = [
   {
     path: "/:abc(.*)*",
@@ -10,6 +10,11 @@ const routes = [
   {
     path: "/:params",
     component: () => import("../components/paramsRoute/paramsRouteTwo.vue")
+  },
+  {
+    path: "/async",
+    // 路由不能使用异步组件
+    component: () => import("views/asyncVue.vue")
   },
   {
     // \d+ 正则匹配数字 如果是字符串需要添加转义符\

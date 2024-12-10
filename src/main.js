@@ -29,7 +29,7 @@ registerMicroApps([
     name: "reactApp",
     entry: "//localhost:8080",
     // 子应用的跟组件的根节点 id不能与这个同名 负责会造成最终渲染一个app1 盒子 内部是reactApp盒子 中一个空的app盒子 猜测是子应用的先生成了app1的dom 然后mount挂载到了app上 替换了父应用的app盒子
-    container: "#app1",
+    container: "#app3",
     activeRule: "/ccb",
     props: {
       document: document,
