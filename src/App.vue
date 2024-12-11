@@ -2,6 +2,7 @@
 import "@/assets/css/base.css"
 import h from "@/components/h.vue"
 import svg from "./assets/vue.svg"
+import { parseDict } from "@/utils/dict"
 http("/api/123")
 console.log(svg)
 onBeforeMount(() => {

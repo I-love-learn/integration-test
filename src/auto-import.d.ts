@@ -53,6 +53,7 @@ declare global {
   const onServerPrefetch: typeof import('vue')['onServerPrefetch']
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
+  const parseDict: typeof import('./utils/dict')['parseDict']
   const plugin: typeof import('./utils/plugin.js')['default']
   const provide: typeof import('vue')['provide']
   const reactive: typeof import('vue')['reactive']
@@ -144,6 +145,7 @@ declare module 'vue' {
     readonly onServerPrefetch: UnwrapRef<typeof import('vue')['onServerPrefetch']>
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
+    readonly parseDict: UnwrapRef<typeof import('./utils/dict')['parseDict']>
     readonly plugin: UnwrapRef<typeof import('./utils/plugin.js')['default']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
@@ -228,6 +230,7 @@ declare module '@vue/runtime-core' {
     readonly onServerPrefetch: UnwrapRef<typeof import('vue')['onServerPrefetch']>
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
+    readonly parseDict: UnwrapRef<typeof import('./utils/dict')['parseDict']>
     readonly plugin: UnwrapRef<typeof import('./utils/plugin.js')['default']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
