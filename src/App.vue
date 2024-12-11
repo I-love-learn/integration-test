@@ -28,6 +28,12 @@ setTimeout(() => {
   // useRouter().push("/about")
 }, 5000)
 
+const dict = reactive(new Map())
+// map 如果set的值是 ref 则渲染时 字符串会带引号 逆天 加上.value 则不会  vue 3.4.31后修复了这个问题  6月28日
+dict.set(
+  "name",
+  computed(() => parseDict("2", "a"))
+)
 const color = "blue"
 const color1 = "orange"
 
@@ -47,7 +53,7 @@ const id = "idv"
     <div>123</div>
 
     <div :class="id">0000</div>
-
+    <div>{{ dict.get("name").value }}</div>
     <my-input />
   </div>
 </template>

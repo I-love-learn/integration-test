@@ -1031,6 +1031,7 @@ export default {
         >el-input输入整数测试</el-button
       >
       <el-button type="primary" @click="flag = 39">测试函数输出ref</el-button>
+      <el-button type="primary" @click="flag = 40">上传文件拖拽排序</el-button>
     </el-aside>
     <el-main style="position: relative">
       <template v-if="flag === 1">
@@ -1802,6 +1803,9 @@ export default {
 
         <p>{{ bb1 }}</p>
         <p>{{ bb2 }}</p>
+      </template>
+      <template v-else-if="flag === 40">
+        <upload-drag />
       </template>
     </el-main>
   </el-container>
