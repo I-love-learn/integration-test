@@ -76,6 +76,8 @@ onMounted(() => {
   <!-- div元素内部什么元素都可以拖动 如果不设置根元素那么VueDraggable 就是默认的div元素 -->
   <VueDraggable target="div">
     <div>
+      我
+      <!-- text 元素不能拖动 #textnode -->
       <p>1</p>
       <p>2</p>
       <p>3</p>
