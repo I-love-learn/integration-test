@@ -21,11 +21,11 @@ export default defineConfig(({ mode }) => {
 
   // 而 loadEnv 则是在构建时加载环境变量，适用于打包时（构建时）需要引用环境变量的场合。  https://blog.csdn.net/weixin_42373175/article/details/131080666
   const env = loadEnv(mode, process.cwd()) // https://developer.aliyun.com/article/949754 loadEnv的三个参数  第一个是模式 也就是当前的--mode 第二个参数环境变量所在目录 可以是process.cwd 也可以是./ 第三个参数 是环境变量的前缀 默认是VITE_ 可以改成自定义的前缀
-  console.log(process.cwd()) // 获取当前执行命令的文件目录 绝对路径   https://blog.csdn.net/weixin_44864084/article/details/120868472   process.cwd()和__dirname区别
+  console.log(process.cwd()) // 获取当前执行命令的文件目录 绝对路径   https://blog.csdn.net/weixin_44864084/article/details/120868472   process.cwd()和__dirname区别 执行的文件夹下必须有package.json才能执行命令 process.cwd() 就是当前执行命令的文件目录 也就是package.json所在的目录
   console.log(env)
   return {
     // index.html所在路径，影响打包后导入js，css路径
-    base: "/",
+    // base: "/", // 默认也是/
     plugins: [
       vue(),
       // 自动导入方法
@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
           // elmessage 等组件样式不受这个影响 可能是因为样式是写在vue组件里的吧
           /\.css$/, // css
-          // 这里配置.vue 是因为 ELmessage这种组件不仅有js方法还有对应的组件 不写这个的话会报错说Elmessage 不存在  ref也会报错说找不到
+          // 这里配置.vue 是因为 ELmessage这种组件不仅有js方法还有对应的组件 不写这个的话会报错说Elmessage 不存在  ref也会报错说找不到 因为ELmessage这种没有在template里用 因此autoComponent无效 所以需要写这个
           /\.vue$/,
           // 这个不知道为什么后面带问号
           /\.vue\?vue/, // .vue
@@ -202,14 +202,21 @@ export default defineConfig(({ mode }) => {
     //   }
     // }
     build: {
+      // 输出路径 /则会去文件的根路径是文件 不是项目 ./ = 不写 和config同目录
+      // https://blog.csdn.net/tiven_/article/details/135265482 path.join 与 path.resolve 的区别  与手动拼接的区别在于 这俩可以跨平台 根据不同平台自动拼接不同路径
       outDir: "build",
       assetsDir: "assets",
-      manifest: false,
+      manifest: true,
+      //是否生成manifest.json文件 构建清单
       rollupOptions: {
+        // 输出格式
         output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`
+          // 入口文件
+          entryFileNames: `assets/[name]_entry[hash].js`,
+          // chunk 就是js文件 包括依赖 和其他js .vue文件 utils等编译的js
+          chunkFileNames: `assets/[name]_chunk.js`,
+          // css文件 img video等静态资源文件
+          assetFileNames: `assets/[name]_asset.[ext]`
         }
       }
     }
