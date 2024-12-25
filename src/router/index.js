@@ -1,7 +1,10 @@
-import FirsetRouterVue from "@/views/router/FirsetRouter.vue"
+// import FirsetRouterVue from "@/views/router/FirsetRouter.vue"
 import RouterTest from "@/views/RouterTest.vue"
 import { createWebHistory, createRouter } from "vue-router"
 import async from "@/views/asyncVue.vue"
+
+import ManVue from "@/views/TestManifest.vue"
+import TestManifest from "@/views/TestManifeVue.vue"
 const routes = [
   {
     path: "/:abc(.*)*",
@@ -29,7 +32,7 @@ const routes = [
         // path: "/router/child",
         // component: () => import("views/router/FirsetRouter.vue"),
         path: "/router/child",
-        component: FirsetRouterVue,
+        component: import("@/views/router/FirsetRouter.vue"),
         children: [
           {
             path: "/router/child/child",
@@ -139,6 +142,18 @@ const routes = [
         component: () => import("views/el/ElInputNumberTest.vue")
       }
     ]
+  },
+  {
+    path: "/manifest",
+    component: ManVue
+  },
+  {
+    path: "/manifest2",
+    component: () => import("@/views/TestManifest.vue")
+  },
+  {
+    path: "/manifest3",
+    component: TestManifest
   }
 ]
 const router = createRouter({

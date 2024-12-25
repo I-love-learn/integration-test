@@ -354,7 +354,7 @@
     ]
   },
   "index.html": {
-    "file": "assets/index_entry_BqmNs-q.js",
+    "file": "assets/index_entryDaa7LKVB.js",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
@@ -362,6 +362,7 @@
       "src/components/paramsRoute/paramsRouteTwo.vue",
       "src/views/asyncVue.vue",
       "src/components/paramsRoute/paramsRouteOne.vue",
+      "src/views/router/FirsetRouter.vue",
       "src/views/router/SecondRouter.vue",
       "src/views/index.vue",
       "src/views/test.vue",
@@ -437,6 +438,17 @@
       "_el-button_chunk.js",
       "_index_chunk3.js",
       "_objects_chunk.js"
+    ],
+    "dynamicImports": [
+      "src/views/NoRouterImport.vue"
+    ]
+  },
+  "src/views/NoRouterImport.vue": {
+    "file": "assets/NoRouterImport_chunk.js",
+    "src": "src/views/NoRouterImport.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
     ]
   },
   "src/views/TestFive.vue": {
@@ -758,6 +770,14 @@
   "src/views/path.vue": {
     "file": "assets/path_chunk.js",
     "src": "src/views/path.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "src/views/router/FirsetRouter.vue": {
+    "file": "assets/FirsetRouter_chunk.js",
+    "src": "src/views/router/FirsetRouter.vue",
     "isDynamicEntry": true,
     "imports": [
       "index.html"

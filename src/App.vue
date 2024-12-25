@@ -43,7 +43,9 @@ const id = "idv"
 <template>
   <div>
     <h />
-    <router-view></router-view>
+    <suspense>
+      <router-view></router-view>
+    </suspense>
     <div id="app2" style="height: 600px"></div>
     <div id="app4" style="height: 600px"></div>
     <div id="app1" style="height: 600px"></div>

@@ -1,7 +1,11 @@
 <script setup>
+// import tl from "@/views/NoRouterImport.vue"
 function handleClick(path) {
   router.push(path)
 }
+// 同步导入组件渲染
+const tl = (await import("@/views/NoRouterImport.vue")).default
+// console.log(tl)
 </script>
 
 <template>
@@ -28,6 +32,7 @@ function handleClick(path) {
     </div>
 
     <div>
+      <tl />
       <router-view />
     </div>
   </div>
