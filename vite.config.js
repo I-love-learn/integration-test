@@ -209,7 +209,7 @@ export default defineConfig(({ mode }) => {
       manifest: true,
       // target 转义后的es版本 esnext则不会转义 会让包的体积更小
       // target: "esnext",
-      modulePreload: false, // 启用模块预加载提示
+      modulePreload: true, // 启用模块预加载提示
       // // 或者
       // modulePreload: {
       //   polyfill: false // 启用 polyfill 支持老版本浏览器
