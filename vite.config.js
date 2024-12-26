@@ -207,12 +207,19 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
       assetsDir: "assets",
       manifest: true,
+      // target 转义后的es版本 esnext则不会转义 会让包的体积更小
+      // target: "esnext",
+      modulePreload: false, // 启用模块预加载提示
+      // // 或者
+      // modulePreload: {
+      //   polyfill: false // 启用 polyfill 支持老版本浏览器
+      // },
       //是否生成manifest.json文件 构建清单
       rollupOptions: {
         // 输出格式
         output: {
           // 入口文件
-          entryFileNames: `assets/[name]_entry[hash].js`,
+          entryFileNames: `assets/[name]_entry_[hash].js`,
           // chunk 就是js文件 包括依赖 和其他js .vue文件 utils等编译的js
           chunkFileNames: `assets/[name]_chunk.js`,
           // css文件 img video等静态资源文件
@@ -222,3 +229,9 @@ export default defineConfig(({ mode }) => {
     }
   }
 })
+
+// vue build后的入口文件是index.html 而index.html中有个入口js 文件 其中包含了很多依赖的集合 比如pinia vuerouter lodash vue等  但不一定有ui组件 因为按需引入的组件会按需下载使用 全局引入的会在里面 包括 通过import导入的组件（不动态路由的）
+
+// 没有使用到响应式变量的 编译后将不会有setup函数 只有在模板中使用了响应式变量的才会有setup函数 并且最终会创建成render函数
+
+// 预加载与css 覆盖

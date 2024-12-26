@@ -1,4 +1,4 @@
-<script></script>
+<script setup></script>
 
 <template>
   <h1>这是组件2</h1>
