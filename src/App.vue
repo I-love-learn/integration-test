@@ -3,6 +3,18 @@ import "@/assets/css/base.css"
 import h from "@/components/h.vue"
 import svg from "./assets/vue.svg"
 import { parseDict } from "@/utils/dict"
+
+import { useHttp } from "@/hooks/http"
+
+const { result, fail } = useHttp(
+  "/admin-api/system/website_setting/select_website_list",
+  {
+    headers: {
+      Authorization: "Bearer fe10de76-2041-48ed-86f4-cfa07a4adff1"
+    }
+  }
+)
+fetch("/api/obc")
 http("/api/123")
 console.log(svg)
 onBeforeMount(() => {
@@ -41,6 +53,8 @@ const id = "idv"
 </script>
 
 <template>
+  <div>{{ result }}</div>
+  <div>{{ fail }}</div>
   <div>
     <h />
     <suspense>
