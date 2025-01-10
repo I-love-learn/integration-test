@@ -1,0 +1,1 @@
+{"version":3,"file":"paramsRouteTwo_chunk.js","sources":["../../src/components/paramsRoute/paramsRouteTwo.vue"],"sourcesContent":["<script setup>\r\n</script>\r\n\r\n<template>\r\n  \r\n<div>我是其他路由</div>\r\n</template>\r\n\r\n<style></style>"],"names":["_sfc_render","_ctx","_cache"],"mappings":"+LAKA,SAAAA,EAAAC,EAAAC,EAAA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"FirsetRouter_chunk.js","sources":["../../src/views/router/FirsetRouter.vue"],"sourcesContent":["<script setup>\r\nhttp(\"/api/test2\")\r\n</script>\r\n\r\n<template>\r\n  <div>\r\n    <el-input type=\"textarea\" />\r\n    <RouterView />\r\n  </div>\r\n</template>\r\n\r\n<style></style>\r\n"],"names":["http"],"mappings":"wPACA,OAAAA,EAAK,YAAY"}

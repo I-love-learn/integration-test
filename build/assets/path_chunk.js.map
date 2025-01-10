@@ -1,0 +1,1 @@
+{"version":3,"file":"path_chunk.js","sources":["../../src/views/path.vue"],"sourcesContent":["<script setup></script>\r\n\r\n<template>\r\n  <div>\r\n    <h1>path</h1>\r\n  </div>\r\n</template>\r\n\r\n<style lang=\"scss\" scoped></style>\r\n"],"names":["_hoisted_2","_sfc_render","_ctx","_cache"],"mappings":"+NAIiBA,EAAA,IADf,SAAAC,EAAAC,EAAAC,EAAA"}

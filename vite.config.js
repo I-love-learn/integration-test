@@ -207,6 +207,7 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
       assetsDir: "assets",
       manifest: true,
+      sourcemap: "hidden",
       // target 转义后的es版本 esnext则不会转义 会让包的体积更小
       // target: "esnext",
       modulePreload: true, // 启用模块预加载提示
