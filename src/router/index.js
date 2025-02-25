@@ -11,6 +11,10 @@ const routes = [
     component: () => import("views/404.vue")
   },
   {
+    path: "/canyouloveme",
+    component: () => import("views/canyouLoveme.vue")
+  },
+  {
     path: "/:params",
     component: () => import("../components/paramsRoute/paramsRouteTwo.vue")
   },
