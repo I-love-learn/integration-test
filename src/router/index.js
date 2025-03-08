@@ -15,6 +15,10 @@ const routes = [
     component: () => import("views/canyouLoveme.vue")
   },
   {
+    path: "/baidu",
+    component: "https://www.baidu.com"
+  },
+  {
     path: "/:params",
     component: () => import("../components/paramsRoute/paramsRouteTwo.vue")
   },
