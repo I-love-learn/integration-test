@@ -23,9 +23,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()) // https://developer.aliyun.com/article/949754 loadEnv的三个参数  第一个是模式 也就是当前的--mode 第二个参数环境变量所在目录 可以是process.cwd 也可以是./ 第三个参数 是环境变量的前缀 默认是VITE_ 可以改成自定义的前缀
   console.log(process.cwd()) // 获取当前执行命令的文件目录 绝对路径   https://blog.csdn.net/weixin_44864084/article/details/120868472   process.cwd()和__dirname区别 执行的文件夹下必须有package.json才能执行命令 process.cwd() 就是当前执行命令的文件目录 也就是package.json所在的目录
   console.log(env)
+
   return {
     // index.html所在路径，影响打包后导入js，css路径
     // base: "/", // 默认也是/
+    base: "/abc/e", // 这里base根目录是指 index.html中资源的链接路径 如果项目放置的是根目录不需要配这个  env.BASE_URL  也是这个地址  并且无法在env里配置覆盖它
+
     plugins: [
       vue(),
       // 自动导入方法
@@ -209,7 +212,7 @@ export default defineConfig(({ mode }) => {
       manifest: true,
       sourcemap: "hidden",
       // target 转义后的es版本 esnext则不会转义 会让包的体积更小
-      // target: "esnext",
+      target: "esnext",
       modulePreload: true, // 启用模块预加载提示
       // // 或者
       // modulePreload: {

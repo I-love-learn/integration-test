@@ -37,7 +37,7 @@ registerMicroApps([
     }
   }
 ])
-
+console.log(import.meta.env.BASE_URL)
 setTimeout(() => {
   console.log("我是基座")
 }, 0)
