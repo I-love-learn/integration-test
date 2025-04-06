@@ -16,6 +16,7 @@ declare module 'vue' {
     ChildRoute: typeof import('./src/components/ChildRoute.vue')['default']
     CommonComponent: typeof import('./src/components/CommonComponent.vue')['default']
     DataReact: typeof import('./src/components/DataReact.vue')['default']
+    EchartsDemo: typeof import('./src/views/EchartsDemo.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']

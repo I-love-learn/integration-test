@@ -40,6 +40,10 @@ const color = "red"
     <el-button type="primary" @click="jump({ path: '/updated' })"
       >测试update声明周期执行时机</el-button
     >
+
+    <el-button type="primary" @click="jump({ path: '/echarts' })"
+      >echarts demo</el-button
+    >
     <!-- <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>
     <el-button type="warning">Warning</el-button>

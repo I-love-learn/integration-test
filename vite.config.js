@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
   return {
     // index.html所在路径，影响打包后导入js，css路径
     // base: "/", // 默认也是/
-    base: "/abc/e", // 这里base根目录是指 index.html中资源的链接路径 如果项目放置的是根目录不需要配这个  env.BASE_URL  也是这个地址  并且无法在env里配置覆盖它
+    // base: "/abc/e", // 这里base根目录是指 index.html中资源的链接路径 如果项目放置的是根目录不需要配这个  env.BASE_URL  也是这个地址  并且无法在env里配置覆盖它  这个会影响history路由 所有对url修改的操作都会影响history路由
 
     plugins: [
       vue(),
