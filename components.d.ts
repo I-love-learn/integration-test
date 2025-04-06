@@ -10,6 +10,7 @@ declare module 'vue' {
     404: typeof import('./src/views/404.vue')['default']
     AsyncVue: typeof import('./src/views/asyncVue.vue')['default']
     AutoImport: typeof import('./src/views/autoImport.vue')['default']
+    Bar3D: typeof import('./src/components/Bar3D.vue')['default']
     CanyouLoveme: typeof import('./src/views/canyouLoveme.vue')['default']
     Children: typeof import('./src/components/sanji/children.vue')['default']
     Children1: typeof import('./src/components/toRef/Children1.vue')['default']
