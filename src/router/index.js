@@ -152,6 +152,10 @@ const routes = [
     ]
   },
   {
+    path: "/tableMerge",
+    component: () => import("@/views/TableMerge.vue")
+  },
+  {
     path: "/manifest",
     component: ManVue
   },
@@ -162,6 +166,10 @@ const routes = [
   {
     path: "/manifest3",
     component: TestManifest
+  },
+  {
+    path: "/echarts",
+    component: () => import("@/views/EchartsDemo.vue")
   }
 ]
 const router = createRouter({

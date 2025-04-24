@@ -10,6 +10,9 @@ import { createApp } from "vue"
 import MoreText from "./components/MoreText.vue"
 import { createPinia } from "pinia"
 import { test } from "@/utils/test"
+import a from "@/hooks/variable"
+import App2Vue from "./App2.vue"
+// import zy from "./assets/测试png.PNG"
 // import a from '../node_modules/test' 经过我测试 路径带有node_modules的文件的确会被依赖预构建
 // console.log(a);
 // css 文件也会被 vite处理
@@ -66,3 +69,21 @@ app.mount("#app")
 export function FuncAbc() {
   return 123
 }
+import.meta.hot.accept("./utils/other.js", (newFoo) => {
+  // 回调函数接收到更新后的'./foo.js' 模块
+  console.log("newFoo", newFoo)
+  newFoo.bb()
+})
+// console.log(import.meta.hot)
+// console.log(import.meta.hot.accept)
+// if (import.meta.hot) {
+//   import.meta.hot.accept((newModule) => {
+//     console.log("newModule", newModule)
+//     if (newModule) {
+//       // newModule is undefined when SyntaxError happened
+//       console.log("updated: count is now ", newModule.count)
+//     }
+//   })
+// }
+
+console.log(import.meta.env)

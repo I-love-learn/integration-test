@@ -354,7 +354,7 @@
     ]
   },
   "index.html": {
-    "file": "assets/index_entry_aK93-D-V.js",
+    "file": "assets/index_entry_BJEdheJa.js",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
@@ -385,7 +385,8 @@
       "src/views/el/ElTableTest.vue",
       "src/views/el/ElFormTest.vue",
       "src/views/el/ElSkeletonTest.vue",
-      "src/views/el/ElInputNumberTest.vue"
+      "src/views/el/ElInputNumberTest.vue",
+      "src/views/EchartsDemo.vue"
     ],
     "css": [
       "assets/index_asset.css"
@@ -425,6 +426,14 @@
   "src/views/404.vue": {
     "file": "assets/404_chunk.js",
     "src": "src/views/404.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "src/views/EchartsDemo.vue": {
+    "file": "assets/EchartsDemo_chunk.js",
+    "src": "src/views/EchartsDemo.vue",
     "isDynamicEntry": true,
     "imports": [
       "index.html"

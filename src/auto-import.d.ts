@@ -13,6 +13,7 @@ declare global {
   const cloneDeep: typeof import('lodash')['cloneDeep']
   const computed: typeof import('vue')['computed']
   const coolPostStart: typeof import('./api/request.js')['coolPostStart']
+  const count: typeof import('./utils/dict')['count']
   const createApp: typeof import('vue')['createApp']
   const createPinia: typeof import('pinia')['createPinia']
   const customRef: typeof import('vue')['customRef']
@@ -105,6 +106,7 @@ declare module 'vue' {
     readonly cloneDeep: UnwrapRef<typeof import('lodash')['cloneDeep']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly coolPostStart: UnwrapRef<typeof import('./api/request.js')['coolPostStart']>
+    readonly count: UnwrapRef<typeof import('./utils/dict')['count']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
@@ -190,6 +192,7 @@ declare module '@vue/runtime-core' {
     readonly cloneDeep: UnwrapRef<typeof import('lodash')['cloneDeep']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly coolPostStart: UnwrapRef<typeof import('./api/request.js')['coolPostStart']>
+    readonly count: UnwrapRef<typeof import('./utils/dict')['count']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>

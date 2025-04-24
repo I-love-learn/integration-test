@@ -5,7 +5,7 @@ import svg from "./assets/vue.svg"
 import { parseDict } from "@/utils/dict"
 
 import { useHttp } from "@/hooks/http"
-import Bar3D from "./components/Bar3D.vue"
+// import Bar3D from "./components/Bar3D.vue"
 const { result, fail } = useHttp(
   "/admin-api/system/website_setting/select_website_list",
   {
@@ -55,7 +55,7 @@ const id = "idv"
 <template>
   <div>{{ result }}</div>
   <div>{{ fail }}</div>
-  <bar-3-d :height="0.5" />
+  <!-- <bar-3-d :height="0.5" /> -->
   <div>
     <h />
     <suspense>

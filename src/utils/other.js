@@ -1,5 +1,5 @@
 export function bb() {
-  console.log(333333333333)
+  console.log(333)
   return () => {
     console.log(4444)
   }
