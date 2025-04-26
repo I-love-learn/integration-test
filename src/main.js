@@ -12,6 +12,9 @@ import { createPinia } from "pinia"
 import { test } from "@/utils/test"
 import a from "@/hooks/variable"
 import App2Vue from "./App2.vue"
+// 可以从json中导入值 也可以直接导入json
+// vite把json当作js处理了 build后则是直接当作js对象使用json的 没有引入json
+import { name } from "@/assets/test.json"
 // import zy from "./assets/测试png.PNG"
 // import a from '../node_modules/test' 经过我测试 路径带有node_modules的文件的确会被依赖预构建
 // console.log(a);
@@ -20,6 +23,9 @@ import App2Vue from "./App2.vue"
 // 非绝对路径引入的模块不会进行 vite处理
 import "https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.0.0-alpha-031abd24b-20210907/umd/react.development.js"
 console.log(import.meta.env)
+import china from "@/assets/china.json" // 这里可以整体导入json  打包后是把json作为js写到代码里 而并没有真正导入json
+console.log(name)
+console.log(china)
 // console.log(process.env.ENV_MODE);
 // vue2中，webpack帮我们做了处理，使浏览器可以直接识别node的process.env变量，从而实现了浏览器识别环境变量的功能。
 // vite中我们的代码运行在浏览器环境中，因此是无法识别process.env变量的。（这意味着，vite中识别环境变量的方式与webpack中不同） 除了运行在nodejs端的 vite.config.js 能获取process.env
@@ -69,6 +75,7 @@ app.mount("#app")
 export function FuncAbc() {
   return 123
 }
+// build后没有hot hmr热更新api 只有咱们开发服务器才有
 import.meta.hot.accept("./utils/other.js", (newFoo) => {
   // 回调函数接收到更新后的'./foo.js' 模块
   console.log("newFoo", newFoo)

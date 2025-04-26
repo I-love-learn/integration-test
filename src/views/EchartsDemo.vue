@@ -2,8 +2,8 @@
   <div></div>
 </template>
 
-<script>
-import * as echarts from "echarts"
+<script setup>
+// import * as echarts from "echarts"
 </script>
 
 <style scoped></style>
