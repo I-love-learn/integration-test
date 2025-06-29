@@ -78,7 +78,7 @@
       "_el-popper_chunk.js",
       "_el-checkbox_chunk.js",
       "_el-radio_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "_isEqual_chunk.js",
       "_arrays_chunk.js",
       "_scroll_chunk.js",
@@ -113,7 +113,7 @@
       "_hasIn_chunk.js",
       "_el-popper_chunk.js",
       "_aria_chunk.js",
-      "_index_chunk7.js",
+      "_index_chunk5.js",
       "_isEqual_chunk.js"
     ],
     "css": [
@@ -194,6 +194,18 @@
       "assets/el-radio_asset.css"
     ]
   },
+  "_el-rate_chunk.js": {
+    "file": "assets/el-rate_chunk.js",
+    "imports": [
+      "index.html",
+      "_aria_chunk.js",
+      "_index_chunk7.js",
+      "_el-button_chunk.js"
+    ],
+    "css": [
+      "assets/el-rate_asset.css"
+    ]
+  },
   "_el-row_chunk.js": {
     "file": "assets/el-row_chunk.js",
     "imports": [
@@ -208,7 +220,7 @@
     "imports": [
       "index.html",
       "_el-popper_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "_index_chunk2.js",
       "_isEqual_chunk.js",
       "_el-button_chunk.js",
@@ -299,10 +311,7 @@
   "_index_chunk4.js": {
     "file": "assets/index_chunk4.js",
     "imports": [
-      "index.html",
-      "_index_chunk5.js",
-      "_el-button_chunk.js",
-      "_aria_chunk.js"
+      "index.html"
     ]
   },
   "_index_chunk5.js": {
@@ -316,17 +325,11 @@
     "imports": [
       "index.html",
       "_index_chunk2.js",
-      "_index_chunk7.js"
+      "_index_chunk5.js"
     ]
   },
   "_index_chunk7.js": {
     "file": "assets/index_chunk7.js",
-    "imports": [
-      "index.html"
-    ]
-  },
-  "_index_chunk8.js": {
-    "file": "assets/index_chunk8.js",
     "imports": [
       "index.html"
     ]
@@ -365,7 +368,7 @@
     ]
   },
   "index.html": {
-    "file": "assets/index_entry_Cd3FXi8V.js",
+    "file": "assets/index_entry_BryaxfyV.js",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
@@ -398,7 +401,25 @@
       "src/views/el/ElSkeletonTest.vue",
       "src/views/el/ElInputNumberTest.vue",
       "src/views/TableMerge.vue",
-      "src/views/EchartsDemo.vue"
+      "src/views/EchartsDemo.vue",
+      "src/views/404.vue",
+      "src/views/EchartsDemo.vue",
+      "src/views/ElTest.vue",
+      "src/views/NoRouterImport.vue",
+      "src/views/TableMerge.vue",
+      "src/views/TestFive.vue",
+      "src/views/TestFour.vue",
+      "src/views/TestThree.vue",
+      "src/views/TestTwo.vue",
+      "src/views/Upload.vue",
+      "src/views/asyncVue.vue",
+      "src/views/autoImport.vue",
+      "src/views/canyouLoveme.vue",
+      "src/views/hooks.vue",
+      "src/views/index.vue",
+      "src/views/path.vue",
+      "src/views/test.vue",
+      "src/views/update.vue"
     ],
     "css": [
       "assets/index_asset.css"
@@ -517,7 +538,7 @@
       "_el-radio_chunk.js",
       "_el-table-column_chunk.js",
       "_el-tooltip_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "_aria_chunk.js",
       "_isEqual_chunk.js",
       "_index_chunk2.js",
@@ -574,14 +595,14 @@
       "_isEqual_chunk.js",
       "_objects_chunk.js",
       "_aria_chunk.js",
-      "_index_chunk7.js",
+      "_index_chunk5.js",
       "_focus-trap_chunk.js",
       "_index_chunk3.js",
       "__overRest_chunk.js",
       "_identity_chunk.js",
       "_cloneDeep_chunk.js",
       "__initCloneObject_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "_scroll_chunk.js",
       "__baseIteratee_chunk.js",
       "_merge_chunk.js"
@@ -615,11 +636,11 @@
       "_isEqual_chunk.js",
       "_objects_chunk.js",
       "_aria_chunk.js",
-      "_index_chunk7.js",
+      "_index_chunk5.js",
       "_focus-trap_chunk.js",
       "_index_chunk3.js",
       "_scroll_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "__baseIteratee_chunk.js",
       "_identity_chunk.js"
     ],
@@ -664,14 +685,14 @@
       "_index_chunk2.js",
       "_aria_chunk.js",
       "_index_chunk6.js",
-      "_index_chunk5.js",
+      "_index_chunk7.js",
       "_index_chunk3.js",
       "_objects_chunk.js",
       "_focus-trap_chunk.js",
       "_arrays_chunk.js",
       "_hasIn_chunk.js",
       "_isEqual_chunk.js",
-      "_index_chunk7.js",
+      "_index_chunk5.js",
       "__overRest_chunk.js",
       "_identity_chunk.js"
     ],
@@ -712,24 +733,24 @@
       "_el-switch_chunk.js",
       "_el-select_chunk.js",
       "_el-dialog_chunk.js",
-      "_aria_chunk.js",
-      "_index_chunk4.js",
+      "_el-rate_chunk.js",
       "_index_chunk2.js",
       "_objects_chunk.js",
       "_cloneDeep_chunk.js",
       "_isEqual_chunk.js",
       "__initCloneObject_chunk.js",
-      "_index_chunk8.js",
+      "_index_chunk4.js",
       "_arrays_chunk.js",
       "_scroll_chunk.js",
+      "_aria_chunk.js",
       "_hasIn_chunk.js",
       "_focus-trap_chunk.js",
       "_index_chunk3.js",
       "__overRest_chunk.js",
       "_identity_chunk.js",
-      "_index_chunk7.js",
+      "_index_chunk5.js",
       "__baseIteratee_chunk.js",
-      "_index_chunk5.js"
+      "_index_chunk7.js"
     ],
     "css": [
       "assets/ElFormTest_asset.css",
@@ -747,7 +768,7 @@
       "index.html",
       "_index_chunk6.js",
       "_index_chunk2.js",
-      "_index_chunk7.js"
+      "_index_chunk5.js"
     ],
     "css": [
       "assets/el-input-number_asset.css"
@@ -826,16 +847,16 @@
     "isDynamicEntry": true,
     "imports": [
       "index.html",
+      "_el-rate_chunk.js",
       "_el-radio_chunk.js",
       "_el-row_chunk.js",
       "_el-button_chunk.js",
       "_other_chunk.js",
-      "_index_chunk4.js",
+      "_aria_chunk.js",
+      "_index_chunk7.js",
       "_index_chunk2.js",
       "_index_chunk3.js",
-      "_objects_chunk.js",
-      "_index_chunk5.js",
-      "_aria_chunk.js"
+      "_objects_chunk.js"
     ],
     "css": [
       "assets/index_asset2.css"

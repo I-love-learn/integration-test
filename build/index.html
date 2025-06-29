@@ -3,15 +3,23 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + Vue</title>
-  <script type="module" crossorigin src="/assets/index_entry_Cd3FXi8V.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index_asset.css">
+  <script type="module" crossorigin src="./assets/index_entry_BryaxfyV.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index_asset.css">
 </head>
 
 <body>
   <div id="app"></div>
+  <script>
+    window.addEventListener('vite:preloadError', (event) => {
+      console.log('vite:preloadError', event)
+      // window.location.reload() // 例如，刷新页面
+    })
+  </script>
+
+
 </body>
 
 </html>

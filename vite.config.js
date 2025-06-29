@@ -5,7 +5,9 @@ import plugin from "./src/utils/plugin"
 // element-plus 自动导入功能
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
-
+import myPlugin from "./src/vite/plugin.js"
+// 这里不能用@/vite 否则会报错 Cannot find package '@/vite' imported from
+import { myPlugin2, myPlugin3, myPlugin4 } from "./src/vite/plugin.js"
 // unplugin-vue-components介绍  https://blog.csdn.net/weixin_44162077/article/details/129690764 支持很多第三方库自动导入
 
 // 更多自动导入 查看 https://blog.csdn.net/qq_37214137/article/details/129303773
@@ -20,17 +22,47 @@ export default defineConfig(({ mode }) => {
   // import.meta.env 是在运行时获取环境变量的值，适用于应用程序代码中需要动态获取环境变量的场合。（配置文件中获取不到，因为配置文件是在构建时被读取！！！）
 
   // 而 loadEnv 则是在构建时加载环境变量，适用于打包时（构建时）需要引用环境变量的场合。  https://blog.csdn.net/weixin_42373175/article/details/131080666
-  const env = loadEnv(mode, process.cwd()) // https://developer.aliyun.com/article/949754 loadEnv的三个参数  第一个是模式 也就是当前的--mode 第二个参数环境变量所在目录 可以是process.cwd 也可以是./ 第三个参数 是环境变量的前缀 默认是VITE_ 可以改成自定义的前缀
-  console.log(process.cwd()) // 获取当前执行命令的文件目录 绝对路径   https://blog.csdn.net/weixin_44864084/article/details/120868472   process.cwd()和__dirname区别 执行的文件夹下必须有package.json才能执行命令 process.cwd() 就是当前执行命令的文件目录 也就是package.json所在的目录
-  console.log(env)
+  // const env = loadEnv(mode, process.cwd()) // https://developer.aliyun.com/article/949754 loadEnv的三个参数  第一个是模式 也就是当前的--mode 第二个参数环境变量所在目录 可以是process.cwd 也可以是./ 第三个参数 是环境变量的前缀 默认是VITE_ 可以改成自定义的前缀
+  // console.log(process.cwd()) // 获取当前执行命令的文件目录 绝对路径   https://blog.csdn.net/weixin_44864084/article/details/120868472   process.cwd()和__dirname区别 执行的文件夹下必须有package.json才能执行命令 process.cwd() 就是当前执行命令的文件目录 也就是package.json所在的目录
+  // console.log(process.env)
 
+  // 也可以通过第三个参数指定 envPrefix 这里获得的就是base_开头的环境变量  这里BASE_URL = '/ABC' 还没有和vite自带的合并 因此这里现在是最纯粹的环境变量 就是定义的环境变量 不含有vite的  浏览器里的是vite变量整合一起的
+  // const env = loadEnv(mode, process.cwd(), "BASE_")
+  const env = loadEnv(mode, process.cwd(), "")
+  console.log(mode)
+  // console.log(env)  这里是获取当前mode的环境变量 这个mode就是指定的mode 这里也可手动指定获取别的mode的env 但会报警告信息
+  // const env1 = loadEnv("prod", process.cwd(), "")
+  // debugger
+  //  console.log(env1)
+  // console.log(process.env)
+  // console.log(process.env.VITE_USER_NODE_ENV)
+  // console.log(process.env.NODE_ENV)
+  const window = 123
+  // import.meta.env 是 process.env的超集 它将环境变量咱们写的env文件中的值与process.env合并了
   return {
+    // root: "/bc", // 项目根目录 也就是index.html所在的目录 这个是相对路径 也可以是绝对路径 但是不建议使用绝对路径  绝对路径以磁盘开始
+    // 这里可修改env暴露的变量的前缀 这里只影响 浏览器环境中的 并不影响loadEnv的因为这个执行在前
+    envPrefix: "NODE_",
+    define: {
+      // 将env暴露成全局变量 不过这里env加载的一定是 vite支持暴露的
+      __BASE_URL: JSON.stringify(env.VITE_BASE_MSG),
+      __BASE_URL2: JSON.stringify("window"),
+      __BASE_URL3: window,
+      __BASE_URL4: "window"
+      // __BASE_URL5: "window2"
+    },
     // index.html所在路径，影响打包后导入js，css路径
-    // base: "/", // 默认也是/
+    // https://bar.com/foo/ 也可用完整的url地址 这样打包出来的html也是完整地址
+    base: "./", // 默认也是/
     // base: "/abc/e", // 这里base根目录是指 index.html中资源的链接路径 如果项目放置的是根目录不需要配这个  env.BASE_URL  也是这个地址  并且无法在env里配置覆盖它  这个会影响history路由 所有对url修改的操作都会影响history路由
-
+    // clearScreen: true,
+    // appType: "custom",
     plugins: [
       vue(),
+      myPlugin(),
+      myPlugin2(),
+      myPlugin3(),
+      myPlugin4(),
       // 自动导入方法
       AutoImport({
         // resolvers指定什么解析器来解析自动导入的内容 这里我们希望自动导入Elementplus 就用这个 下面的组件同理
@@ -121,8 +153,13 @@ export default defineConfig(({ mode }) => {
           VantResolver(),
           NaiveUiResolver()
         ]
-      })
+      }),
       // 如果有些组件比如message notification等引入后样式不生效 可能还需要安装vite-plugin-style-import 后面用到的时候可以看https://blog.csdn.net/qq_37214137/article/details/129303773
+      {
+        // 插件配置
+        enforce: "post",
+        apply: "build"
+      }
     ],
     // `resolve`字段是用来配置模块解析的选项。比如指定模块的别名、指定模块的扩展名、指定模块的搜索路径等。这样可以帮助Vite找到正确的模块路径，从而正确地解析模块依赖关系，确保项目能够正确地构建和运行。
     resolve: {
@@ -229,11 +266,12 @@ export default defineConfig(({ mode }) => {
           // css文件 img video等静态资源文件
           assetFileNames: `assets/[name]_asset.[ext]`
         }
-      }
+      },
+      write: true
     }
   }
 })
-
+console.log(123)
 // vue build后的入口文件是index.html 而index.html中有个入口js 文件 其中包含了很多依赖的集合 比如pinia vuerouter lodash vue等  但不一定有ui组件 因为按需引入的组件会按需下载使用 全局引入的会在里面 包括 通过import导入的组件（不动态路由的）
 
 // 没有使用到响应式变量的 编译后将不会有setup函数 只有在模板中使用了响应式变量的才会有setup函数 并且最终会创建成render函数

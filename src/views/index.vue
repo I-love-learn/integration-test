@@ -88,6 +88,7 @@ if (import.meta.hot) {
     </div>
     <!-- <router-view></router-view> -->
     <el-radio></el-radio>
+    <el-rate v-model="count"></el-rate>
     <router-view></router-view>
   </div>
 </template>

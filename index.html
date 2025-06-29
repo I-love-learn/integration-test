@@ -10,7 +10,15 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    window.addEventListener('vite:preloadError', (event) => {
+      console.log('vite:preloadError', event)
+      // window.location.reload() // 例如，刷新页面
+    })
+  </script>
   <script type="module" src="/src/main.js"></script>
+
+
 </body>
 
 </html>

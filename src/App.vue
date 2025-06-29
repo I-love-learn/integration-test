@@ -5,6 +5,10 @@ import svg from "./assets/vue.svg"
 import { parseDict } from "@/utils/dict"
 
 import { useHttp } from "@/hooks/http"
+
+import { msg } from "virtual:my-module"
+
+console.log(msg)
 // import Bar3D from "./components/Bar3D.vue"
 const { result, fail } = useHttp(
   "/admin-api/system/website_setting/select_website_list",
@@ -53,6 +57,9 @@ const id = "idv"
 </script>
 
 <template>
+  <el-watermark font="font">
+    <div style="height: 500px" />
+  </el-watermark>
   <div>{{ result }}</div>
   <div>{{ fail }}</div>
   <!-- <bar-3-d :height="0.5" /> -->

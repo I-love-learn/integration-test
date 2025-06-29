@@ -62,6 +62,7 @@ declare module 'vue' {
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElTreeTest: typeof import('./src/views/el/ElTreeTest.vue')['default']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    ElWatermark: typeof import('element-plus/es')['ElWatermark']
     EventVue: typeof import('./src/components/EventVue.vue')['default']
     Father: typeof import('./src/components/sanji/father.vue')['default']
     Father1: typeof import('./src/components/toRef/Father1.vue')['default']
