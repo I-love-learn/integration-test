@@ -31,7 +31,7 @@ const tl = (await import("@/views/NoRouterImport.vue")).default
       </router-link>
     </div>
 
-    <div>
+    <div style="width: 70%">
       <tl />
       <router-view />
     </div>
