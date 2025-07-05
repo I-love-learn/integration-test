@@ -1,5 +1,8 @@
 // import { createApp } from 'vue'
 import "./style.css"
+import "./assets/css/test.css"
+
+import style from "./style.css?inline"
 import App from "./App.vue"
 import "@/assets/css/base.css"
 import "@/assets/styles/base.scss"
@@ -12,9 +15,11 @@ import { createPinia } from "pinia"
 import { test } from "@/utils/test"
 import a from "@/hooks/variable"
 import App2Vue from "./App2.vue"
-
+console.log(style) // 字符串 不会真正使用css样式
 import { msg } from "virtual:my-module"
-
+import("./assets/css/test.css").then((res) => {
+  console.log(res) // 看不到具体内容
+})
 console.log(msg)
 // import e from "@/assets/ee.png"
 const modules = import.meta.glob("/src/views/*.vue")
@@ -85,11 +90,11 @@ export function FuncAbc() {
   return 123
 }
 // build后没有hot hmr热更新api 只有咱们开发服务器才有
-import.meta.hot.accept("./utils/other.js", (newFoo) => {
-  // 回调函数接收到更新后的'./foo.js' 模块
-  console.log("newFoo", newFoo)
-  newFoo.bb()
-})
+// import.meta.hot.accept("./utils/other.js", (newFoo) => {
+//   // 回调函数接收到更新后的'./foo.js' 模块
+//   console.log("newFoo", newFoo)
+//   newFoo.bb()
+// })
 // console.log(import.meta.hot)
 // console.log(import.meta.hot.accept)
 // if (import.meta.hot) {
