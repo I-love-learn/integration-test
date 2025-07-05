@@ -96,30 +96,30 @@ const expandRowKeys = ref([2])
 </script>
 
 <template>
-  <el-table
-    :data="tableData.data"
-    style="width: 100%"
-    highlight-current-row
-    :current-row-key="currentRowKey"
-    row-key="id"
-    :expand-row-keys="expandRowKeys"
-  >
-    <el-table-column type="expand">
-      <template #default="props">
-        <div>
-          {{ props.row.tags }}
-        </div>
-      </template>
-    </el-table-column>
-    <el-table-column type="index" width="50" label="id" />
-    <el-table-column fixed prop="date" label="Date" width="150" />
-    <el-table-column prop="name" label="Name" width="120" />
-    <el-table-column prop="state" label="State" width="120" />
-    <el-table-column prop="city" label="City" width="320" />
-    <el-table-column prop="address" label="Address" width="600" />
-    <el-table-column prop="zip" label="Zip" />
-  </el-table>
-
+  <div>
+    <el-table
+      :data="tableData.data"
+      highlight-current-row
+      :current-row-key="currentRowKey"
+      row-key="id"
+      :expand-row-keys="expandRowKeys"
+    >
+      <el-table-column type="expand">
+        <template #default="props">
+          <div>
+            {{ props.row.tags }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column type="index" width="50" label="id" />
+      <el-table-column fixed prop="date" label="Date" />
+      <el-table-column prop="name" label="Name" />
+      <el-table-column prop="state" label="State" />
+      <el-table-column prop="city" label="City" />
+      <el-table-column prop="address" label="Address" />
+      <el-table-column prop="zip" label="Zip" />
+    </el-table>
+  </div>
   <el-button @click="random">随机筛选表格</el-button>
   <el-button @click="randomKey">随机currentKey</el-button>
 </template>

@@ -862,6 +862,8 @@ const k = ref({
   name: "k",
   age: undefined
 })
+
+const show2 = ref(false)
 </script>
 
 <template>
@@ -1216,6 +1218,12 @@ const k = ref({
         <legend :class="$style.red">插槽 插槽默认值测试</legend>
         <!-- 插槽的默认值是插槽没使用或者使用了 但值是空的情况下 显示默认值 -->
         <slot-test-v2>{{ k.age }}</slot-test-v2>
+      </fieldset>
+
+      <fieldset>
+        <legend :class="$style.red">dialog测试</legend>
+        <!-- <el-button>打开</el-button>
+        <el-dialog v-model="show2"></el-dialog> -->
       </fieldset>
     </form>
   </div>

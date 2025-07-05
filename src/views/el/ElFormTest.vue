@@ -1,5 +1,5 @@
 <script setup>
-const form = ref({ starRating: 0 })
+const form = ref({ starRating: 0, a: {}, b: [{}, {}] })
 
 const rules = reactive({
   name: [
@@ -118,7 +118,7 @@ const formT = ref({
 const open2 = ref(false)
 const dg = ref()
 function sb() {
-  dg.value.validate((valid) => {
+  dg?.value.validate((valid) => {
     if (valid) {
       ElMessage.success("验证成功")
     } else {
@@ -159,11 +159,13 @@ function assignment() {
   }
 }
 function reset() {
-  console.log(dg.value)
-  dg.value.resetFields()
+  // console.log(dg?.value)
+  // dg?.value.resetFields()
   // nextTick(() => {
   //   dg.value.resetFields()
   // })
+  // formRef.value.resetFields()
+  dg1.value.resetFields()
 }
 // change rules的触发时机 就是数据改变时 rules触发 这里的数据改变不止用户操作的 手动修改数据也会触发 这也是为什么咱们两个相同的ref  dialog执行清空的时候 外面的form校验了 这是因为两个公用的同一组数据 清空数据 会导致change执行 从而rules校验
 
@@ -174,6 +176,8 @@ function edit() {
   formT.value.fruit = undefined
   formT.value.eat = undefined
 }
+
+const dg1 = ref()
 // 组件 重名ref 会覆盖  元素也是 以最后一次为准   v-for 使用ref 是所以v-for的元素  组件也是
 onMounted(() => {
   console.log(dg.value)
@@ -447,6 +451,11 @@ const options = [
     ]
   }
 ]
+
+function changeStatus(e) {
+  console.log(e)
+  console.log(formT.value.isPay)
+}
 </script>
 <!-- 动态增删表单  把rules绑定在 el-form-item上 单独写在form上不生效 -->
 
@@ -457,7 +466,13 @@ const options = [
           ]" -->
   <div>
     <el-dialog v-model="open">
-      <el-form :model="form" label-width="80px" ref="formRef" :rules="rules">
+      <el-form
+        :model="form"
+        disabled
+        label-width="80px"
+        ref="formRef"
+        :rules="rules"
+      >
         <el-form-item label="活动名称" prop="starRating">
           <el-rate v-model="form.starRating" />
         </el-form-item>
@@ -486,6 +501,8 @@ const options = [
           :i="i"
           :key="i"
         />
+
+        <el-button @click="submit" :disabled="false">提交</el-button>
       </el-form>
 
       <el-button @click="submit">提交</el-button>
@@ -564,7 +581,7 @@ const options = [
       </el-form-item>
     </el-form>
 
-    <el-form :model="formT" :rules="rules" ref="dg">
+    <el-form :model="formT" :rules="rules" ref="dg1">
       <el-form-item label="吃饭" prop="eat">
         <el-input v-model="formT.eat" />
       </el-form-item>
@@ -602,6 +619,10 @@ const options = [
       <el-form-item label="是否自费" prop="isPay">
         <el-switch v-model="formT.isPay"> </el-switch>
       </el-form-item>
+      <el-form-item label="是否自费1111" prop="isPay">
+        <el-switch :model-value="formT.isPay" @change="changeStatus">
+        </el-switch>
+      </el-form-item>
 
       <el-form-item label="花多少钱" prop="pay">
         <el-input v-model.number="formT.pay"> </el-input>
@@ -610,7 +631,12 @@ const options = [
       <el-form-item label="活动星级" prop="starRating">
         <el-rate v-model.number="formT.starRating" />
       </el-form-item>
-
+      <el-form-item label="级联" prop="b.index.a" v-for="item in form.b">
+        <el-input v-model="item.a" />
+      </el-form-item>
+      <el-form-item label="级联12" prop="a.a">
+        <el-input v-model="form.a.a" />
+      </el-form-item>
       <el-form-item label="活动时间" prop="time">
         <el-date-picker
           v-model="formT.time"
