@@ -1,17 +1,46 @@
 <script setup>
 import router from "@/router"
-
+import { parseDict, count as COUNT } from "@/utils/dict"
 import { ElMessage } from "element-plus"
+import { bb } from "../utils/other.js"
+parseDict("1", "sex")
 http("/api/test22")
+console.log("COUNT", COUNT)
 function jump(address) {
   ElMessage.success("error")
   router.push(address)
 }
-const color = "red"
+const color = "red12"
+bb()
+console.log("color111", color)
+const count = ref(5)
+// 当前模块hmr  这里可以获取已更新的模块内容 进行一些处理
+if (import.meta.hot) {
+  // import.meta.hot.accept((newModule) => {
+  //   if (newModule) {
+  //     console.log("newModule", newModule)
+  //     // newModule is undefined when SyntaxError happened
+  //     console.log("updated: count is now ", newModule.count)
+  //   }
+  // })
+
+  import.meta.hot.accept("../utils/dict.ts", (newFoo) => {
+    // 回调函数接收到更新后的'./foo.js' 模块
+    console.log("newFoo", newFoo)
+  })
+
+  import.meta.hot.accept("../utils/other.js", (newFoo) => {
+    // 回调函数接收到更新后的'./foo.js' 模块
+    console.log("newFoo", newFoo)
+    newFoo.bb()
+  })
+}
 </script>
 
 <template>
   <el-row class="mb-4">
+    {{ COUNT }} {{ count }}
+    <el-button type="primary" @click="jump('/index')">首页</el-button>
     <el-button type="primary" @click="jump('/test')">测试</el-button>
     <el-button type="primary" @click="jump('/test2')">测试2</el-button>
     <el-button type="primary" @click="jump('/test3')">测试3</el-button>
@@ -43,6 +72,9 @@ const color = "red"
 
     <el-button type="primary" @click="jump({ path: '/echarts' })"
       >echarts demo</el-button
+    >
+    <el-button type="primary" @click="jump({ path: '/tableMerge' })"
+      >测试表格合并</el-button
     >
     <!-- <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>

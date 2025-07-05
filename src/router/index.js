@@ -152,6 +152,10 @@ const routes = [
     ]
   },
   {
+    path: "/tableMerge",
+    component: () => import("@/views/TableMerge.vue")
+  },
+  {
     path: "/manifest",
     component: ManVue
   },

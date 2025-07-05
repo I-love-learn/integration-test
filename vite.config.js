@@ -200,7 +200,7 @@ export default defineConfig(({ mode }) => {
     // build: {
     //   lib: {
     //     entry: "./src/main.js",
-    //     name: "lib",
+    //     name: "lib",  // 暴露的全局变量的名称。当格式选项包括umd或iife时需要
     //     formats: ["umd"]
     //   }
     // }
